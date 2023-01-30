@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HularionText</name>
+    </assembly>
+    <members>
+        <member name="T:HularionText.Compiler.Sequence.ISequenceProcessContext">
+            <summary>
+            A context containing state information for processing a sequence.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.ISequenceProcessContext.ModeStack">
+            <summary>
+            The mode state of the sequence process.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.ISequenceProcessContext.Mode">
+            <summary>
+            The current mode of the process.
+            </summary>
+        </member>
+        <member name="T:HularionText.Compiler.Sequence.SequenceMatch`1">
+            <summary>
+            Contains the matches in Sequence with respect to the sequence tree or an intermediate value.
+            </summary>
+            <typeparam name="SequenceType">The type of object in the sequence.</typeparam>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceMatch`1.Tree">
+            <summary>
+            The tree used to obtain the matches.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceMatch`1.Sequence">
+            <summary>
+            The sequence of objects to match.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceMatch`1.StartIndex">
+            <summary>
+            The index at which the matches start in Sequence .
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceMatch`1.Matches">
+            <summary>
+            The nodes of Tree that have matching sequences in Sequence.  The node with the longest sequence is on top.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceMatch`1.Match">
+            <summary>
+            The longest match if there is one.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceMatch`1.IsIntermediate">
+            <summary>
+            True iff this represents a range in Sequence between matches.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceMatch`1.HasMatch">
+            <summary>
+            True iff there is at least one match in Matches.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceMatch`1.Length">
+            <summary>
+            Returns the length of the top-most match or the set length if an intermediate.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceMatch`1.NextIndex">
+            <summary>
+            Returns the next index to examine.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceMatch`1.Value">
+            <summary>
+            The matching items in the sequence.
+            </summary>
+        </member>
+        <member name="M:HularionText.Compiler.Sequence.SequenceMatch`1.Push(HularionText.Compiler.Sequence.SequenceTreeNode{`0})">
+            <summary>
+            Pushes a tree node as a match.
+            </summary>
+            <param name="node">The node to push.</param>
+        </member>
+        <member name="M:HularionText.Compiler.Sequence.SequenceMatch`1.Pop">
+            <summary>
+            Pops the top match if there is at least one match.
+            </summary>
+        </member>
+        <member name="T:HularionText.Compiler.Sequence.SequenceProcessContext">
+            <summary>
+            A default ISequenceProcessContext.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceProcessContext.ModeStack">
+            <summary>
+            The mode state of the sequence process.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceProcessContext.Mode">
+            <summary>
+            The current mode of the process from the top of ModeStack.
+            </summary>
+        </member>
+        <member name="T:HularionText.Compiler.Sequence.SequenceSymbol`1">
+            <summary>
+            A specified sequence of items.
+            </summary>
+            <typeparam name="SequenceType"></typeparam>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceSymbol`1.Key">
+            <summary>
+            A unique key for the sequence.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceSymbol`1.Sequence">
+            <summary>
+            The items in the sequence.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceSymbol`1.Group">
+            <summary>
+            The group to which the symbol belongs.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:HularionText.Compiler.Sequence.SequenceTree`1" -->
+        <member name="P:HularionText.Compiler.Sequence.SequenceTree`1.Name">
+            <summary>
+            The name of the tree.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceTree`1.Root">
+            <summary>
+            The root node of the tree.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceTree`1.ValueResolver">
+            <summary>
+            Resolves one sequence value to another. For example, a case-insensitive language may use 'E' => 'e'. 
+            </summary>
+        </member>
+        <member name="M:HularionText.Compiler.Sequence.SequenceTree`1.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:HularionText.Compiler.Sequence.SequenceTree`1.AddSymbol(HularionText.Compiler.Sequence.SequenceSymbol{`0},System.Object[])">
+            <summary>
+            Adds the symbol to the tree.
+            </summary>
+            <param name="symbol">The symbol to add.</param>
+        </member>
+        <member name="M:HularionText.Compiler.Sequence.SequenceTree`1.AddSymbols(System.Collections.Generic.IEnumerable{HularionText.Compiler.Sequence.SequenceSymbol{`0}},System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            Adds the symbols to the tree.
+            </summary>
+            <param name="symbols">The symbols to add.</param>
+        </member>
+        <member name="M:HularionText.Compiler.Sequence.SequenceTree`1.AddSymbols(HularionText.Compiler.Sequence.SequenceSymbol{`0}[])">
+            <summary>
+            Adds the symbols to the tree.
+            </summary>
+            <param name="symbols">The symbols to add.</param>
+        </member>
+        <member name="M:HularionText.Compiler.Sequence.SequenceTree`1.AddSymbols(System.Collections.Generic.IEnumerable{System.Object},HularionText.Compiler.Sequence.SequenceSymbol{`0}[])">
+            <summary>
+            Adds the symbols to the tree.
+            </summary>
+            <param name="modes">The modes that determine whether the symbols are active.</param>
+            <param name="symbols">The symbols to add.</param>
+        </member>
+        <member name="M:HularionText.Compiler.Sequence.SequenceTree`1.GetNextMatch(`0[],System.Int32,HularionText.Compiler.Sequence.ISequenceProcessContext)">
+            <summary>
+            Gets the next matches starting at startIndex. 
+            </summary>
+            <param name="sequence">The sequence to find matches on.</param>
+            <param name="startIndex">The index at which to start finding matches.</param>
+            <param name="context">The state context of the match process.</param>
+            <returns>The match object which contains the matches from the starting index.</returns>
+        </member>
+        <member name="M:HularionText.Compiler.Sequence.SequenceTree`1.GetNextMatches(`0[],System.Int32,HularionText.Compiler.Sequence.SequenceMatch{`0},HularionText.Compiler.Sequence.ISequenceProcessContext)">
+            <summary>
+            Gets the next [match], [intermediate, match], or [intermediate] depending on whether last is null and there is an intermediate.
+            </summary>
+            <param name="sequence">The sequence to find matches on.</param>
+            <param name="startIndex">The index at which to start finding matches.</param>
+            <param name="last">The last found match or null if there is no previous match.</param>
+            <param name="context">The state context of the match process.</param>
+            <returns>[match], [intermediate, match], or [intermediate] depending on whether last is null and there is an intermediate.</returns>
+        </member>
+        <member name="T:HularionText.Compiler.Sequence.SequenceTreeNode`1">
+            <summary>
+            A node of a sequence tree.
+            </summary>
+            <typeparam name="SequenceType">The type of the objects which are ordered.  e.g. a block of characters in text.</typeparam>
+            <typeparam name="CompositeType">Represents the composite details of a block of symbols.</typeparam>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceTreeNode`1.Tree">
+            <summary>
+            The tree to which this node belongs.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceTreeNode`1.IsRoot">
+            <summary>
+            True iff this is the root node.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceTreeNode`1.Value">
+            <summary>
+            The value this node represents in the tree.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceTreeNode`1.Symbol">
+            <summary>
+            The symbol to which this node belongs.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceTreeNode`1.IsWaypoint">
+            <summary>
+            True iff this node represents a complete symbol in the tree.
+            </summary>
+        </member>
+        <member name="F:HularionText.Compiler.Sequence.SequenceTreeNode`1.Nodes">
+            <summary>
+            The next nodes in the tree.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.Sequence.SequenceTreeNode`1.SequenceModes">
+            <summary>
+            The modes for which this node is applicable. 
+            </summary>
+        </member>
+        <member name="M:HularionText.Compiler.Sequence.SequenceTreeNode`1.Next(`0)">
+            <summary>
+            Gets the next node given the sequence value. 
+            </summary>
+            <param name="item">The locator for the next node.</param>
+            <returns>The next node in the tree.</returns>
+        </member>
+        <member name="T:HularionText.Compiler.Sequence.TextSymbol">
+            <summary>
+            A symbol using a char-based sequence.
+            </summary>
+        </member>
+        <member name="T:HularionText.Compiler.SymbolGroup">
+            <summary>
+            Identifies a group od symbols that have somehting in common.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.SymbolGroup.Name">
+            <summary>
+            The name of the group.
+            </summary>
+        </member>
+        <member name="P:HularionText.Compiler.SymbolGroup.CombineMembers">
+            <summary>
+            If true, adjacent symbols in the group will be combined in a match.
+            </summary>
+        </member>
+    </members>
+</doc>
