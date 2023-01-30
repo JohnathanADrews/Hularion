@@ -1,0 +1,3145 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HularionCore</name>
+    </assembly>
+    <members>
+        <member name="T:HularionCore.General.MemberMapper">
+            <summary>
+            Maps the member values of one type to another type by member name.
+            </summary>
+        </member>
+        <member name="F:HularionCore.General.MemberMapper.propertyMap">
+            <summary>
+            Maps "from" the properties to the "to" members.
+            </summary>
+        </member>
+        <member name="F:HularionCore.General.MemberMapper.nullableProperties">
+            <summary>
+            Contains the nullable properties.
+            </summary>
+        </member>
+        <member name="F:HularionCore.General.MemberMapper.fieldMap">
+            <summary>
+            Maps "from" the properties to the "to" members.
+            </summary>
+        </member>
+        <member name="F:HularionCore.General.MemberMapper.nullableFields">
+            <summary>
+            Contains the nullable properties.
+            </summary>
+        </member>
+        <member name="P:HularionCore.General.MemberMapper.FromType">
+            <summary>
+            The type beng copied from.
+            </summary>
+        </member>
+        <member name="P:HularionCore.General.MemberMapper.ToType">
+            <summary>
+            The type being copied to.
+            </summary>
+        </member>
+        <member name="F:HularionCore.General.MemberMapper.transformTable">
+            <summary>
+            A table that maps transform for types.
+            </summary>
+        </member>
+        <member name="M:HularionCore.General.MemberMapper.CreateMap``2(System.Boolean)">
+            <summary>
+            Creates a map from fromType to toType objects.
+            </summary>
+            <typeparam name="FromType">The type to map from.</typeparam>
+            <typeparam name="ToType">The type to map to.</typeparam>
+            <param name="includeNulls">Copies null values over existing values if true.</param>
+        </member>
+        <member name="M:HularionCore.General.MemberMapper.CreateMap(System.Type,System.Type,System.Boolean)">
+            <summary>
+            Creates a map from fromType to toType objects.
+            </summary>
+            <param name="fromType">The type to map from.</param>
+            <param name="toType">The type to map to.</param>
+            <param name="includeNulls">Copies null values over existing values if true.</param>
+        </member>
+        <member name="M:HularionCore.General.MemberMapper.ExcludeMembers(System.String[])">
+            <summary>
+            Excludes the names provided from being mapped.
+            </summary>
+            <param name="memberNames">The names of the members to exclude.</param>
+        </member>
+        <member name="M:HularionCore.General.MemberMapper.Map(System.Object,System.Object)">
+            <summary>
+            Maps the values of "from" to "to"
+            </summary>
+            <param name="from">The object to map values from.</param>
+            <param name="to">The object to map values to.</param>
+        </member>
+        <member name="M:HularionCore.General.MemberMapper.SetTypeTransform``2(HularionCore.Pattern.Functional.ITransform{``0,``1})">
+            <summary>
+            Sets a transformer from one type to another type.
+            </summary>
+            <typeparam name="S">The type to transform from.</typeparam>
+            <typeparam name="T">The type to transform to.</typeparam>
+            <param name="transform">THe transformer.</param>
+        </member>
+        <member name="T:HularionCore.Injector.Injectable`1">
+            <summary>
+            Encapsulates the injection process.
+            </summary>
+            <typeparam name="InjectableType">The derived type or an interface implemented by the derived type.</typeparam>
+        </member>
+        <member name="M:HularionCore.Injector.Injectable`1.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Injector.Injectable`1.SetMembers(HularionCore.Injector.InjectorOverwriteMode,`0[])">
+            <summary>
+            Sets the members of the derived type instance with the provided values in order, using the provided mode.
+            </summary>
+            <param name="mode">The injection mode.</param>
+            <param name="values">The values to overwrite in this value.</param>
+        </member>
+        <member name="T:HularionCore.Injector.InjectorOverwriteMode">
+            <summary>
+            The modes for injecting values into an injector.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Injector.InjectorOverwriteMode.ValueOverValue">
+            <summary>
+            Overwrites the current injected value only if the new value is not null and the current value is not null.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Injector.InjectorOverwriteMode.AnyOverValue">
+            <summary>
+            Overwrites the current value with any new value, including null, but only if the current value is not null.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Injector.InjectorOverwriteMode.NullOverValue">
+            <summary>
+            Overwrites the current value only if the new value is null.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Injector.InjectorOverwriteMode.ValueOverNull">
+            <summary>
+            Overwrites the current value only if the current value is null. Does not overwrite non-null values.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Injector.InjectorOverwriteMode.AnyOverAny">
+            <summary>
+            Overwites any current value with any new value.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Logic.BinaryOperand">
+            <summary>
+            A holder for a binary value.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Logic.BinaryOperand.Name">
+            <summary>
+            The name of the operand.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Logic.BinaryOperand.Value">
+            <summary>
+            The value of the operand.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Logic.BinaryOperand.ValueProvider">
+            <summary>
+            The provider of the operand, which provides Value by default.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Logic.BinaryOperand.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Logic.BinaryOperator">
+            <summary>
+            Represents all the binary-valued binary operators.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Logic.BinaryOperator.Name">
+            <summary>
+            The name of this operator.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Logic.BinaryOperator.Evaluate(HularionCore.Pattern.Functional.IProvider{System.Boolean},HularionCore.Pattern.Functional.IProvider{System.Boolean})">
+            <summary>
+            Evaluates the provided values against the implementing operator.
+            </summary>
+            <param name="p">The first (or left) operand.</param>
+            <param name="q">The second (or right) operand.</param>
+            <returns>The result of the evaluation.</returns>
+        </member>
+        <member name="M:HularionCore.Logic.BinaryOperator.Evaluate(System.Boolean,System.Boolean)">
+            <summary>
+            Evaluates the values against the implementing operator.
+            </summary>
+            <param name="p">The first (or left) operand.</param>
+            <param name="q">The second (or right) operand.</param>
+            <returns>The result of the evaluation.</returns>
+        </member>
+        <member name="P:HularionCore.Logic.BinaryOperator.Description">
+            <summary>
+            A desciption of this operator.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Logic.BinaryOperator.IsCommutative">
+            <summary>
+            true iff this operator is commutative.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Logic.BinaryOperator.IsAssociative">
+            <summary>
+            true iff this operator is associative.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Logic.BinaryOperator.#ctor(System.String,System.Func{System.Boolean,System.Boolean,System.Boolean})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="id">The unique identifier of the binary operator.</param>
+            <param name="operatorDefinition"></param>
+        </member>
+        <member name="M:HularionCore.Logic.BinaryOperator.FromSignature(System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Gets the operator that has the provided output values.
+            </summary>
+            <param name="value0">The first output value.</param>
+            <param name="value1">The second output value.</param>
+            <param name="value2">The third output value.</param>
+            <param name="value3">The fourth output value.</param>
+            <returns>The operator that has the provided output values.</returns>
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.BLOCK">
+            Truth Table "Always 0"
+            a b f
+            0 0 0
+            0 1 0
+            1 0 0
+            1 1 0
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.AND">
+            Truth Table "A and B"
+            a b f
+            0 0 0
+            0 1 0
+            1 0 0
+            1 1 1
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.ANB">
+            Truth Table "A and (not B)"
+            a b f
+            0 0 0
+            0 1 0
+            1 0 1
+            1 1 0
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.EA">
+            Truth Table "Exactly A"
+            a b F
+            0 0 0
+            0 1 0
+            1 0 1
+            1 1 1
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.NAB">
+            Truth Table "(not A) and B"
+            a b f
+            0 0 0
+            0 1 1
+            1 0 0
+            1 1 0
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.EB">
+            Truth Table "Exactly B"
+            a b f
+            0 0 0
+            0 1 1
+            1 0 0
+            1 1 1
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.XOR">
+            Truth Table "Exclusive OR -> (A and (not B)) or ((not B) and A)"
+            a b f
+            0 0 0
+            0 1 1
+            1 0 1
+            1 1 0
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.OR">
+            Truth Table "A or B"
+            a b f
+            0 0 0
+            0 1 1
+            1 0 1
+            1 1 1
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.NOR">
+            Truth Table "not (A or B)"
+            a b f
+            0 0 1
+            0 1 0
+            1 0 0
+            1 1 0
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.XNOR">
+            Truth Table Exclusive NOR -> (A and B) or ((not A) and (not B))"
+            a b f
+            0 0 1
+            0 1 0
+            1 0 0
+            1 1 1
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.NB">
+            Truth Table "not B"
+            a b f
+            0 0 1
+            0 1 0
+            1 0 1
+            1 1 0
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.AORNB">
+            Truth Table "A or (not B)"
+            a b f
+            0 0 1
+            0 1 0
+            1 0 1
+            1 1 1
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.NA">
+            Truth Table (not A)
+            a b f
+            0 0 1
+            0 1 1
+            1 0 0
+            1 1 0
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.NAORB">
+            Truth Table "(not A) or B"
+            a b f
+            0 0 1
+            0 1 1
+            1 0 0
+            1 1 1
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.NAND">
+            Truth Table "not (A and B)"
+            a b f
+            0 0 1
+            0 1 1
+            1 0 1
+            1 1 0
+        </member>
+        <member name="F:HularionCore.Logic.BinaryOperator.PASS">
+            Truth Table "Always 1"
+            a b f
+            0 0 1
+            0 1 1
+            1 0 1
+            1 1 1
+        </member>
+        <member name="M:HularionCore.Logic.BinaryOperator.op_Equality(HularionCore.Logic.BinaryOperator,HularionCore.Logic.BinaryOperator)">
+            <summary>
+            The equals comparison.
+            </summary>
+            <param name="operator1">The first operator.</param>
+            <param name="operator2">The second operator</param>
+            <returns>True iff the operators are equal.</returns>
+        </member>
+        <member name="M:HularionCore.Logic.BinaryOperator.op_Inequality(HularionCore.Logic.BinaryOperator,HularionCore.Logic.BinaryOperator)">
+            <summary>
+            The inequality comparison.
+            </summary>
+            <param name="operator1">The first operator.</param>
+            <param name="operator2">The second operator</param>
+            <returns>True iff the operators are not equal.</returns>
+        </member>
+        <member name="T:HularionCore.Logic.BinaryValue">
+            <summary>
+            The holde of an anonymous binary value.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Logic.BinaryValue.Value">
+            <summary>
+            The binary value.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Logic.BinaryValue.Provider">
+            <summary>
+            The provider of the binary value, which returns Value by default.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Logic.BinaryValue.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Logic.IBinaryOperand">
+            <summary>
+            Represents an operand.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Logic.IBinaryOperand.Name">
+            <summary>
+            The name of the operand.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Logic.IBinaryOperand.Value">
+            <summary>
+            The value of the operand.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Logic.IBinaryOperand.ValueProvider">
+            <summary>
+            Gets a provider that returns the value of this operand.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Logic.IBinaryOperator">
+            <summary>
+            A binary-valued operator taking two ordered binary values.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Logic.IBinaryOperator.Name">
+            <summary>
+            The name of this operator.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Logic.IBinaryOperator.Evaluate(HularionCore.Pattern.Functional.IProvider{System.Boolean},HularionCore.Pattern.Functional.IProvider{System.Boolean})">
+            <summary>
+            Evaluates the provided parameters against the implementing operator.
+            </summary>
+            <param name="p">The first (or left) operand.</param>
+            <param name="q">The second (or right) operand.</param>
+            <returns>The result of the evaluation.</returns>
+        </member>
+        <member name="M:HularionCore.Logic.IBinaryOperator.Evaluate(System.Boolean,System.Boolean)">
+            <summary>
+            Evaluates the parameters against the implementing operator.
+            </summary>
+            <param name="p">The first (or left) operand.</param>
+            <param name="q">The second (or right) operand.</param>
+            <returns>The result of the evaluation.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ActionCollection">
+            <summary>
+            Contains a list of actions.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ActionCollection.AddPrefix(System.Action)">
+            <summary>
+            Adds an action as the first to call.
+            </summary>
+            <param name="action">The action to call.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ActionCollection.AddSuffix(System.Action)">
+            <summary>
+            Adds an action as the last to call.
+            </summary>
+            <param name="action">The action to call.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ActionCollection.AddPrefixes(System.Action[])">
+            <summary>
+            Appends the actions in the order received.
+            </summary>
+            <param name="actions">The actions to add.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ActionCollection.AddSuffixes(System.Action[])">
+            <summary>
+            Prepends the actions in the order received.
+            </summary>
+            <param name="actions">The actions to add.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ActionCollection.CallInOrder">
+            <summary>
+            Calls the actions in order.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ActionCollection.CallInReverseOrder">
+            <summary>
+            Calls the actions in reverse order.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ActionCollection.CallAsync(System.Boolean,System.Boolean)">
+            <summary>
+            Calls the actions asynchronously.
+            </summary>
+            <param name="start">Iff true, starts the task before it is returned.</param>
+            <param name="waitAll">Iff true, the task running the actions will wait for all of the actions to complete.</param>
+            <returns>The task running the actions.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.BidirectionalTransform`2">
+            <summary>
+            Provides a Bidirectional Transform implementation using constructor arguments.
+            </summary>
+            <typeparam name="S">One of the types to transform from or to.</typeparam>
+            <typeparam name="T">One of the types to transform from or to.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.BidirectionalTransform`2.STTransform">
+            <summary>
+            Transforms a value of type S to a value of type T.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.BidirectionalTransform`2.TSTransform">
+            <summary>
+            Transforms a value of type T to a value of type S.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.BidirectionalTransform`2.#ctor(HularionCore.Pattern.Functional.ITransform{`0,`1},HularionCore.Pattern.Functional.ITransform{`1,`0})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="stTransform">Transforms a value of type S to a value of type T.</param>
+            <param name="tsTransform">Transforms a value of type T to a value of type S.</param>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.CalculatorFunction`2">
+            <summary>
+            A calculator the uses a constructor-injected func to perform the calculation.
+            </summary>
+            <typeparam name="ArgumentType">The type of the argument in the calculation.</typeparam>
+            <typeparam name="CalculatedType">The type of the calculated result.</typeparam>
+        </member>
+        <member name="F:HularionCore.Pattern.Functional.CalculatorFunction`2.calculator">
+            <summary>
+            The func that will perform the calculation.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.CalculatorFunction`2.#ctor(System.Func{`0,`1})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="calculator">The func that will perform the calculation.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.CalculatorFunction`2.Calculate(`0)">
+            <summary>
+            Performs the calculation using the defined func.
+            </summary>
+            <param name="argument">The calculation's argument.</param>
+            <returns>The result of the calculation.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.CopierFunction`1">
+            <summary>
+            Implements ICopier using the provided Func.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.CopierFunction`1.#ctor(System.Func{`0,`0})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="copier">The Func that will perform the copy.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.CopierFunction`1.Copy(`0)">
+            <summary>
+            Copies the supplied value.
+            </summary>
+            <param name="value">The value to copy.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.CreatorFunction`1">
+            <summary>
+            A creator from a Func.
+            </summary>
+            <typeparam name="CreatedType">The type to create.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.CreatorFunction`1.ProcessPrefixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, before the items are processed.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.CreatorFunction`1.ProcessSuffixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, after the items are processed.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Functional.CreatorFunction`1.parameterizedCreator">
+            <summary>
+            The parameterized crerator has a generalized logic, so we can take advantage of that here.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.CreatorFunction`1.#ctor(System.Func{`0},System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="creator">The function that will create the instance of CreatedType.</param>
+            <param name="createInParallel">If true, the objects will be created in parallel.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.CreatorFunction`1.#ctor(System.Func{System.Int32,System.Collections.Generic.IEnumerable{`0}})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="multipleCreator">The function that will create the instance of T.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.CreatorFunction`1.Create">
+            <summary>
+            Creates an instance of T.
+            </summary>
+            <returns>The new instance of T.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.CreatorFunction`1.Create(System.Int32)">
+            <summary>
+            Creates a number of CreateType objects equal to count.
+            </summary>
+            <param name="count">The number of CreateType objects to create.</param>
+            <returns>The created CreateType objects.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.Creator.ForSingle``1(System.Func{``0},System.Boolean)">
+            <summary>
+            Creates a parameterized creator that explicitly handles a single input at a time.
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <typeparam name="CreatedType">The type that is created.</typeparam>
+            <param name="func">The Func that indicates how to process the request.</param>
+            <param name="processesInParallel">If true, the creator is called in parallel when multiple values are created.</param>
+            <returns>A new parameterized creator.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.Creator.FromEnumerable``2(System.Func{System.Int32,System.Collections.Generic.IEnumerable{``1}})">
+            <summary>
+            Creates a parameterized creator explicitly from an enumerable.
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <typeparam name="CreatedType">The type that is created.</typeparam>
+            <param name="func">The Func that indicates how to process the request.</param>
+            <returns>A new parameterized creator.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.EqualsFunction`1">
+            <summary>
+            Creates an instance of IEquals using a provided Func.
+            </summary>
+            <typeparam name="ComparedType">The type of objects to compare.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.EqualsFunction`1.#ctor(System.Func{`0,`0,System.Boolean})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="equalityDeterminer">A function that determines whether two values are equal.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.EqualsFunction`1.Equals(`0,`0)">
+            <summary>
+            Determines whether the two values are equivalent.
+            </summary>
+            <param name="value1">The first value to compare</param>
+            <param name="value2">The second value to compare.</param>
+            <returns>True iff the values are the same.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.FacadeFunction`1">
+            <summary>
+            Converts a function to a facade.
+            </summary>
+            <typeparam name="ResultType">The type that is returned by the facade and function.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.FacadeFunction`1.#ctor(System.Func{`0})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="function">The function that will act as the facade.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.FacadeFunction`1.Process">
+            <summary>
+            Executes the facade.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.FacadeFunction`1.ProcessAsync">
+            <summary>
+            Returns a task that will execute the facade.
+            </summary>
+            <returns>A task that will execute the facade.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.IBidirectionalTransform`2">
+            <summary>
+            Transforms valus of type S to values of type T, and vice versa.
+            </summary>
+            <typeparam name="S">One of the types to transform from or to.</typeparam>
+            <typeparam name="T">One of the types to transform from or to.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.IBidirectionalTransform`2.STTransform">
+            <summary>
+            Transforms a value of type S to a value of type T.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.IBidirectionalTransform`2.TSTransform">
+            <summary>
+            Transforms a value of type T to a value of type S.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ICalculator`2">
+            <summary>
+            Performs a calculation.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ICalculator`2.Calculate(`0)">
+            <summary>
+            Performs a computation given the argument.
+            </summary>
+            <remarks>
+            The argument should contain all of the information necessary to perform the calculation.
+            New variable information should not be loaded in this method.
+            </remarks>
+            <param name="argument">The argument used to to perform the calculation.</param>
+            <returns>The corresponding calculated type.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ICopier`1">
+            <summary>
+            An interface that is used to copy an instance of a type.
+            </summary>
+            <typeparam name="T">The type to copy.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ICopier`1.Copy(`0)">
+            <summary>
+            Provides a copy of the value with the provided type.
+            </summary>
+            <param name="value">The value to copy.</param>
+            <returns>A copy of the supplied value.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ICreator`1">
+            <summary>
+            An interface for creating objects.
+            </summary>
+            <typeparam name="CreatedType">The type to create.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ICreator`1.Create">
+            <summary>
+            Creates an instance of type T
+            </summary>
+            <returns>The new instance of type T.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ICreator`1.Create(System.Int32)">
+            <summary>
+            Creates a number of CreateType objects equal to count.
+            </summary>
+            <param name="count">The number of CreateType objects to create.</param>
+            <returns>The created CreateType objects.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.IEquals`1">
+            <summary>
+            Determines whether two objects are equivalent.
+            </summary>
+            <typeparam name="ComparedType">The type of objects that are being compared.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IEquals`1.Equals(`0,`0)">
+            <summary>
+            Determines whether the two values are equivalent.
+            </summary>
+            <param name="value1">The first value to compare</param>
+            <param name="value2">The second value to compare.</param>
+            <returns>True iff the values are the same.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.IFacade`1">
+            <summary>
+            A facade that does some processing and returns a result.
+            </summary>
+            <typeparam name="ResultType"></typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IFacade`1.Process">
+            <summary>
+            Does some processing and returns the result.
+            </summary>
+            <returns>The result of the processing.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IFacade`1.ProcessAsync">
+            <summary>
+            Does some processing asynchronously and returns the result.
+            </summary>
+            <returns>The result of the processing.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.IParameter">
+            <summary>
+            Represents a parameter.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.IParameter.Index">
+            <summary>
+            The index of the parameter, which differentiates it from other parameters.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.IParameter.Type">
+            <summary>
+            The type of the parameter.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.IParameter.Name">
+            <summary>
+            The name of the parameter.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.IParameter.Description">
+            <summary>
+            The description of the parameter.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.IParameterizedCreator`2">
+            <summary>
+            An interface for creating objects.
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <typeparam name="CreatedType">The type to create.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedCreator`2.Create(`0)">
+            <summary>
+            Creates an instance of type CreatedType.
+            </summary>
+            <param name="parameter">The parameter used in creation.</param>
+            <returns>The new instance of type CreatedType.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedCreator`2.Create(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Creates instances of type CreatedType.
+            </summary>
+            <param name="parameters">The parameters used in creation.</param>
+            <returns>A new instance of CreatedType for each parameter provided.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedCreator`2.Create(`0,System.Int32)">
+            <summary>
+            Creates instances of type CreatedType.
+            </summary>
+            <param name="parameter">The parameter used in creation of all created objects.</param>
+            <param name="count">The number of objects to create.</param>
+            <returns>The new instances of type CreatedType.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.IParameterizedFacade`2">
+            <summary>
+            A facade that take a parameter, does some processing, and returns a result.
+            </summary>
+            <typeparam name="ResultType"></typeparam>
+            <typeparam name="ParameterType">THe type of the parameter.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedFacade`2.Process(`0)">
+            <summary>
+            Does some processing based on the parameter and returns the result.
+            </summary>
+            <param name="parameter">The parameter to use for processing.</param>
+            <returns>The result of the processing.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedFacade`2.ProcessAsync(`0,System.Boolean)">
+            <summary>
+            Does some processing asynchronously and returns the result.
+            </summary>
+            <param name="parameter">The parameter to use for processing.</param>
+            <param name="start">Starts the task if and only if true.</param>
+            <returns>A task that will process the parameter when started.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedFacade`2.Process(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Does some processing based on the parameter collection and returns the results.
+            </summary>
+            <param name="parameters">The parameters to use for processing.</param>
+            <returns>The results of the processing.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedFacade`2.ProcessAsync(System.Collections.Generic.IEnumerable{`0},System.Boolean)">
+            <summary>
+            Does some processing asynchronously and returns the results.
+            </summary>
+            <param name="parameters">The parameters to use for processing.</param>
+            <param name="start">Starts the task if and only if true.</param>
+            <returns>A task that will process the parameters when started.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedFacade`2.ProcessEachAsync(System.Collections.Generic.IEnumerable{`0},System.Boolean)">
+            <summary>
+            Does some processing asynchronously and returns the results.
+            </summary>
+            <param name="parameters">The parameters to use for processing.</param>
+            <param name="start">Starts the task if and only if true.</param>
+            <returns>A task for each parameter that will process the parameters when started.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedFacade`2.Process(`0[])">
+            <summary>
+            Does some processing based on the parameter collection and returns the results.
+            </summary>
+            <param name="parameters">The parameters to use for processing.</param>
+            <returns>The results of the processing.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedFacade`2.ProcessAsync(System.Boolean,`0[])">
+            <summary>
+            Does some processing asynchronously and returns the results.
+            </summary>
+            <param name="start">Starts the tasks if and only if true.</param>
+            <param name="parameters">The parameters to use for processing.</param>
+            <returns>A task that will process the parameters when started.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedFacade`2.ProcessEachAsync(System.Boolean,`0[])">
+            <summary>
+            Does some processing asynchronously and returns the results.
+            </summary>
+            <param name="start">Starts the tasks if and only if true.</param>
+            <param name="parameters">The parameters to use for processing.</param>
+            <returns>A task for each parameter that will process the parameters when started.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.IParameterizedProvider`2">
+            <summary>
+            Provides a value of a given type as determined by the parameter.
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <typeparam name="ProvidedType">The type that is provided.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedProvider`2.Provide(`0)">
+            <summary>
+            Provides a value of a given type as determined by the parameter.
+            </summary>
+            <param name="parameter">Determines the value of the provided type.</param>
+            <returns>The value of the provided type.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedProvider`2.Provide(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Provides the values corresponding to the provided parameters.
+            </summary>
+            <param name="parameters">The parameters indicating which values to provide.</param>
+            <returns>The values indicated by the parameters.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.IParameterizedVoidFacade`1">
+            <summary>
+            A facade that take a parameter, does some processing, and returns a result.
+            </summary>
+            <typeparam name="ParameterType">THe type of the parameter.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedVoidFacade`1.Process(`0)">
+            <summary>
+            Does some processing based on the parameter and returns the result.
+            </summary>
+            <param name="parameter">The parameter to use for processing.</param>
+            <returns>The result of the processing.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedVoidFacade`1.ProcessAsync(`0)">
+            <summary>
+            Does some processing asynchronously and returns the result.
+            </summary>
+            <param name="parameter">The parameter to use for processing.</param>
+            <returns>A task that will process the parameter when started.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedVoidFacade`1.Process(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Does some processing based on the parameter collection and returns the results.
+            </summary>
+            <param name="parameters">The parameters to use for processing.</param>
+            <returns>The results of the processing.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterizedVoidFacade`1.ProcessAsync(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Does some processing asynchronously and returns the results.
+            </summary>
+            <param name="parameters">The parameters to use for processing.</param>
+            <returns>A task that will process the parameters when started.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.IParameterTransformer`1">
+            <summary>
+            Enables a processor to transform its parameters prior to processing.
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterTransformer`1.AddParameterTransformPrefix(HularionCore.Pattern.Functional.ITransform{`0,`0})">
+            <summary>
+            Adds a parameter transform to a processor at the beginning of the transform sequence.
+            </summary>
+            <param name="transform">The transform to execute on a parameter before the process begins.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterTransformer`1.AddParameterTransformSuffix(HularionCore.Pattern.Functional.ITransform{`0,`0})">
+            <summary>
+            Adds a parameter transform to a processor at the end of the transform sequence.
+            </summary>
+            <param name="transform">The transform to execute on a parameter before the process begins.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IParameterTransformer`1.ClearParameterTransforms">
+            <summary>
+            Clears all of the parameter transforms.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.IProcessCollectionActionAffixer">
+            <summary>
+            Enables actions to be called before and after an implementing processor does some processing on a collection of items.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.IProcessCollectionActionAffixer.ProcessCollectionPrefixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time a collection of items is processed, before the items are processed.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.IProcessCollectionActionAffixer.ProcessCollectionSuffixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time a collection of items is processed, after the items are processed.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.IProcessorActionAffixer">
+            <summary>
+            Enables actions to be called before and after an implementing processor does some processing.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.IProcessorActionAffixer.ProcessPrefixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, before the items are processed.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.IProcessorActionAffixer.ProcessSuffixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, after the items are processed.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.IProvider`1">
+            <summary>
+            Provides a value of the given Type.
+            </summary>
+            <typeparam name="ProvidedType">The type to provide.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IProvider`1.Provide">
+            <summary>
+            Provides a value of the given Type.
+            </summary>
+            <returns>A value of the given Type.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IProvider`1.Provide(System.Int32)">
+            <summary>
+            Provides values of the given Type.
+            </summary>
+            <param name="count">The number of values to return.</param>
+            <returns>A number of values indicated by count.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.IResultTransformer`1">
+            <summary>
+            Enables a processor to transform its parameters prior to processing.
+            </summary>
+            <typeparam name="ResultType">The type of the result.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IResultTransformer`1.AddResultTransformPrefix(HularionCore.Pattern.Functional.ITransform{`0,`0})">
+            <summary>
+            Adds a parameter transform to a processor a the beginning of the transform sequence.
+            </summary>
+            <param name="transform">The transform to execute on a result after the process ends.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IResultTransformer`1.AddResultTransformSuffix(HularionCore.Pattern.Functional.ITransform{`0,`0})">
+            <summary>
+            Adds a parameter transform to a processor a the end of the transform sequence.
+            </summary>
+            <param name="transform">The transform to execute on a result after the process ends.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IResultTransformer`1.ClearResultTransforms">
+            <summary>
+            Clears all of the parameter transforms.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ITransform`2">
+            <summary>
+            Transforms an object of one type into an object of another type.
+            </summary>
+            <typeparam name="InputType">The type to transform from.</typeparam>
+            <typeparam name="OutputType">The type to transform to.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ITransform`2.Transform(`0)">
+            <summary>
+            Transforms the input from the input type to the output type and returns it.
+            </summary>
+            <param name="input">The object to transform.</param>
+            <returns>The transformed object.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ITransform`2.Transform(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Transofrms a collection of input type to output type and returns it..
+            </summary>
+            <param name="inputs">The objects to transform to the output type.</param>
+            <returns>The transformed objects.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.IVoidFacade">
+            <summary>
+            A facade that does some processing and returns a result.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IVoidFacade.Process">
+            <summary>
+            Does some processing and returns the result.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.IVoidFacade.ProcessAsync">
+            <summary>
+            Does some processing asynchronously and returns the result.
+            </summary>
+            <returns>A task that will run the process.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.Parameter">
+            <summary>
+            Represents a parameter.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.Parameter.Index">
+            <summary>
+            The index of the parameter, which differentiates it from other parameters.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.Parameter.Type">
+            <summary>
+            The type of the parameter.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.Parameter.Name">
+            <summary>
+            The name of the parameter.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.Parameter.Description">
+            <summary>
+            The description of the parameter.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ParameterizedCreatorFunction`2">
+            <summary>
+            A creator from a Func.
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <typeparam name="CreatedType">The type to create.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.ParameterizedCreatorFunction`2.ProcessPrefixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, before the items are processed.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.ParameterizedCreatorFunction`2.ProcessSuffixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, after the items are processed.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedCreatorFunction`2.#ctor(System.Func{`0,`1},System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="singleCreator">The function that will create the instance of T.</param>
+            <param name="createInParallel">If true, the objects will be created in parallel.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedCreatorFunction`2.#ctor(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`1}})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="multipleCreator">The function that will create the instance of T.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedCreatorFunction`2.Create(`0)">
+            <summary>
+            Creates an instance of T.
+            </summary>
+            <returns>The new instance of T.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedCreatorFunction`2.Create(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Creates instances of type CreatedType.
+            </summary>
+            <param name="parameters">The parameters used in creation.</param>
+            <returns>A new instance of CreatedType for each parameter provided.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedCreatorFunction`2.Create(`0,System.Int32)">
+            <summary>
+            Creates instances of type CreatedType.
+            </summary>
+            <param name="parameter">The parameter used in creation of all created objects.</param>
+            <param name="count">The number of objects to create.</param>
+            <returns>The new instances of type CreatedType.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ParameterizedCreator">
+            <summary>
+            Creates parameterized creators using explicit parameters.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedCreator.FromSingle``2(System.Func{``0,``1},System.Boolean)">
+            <summary>
+            Creates a parameterized creator that explicitly handles a single input at a time.
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <typeparam name="CreatedType">The type that is created.</typeparam>
+            <param name="func">The Func that indicates how to process the request.</param>
+            <param name="processesInParallel">If true, the creator is called in parallel when multiple values are created.</param>
+            <returns>A new parameterized creator.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedCreator.FromEnumerable``2(System.Func{System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1}})">
+            <summary>
+            Creates a parameterized creator explicitly from an enumerable.
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <typeparam name="CreatedType">The type that is created.</typeparam>
+            <param name="func">The Func that indicates how to process the request.</param>
+            <returns>A new parameterized creator.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2">
+            <summary>
+            Provides a way to create an IParameterizedFacade from a Func
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <typeparam name="ResultType">The type of the result.</typeparam>
+        </member>
+        <member name="F:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.processor">
+            <summary>
+            The provided processing function.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.collectionProcessor">
+            <summary>
+            The processing function.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.ProcessPrefixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, before the items are processed.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.ProcessSuffixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, after the items are processed.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.ProcessCollectionPrefixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time a collection of items is processed, before the items are processed.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.ProcessCollectionSuffixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time a collection of items is processed, after the items are processed.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.#ctor(System.Func{`0,`1},System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="processor">The function that will execute the facade for each item.</param>
+            <param name="processesInParallel">If true, collections will be processed in parallel.  Otherwise, they will be processed one member at a time.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.#ctor(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`1}})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="processor">The function that will execute the facade for a collection of items.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.CopyWithEmptyAffixes">
+            <summary>
+            Creates a copy of this with empty affixes.
+            </summary>
+            <returns>A copy of this with empty affixes.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.Process(`0)">
+            <summary>
+            Executes the provided facade function.
+            </summary>
+            <param name="parameter">The parameter to pass to the facade function.</param>
+            <returns>The result of the facade.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.ProcessAsync(`0,System.Boolean)">
+            <summary>
+            Creates a task that will execute the facade.
+            </summary>
+            <param name="parameter">The parameter to pass to the facade.</param>
+            <param name="start">Starts the task if and only if true.</param>
+            <returns>A task that will execute the facade.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.Process(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Does some processing based on the parameter collection and returns the results.
+            </summary>
+            <param name="parameters">The parameters to use for processing.</param>
+            <returns>The results of the processing.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.ProcessAsync(System.Collections.Generic.IEnumerable{`0},System.Boolean)">
+            <summary>
+            Does some processing asynchronously and returns the results.
+            </summary>
+            <param name="parameters">The parameters to use for processing.</param>
+            <param name="start">Starts the task if and only if true.</param>
+            <returns>A task that will process the parameters when started.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.Process(`0[])">
+            <summary>
+            Does some processing based on the parameter collection and returns the results.
+            </summary>
+            <param name="parameters">The parameters to use for processing.</param>
+            <returns>The results of the processing.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.ProcessAsync(System.Boolean,`0[])">
+            <summary>
+            Does some processing asynchronously and returns the results.
+            </summary>
+            <param name="parameters">The parameters to use for processing.</param>
+            <returns>A task that will process the parameters when started.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.ProcessEachAsync(System.Collections.Generic.IEnumerable{`0},System.Boolean)">
+            <summary>
+            Does some processing asynchronously and returns the results.
+            </summary>
+            <param name="parameters">The parameters to use for processing.</param>
+            <param name="start">Starts the tasks if and only if true.</param>
+            <returns>A task for each parameter that will process the parameters when started.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.ProcessEachAsync(System.Boolean,`0[])">
+            <summary>
+            Does some processing asynchronously and returns the results.
+            </summary>
+            <param name="start">Starts the tasksif and only if true.</param>
+            <param name="parameters">The parameters to use for processing.</param>
+            <returns>A task for each parameter that will process the parameters when started.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.AddParameterTransformPrefix(HularionCore.Pattern.Functional.ITransform{`0,`0})">
+            <summary>
+            Adds a parameter transform to a processor at the beginning of the transform sequence.
+            </summary>
+            <param name="transform">The transform to execute on a parameter before the process begins.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.AddParameterTransformSuffix(HularionCore.Pattern.Functional.ITransform{`0,`0})">
+            <summary>
+            Adds a parameter transform to a processor at the end of the transform sequence.
+            </summary>
+            <param name="transform">The transform to execute on a parameter before the process begins.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.ClearParameterTransforms">
+            <summary>
+            Clears all of the parameter transforms.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.AddResultTransformPrefix(HularionCore.Pattern.Functional.ITransform{`1,`1})">
+            <summary>
+            Adds a parameter transform to a processor a the beginning of the transform sequence.
+            </summary>
+            <param name="transform">The transform to execute on a result after the process ends.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.AddResultTransformSuffix(HularionCore.Pattern.Functional.ITransform{`1,`1})">
+            <summary>
+            Adds a parameter transform to a processor a the end of the transform sequence.
+            </summary>
+            <param name="transform">The transform to execute on a result after the process ends.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacadeFunction`2.ClearResultTransforms">
+            <summary>
+            Clears all of the parameter transforms.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ParameterizedFacade">
+            <summary>
+            Creates parameterized facades using explicit parameters.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacade.FromSingle``2(System.Func{``0,``1},System.Boolean)">
+            <summary>
+            Creates a parameterized facade that explicitly handles a single input at a time.
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <typeparam name="ResultType">The type of the result.</typeparam>
+            <param name="func">The Func that indicates how to process the request.</param>
+            <param name="processesInParallel">If true, the facade is called in parallel when multiple values are created.</param>
+            <returns>A new parameterized facade.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedFacade.FromEnumerable``2(System.Func{System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1}})">
+            <summary>
+            Creates a parameterized facade explicitly from an enumerable.
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <typeparam name="ResultType">The type of the result.</typeparam>
+            <param name="func">The Func that indicates how to process the request.</param>
+            <returns>A new parameterized facade.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ParameterizedProviderExtensions">
+            <summary>
+            Provides extensions for creating parameterized providers.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedProviderExtensions.MakeParameterizedProvider``2(System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},System.Boolean)">
+            <summary>
+            Extends IEnumerable so that a parameterized provider may be creaded from it.
+            </summary>
+            <typeparam name="ParameterType">The type of the provider parameter.</typeparam>
+            <typeparam name="ProvidedType">The type of object the provider provides.</typeparam>
+            <param name="enumerable">The IEnumerable</param>
+            <param name="predicate">Determines how to match a parameter to a provided value.</param>
+            <param name="processesInParallel">Iff true, the provided values will be extracted in parallel.</param>
+            <returns>An IParameterizedProvider.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedProviderExtensions.MakeParameterizedProvider``2(System.Collections.Generic.IDictionary{``0,``1})">
+            <summary>
+            Extends IDictionary to create a IParameterizedProvider.
+            </summary>
+            <typeparam name="ParameterType">The type of the provider parameter and key type of the dictionary.</typeparam>
+            <typeparam name="ProvidedType">The type of object the provider provides and value type of the dictionary.</typeparam>
+            <param name="dictionary">The dictionary acting as the provider.</param>
+            <returns>A IParameterizedProvider.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ParameterizedProviderFunction`2">
+            <summary>
+            Creates a provider from a Func
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <typeparam name="ProvidedType">The type that is provided.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.ParameterizedProviderFunction`2.ProcessPrefixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, before the items are processed.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.ParameterizedProviderFunction`2.ProcessSuffixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, after the items are processed.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedProviderFunction`2.#ctor(System.Func{`0,`1},System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="provider">A function that provides an object of ProvidedType.</param>
+            <param name="processesInParallel">If true, the provder is called in parallel when multiple values are provided.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedProviderFunction`2.#ctor(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`1}})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="provider">A function that provides objects of ProvidedType.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedProviderFunction`2.Provide(`0)">
+            <summary>
+            Provides an object of type ProvidedType.
+            </summary>
+            <param name="parameter">The parameter to pass to get the provided object/</param>
+            <returns>An object of type ProvidedType.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedProviderFunction`2.Provide(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Provides the values corresponding to the provided parameters.
+            </summary>
+            <param name="parameters">The parameters indicating which values to provide.</param>
+            <returns>The values indicated by the parameters.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedProviderFunction`2.AddParameterTransformPrefix(HularionCore.Pattern.Functional.ITransform{`0,`0})">
+            <summary>
+            Adds a parameter transform to a processor at the beginning of the transform sequence.
+            </summary>
+            <param name="transform">The transform to execute on a parameter before the process begins.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedProviderFunction`2.AddParameterTransformSuffix(HularionCore.Pattern.Functional.ITransform{`0,`0})">
+            <summary>
+            Adds a parameter transform to a processor at the end of the transform sequence.
+            </summary>
+            <param name="transform">The transform to execute on a parameter before the process begins.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedProviderFunction`2.ClearParameterTransforms">
+            <summary>
+            Clears all of the parameter transforms.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedProviderFunction`2.AddResultTransformPrefix(HularionCore.Pattern.Functional.ITransform{`1,`1})">
+            <summary>
+            Adds a parameter transform to a processor a the beginning of the transform sequence.
+            </summary>
+            <param name="transform">The transform to execute on a result after the process ends.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedProviderFunction`2.AddResultTransformSuffix(HularionCore.Pattern.Functional.ITransform{`1,`1})">
+            <summary>
+            Adds a parameter transform to a processor a the end of the transform sequence.
+            </summary>
+            <param name="transform">The transform to execute on a result after the process ends.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedProviderFunction`2.ClearResultTransforms">
+            <summary>
+            Clears all of the parameter transforms.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ParameterizedProvider">
+            <summary>
+            Creates parameterized providers using explicit parameters.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedProvider.FromSingle``2(System.Func{``0,``1},System.Boolean)">
+            <summary>
+            Creates a parameterized provider that explicitly handles a single input at a time.
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <typeparam name="ProvidedType">The type that is provided.</typeparam>
+            <param name="func">The Func that indicates how to process the request.</param>
+            <param name="processesInParallel">If true, the provder is called in parallel when multiple values are provided.</param>
+            <returns>A new parameterized provider.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedProvider.FromEnumerable``2(System.Func{System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1}})">
+            <summary>
+            Creates a parameterized provider explicitly from an enumerable.
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <typeparam name="ProvidedType">The type that is provided.</typeparam>
+            <param name="func">The Func that indicates how to process the request.</param>
+            <returns>A new parameterized provider.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ParameterizedVoidFacadeAction`1">
+            <summary>
+            Provides a way to create an IParameterizedFacade from a Func
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.ParameterizedVoidFacadeAction`1.ProcessPrefixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, before the items are processed.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.ParameterizedVoidFacadeAction`1.ProcessSuffixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, after the items are processed.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedVoidFacadeAction`1.#ctor(System.Action{`0},System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="processor">The function that will execute the facade for each item.</param>
+            <param name="processesInParallel">If true, collections will be processed in parallel.  Otherwise, they will be processed one member at a time.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedVoidFacadeAction`1.#ctor(System.Action{System.Collections.Generic.IEnumerable{`0}})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="processor">The function that will execute the facade for a collection of items.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedVoidFacadeAction`1.Process(`0)">
+            <summary>
+            Executes the provided facade function.
+            </summary>
+            <param name="parameter">The parameter to pass to the facade function.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedVoidFacadeAction`1.ProcessAsync(`0)">
+            <summary>
+            Creates a task that will execute the facade.
+            </summary>
+            <param name="parameter">The parameter to pass to the facade.</param>
+            <returns>A task that will process the parameter.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedVoidFacadeAction`1.Process(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Does some processing based on the parameter collection and returns the results.
+            </summary>
+            <param name="parameters">The parameters to use for processing.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedVoidFacadeAction`1.ProcessAsync(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Does some processing asynchronously and returns the results.
+            </summary>
+            <param name="parameters">The parameters to use for processing.</param>
+            <returns>A task that will process the parameters when started.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ParameterizedVoidFacade">
+            <summary>
+            Creates parameterized void facades using explicit parameters.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedVoidFacade.FromSingle``1(System.Action{``0},System.Boolean)">
+            <summary>
+            Creates a parameterized void facade that explicitly handles a single input at a time.
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <param name="func">The Func that indicates how to process the request.</param>
+            <param name="processesInParallel">If true, the void facade is called in parallel when multiple values are created.</param>
+            <returns>A new parameterized void facade.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ParameterizedVoidFacade.FromEnumerable``1(System.Action{System.Collections.Generic.IEnumerable{``0}})">
+            <summary>
+            Creates a parameterized void facade explicitly from an enumerable.
+            </summary>
+            <typeparam name="ParameterType">The type of the parameter.</typeparam>
+            <param name="func">The Func that indicates how to process the request.</param>
+            <returns>A new parameterized void facade.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.ProviderFunction`1">
+            <summary>
+            Creates a provider from a Func
+            </summary>
+            <typeparam name="ProvidedType">The type to provide.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.ProviderFunction`1.ProcessPrefixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, before the items are processed.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.ProviderFunction`1.ProcessSuffixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, after the items are processed.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ProviderFunction`1.#ctor(System.Func{`0},System.Boolean)">
+            <summary>
+            Constructor,
+            </summary>
+            <param name="provider">The function that will provide the object of type ProvidedType.</param>
+            <param name="processesInParallel">If true, the provder is called in parallel when multiple values are provided.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ProviderFunction`1.#ctor(System.Func{System.Collections.Generic.IEnumerable{`0}})">
+            <summary>
+            Constructor,
+            </summary>
+            <param name="provider">The function that will provide the object of type ProvidedType.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ProviderFunction`1.Provide">
+            <summary>
+            Provides an object of type T.
+            </summary>
+            <returns>An object of type T.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.ProviderFunction`1.Provide(System.Int32)">
+            <summary>
+            Provides values of the given Type.
+            </summary>
+            <param name="count">The number of values to return.</param>
+            <returns>A number of values indicated by count.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.TransformFunction`2">
+            <summary>
+            Implements ITransform by calling the Func provided in the constructor.
+            </summary>
+            <typeparam name="InputType">The type of the input.</typeparam>
+            <typeparam name="OutputType">The type of the output.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.TransformFunction`2.ProcessPrefixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, before the items are processed.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.TransformFunction`2.ProcessSuffixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, after the items are processed.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.TransformFunction`2.ProcessCollectionPrefixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time a collection of items is processed, before the items are processed.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.TransformFunction`2.ProcessCollectionSuffixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time a collection of items is processed, after the items are processed.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.TransformFunction`2.#ctor(System.Func{`0,`1},System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="transformFunction">The function that will provide the transform.</param>
+            <param name="transformsInParallel">If true, multiple transformations will be processed in parallel.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.TransformFunction`2.Transform(`0)">
+            <summary>
+            Transforms the input into the an output of OutputType.
+            </summary>
+            <param name="input">The input to transform.</param>
+            <returns>The transformed object.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.TransformFunction`2.Transform(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Transofrms a collection of input type to output type and returns it..
+            </summary>
+            <param name="inputs">The objects to transform to the output type.</param>
+            <returns>The transformed objects.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.Transform">
+            <summary>
+            Creates transforms using explicit parameters.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.Transform.Create``2(System.Func{``0,``1})">
+            <summary>
+            Creates a new transform function from the provided func.
+            </summary>
+            <typeparam name="InputType">The type of the input.</typeparam>
+            <typeparam name="OutputType">The type of the output.</typeparam>
+            <param name="func">The function that will provide the transform.</param>
+            <returns>A new transform.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.Transform.SameTypeTransformAll``1(HularionCore.Pattern.Functional.ITransform{``0,``0}[],``0[])">
+            <summary>
+            Transforms each of the values using the same type to type transfomers
+            </summary>
+            <typeparam name="T">The type that is both the input and output type of the transforms.</typeparam>
+            <param name="transforms">The transforms to apply.</param>
+            <param name="values">The values to transform.</param>
+            <returns>The transformed values.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Functional.VoidFacadeAction">
+            <summary>
+            A facade that does some processing.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.VoidFacadeAction.ProcessPrefixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, before the items are processed.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Functional.VoidFacadeAction.ProcessSuffixes">
+            <summary>
+            Calls ActionCollection.CallInOrder each time Process is called, after the items are processed.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Functional.VoidFacadeAction.processor">
+            <summary>
+            The action that will process the facade.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.VoidFacadeAction.#ctor(System.Action)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="processor">The action that will process the facade.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.VoidFacadeAction.Process">
+            <summary>
+            Does some processing and returns the result.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Functional.VoidFacadeAction.ProcessAsync">
+            <summary>
+            Does some processing asynchronously and returns the result.
+            </summary>
+            <returns>A task that will run the process.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Identifier.IKeyedValue`1">
+            <summary>
+            An interface for a value that has an associated key with get and set operations.
+            </summary>c
+            <typeparam name="KeyType">The key of the value.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Identifier.IKeyedValue`1.Key">
+            <summary>
+            The key that uniquely identifies the object.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Identifier.KeyPart">
+            <summary>
+            Represents a part of an object key.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Identifier.KeyPart.Name">
+            <summary>
+            The name of the key part.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Identifier.KeyPart.Value">
+            <summary>
+            The value of th ekey part.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Identifier.KeyPart.String">
+            <summary>
+            The string value of the key part if it is a string and null otherwise.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Identifier.KeyPart.Key">
+            <summary>
+            The ObjectKey value of the key part if it is a ObjectKey and null otherwise.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Identifier.KeyPart.KeyPartType">
+            <summary>
+            The type of key part that is the value. 
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Identifier.KeyPart.HasPartial">
+            <summary>
+            true iff the value is not null.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Identifier.KeyPart.Serialized">
+            <summary>
+            The String value if a string or the serialied Key of an ObjectKey.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.KeyPart.Clone">
+            <summary>
+            Clones this Keypart.
+            </summary>
+            <returns>A copy of this.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.KeyPart.ToKey">
+            <summary>
+            Creates a new key from this KeyPart.
+            </summary>
+            <returns>An ObjectKey with the key information.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Identifier.KeyPartType">
+            <summary>
+            A type of key part.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Identifier.KeyPartType.String">
+            <summary>
+            The key part representing a string part value.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Identifier.KeyPartType.Object">
+            <summary>
+            The key part representing an ObjectKey part value.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Identifier.ObjectKey">
+            <summary>
+            A multi-part key.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Identifier.ObjectKey.Serialized">
+            <summary>
+            The serialized version of the key.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Identifier.ObjectKey.NullKey">
+            <summary>
+            A null-value key
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.Clone">
+            <summary>
+            Clones this key.
+            </summary>
+            <returns>A copy of this key.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.SetPart(System.String,System.String)">
+            <summary>
+            Adds the specified key part and value.
+            </summary>
+            <param name="partKey">The key of the part.</param>
+            <param name="partValue">The value of the part.</param>
+            <returns>The key part that was set.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.SetPart(System.String,HularionCore.Pattern.Identifier.ObjectKey)">
+            <summary>
+            Adds the specified key part and value.
+            </summary>
+            <param name="partKey">The key of the part.</param>
+            <param name="partValue">The sub-key of the part.</param>
+            <returns>The key part that was set.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.GetKeyPart(System.String)">
+            <summary>
+            Gets the key part indicated by the given name or null if the part was not found.
+            </summary>
+            <returns>The specified part or null if the part was not found.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.UpdateParts">
+            <summary>
+            Updates the parts dictionary if the serialized version has been set and no update has been performed.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.MakeKey">
+            <summary>
+            Creates a new key.
+            </summary>
+            <returns>A new key.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.Serialize">
+            <summary>
+            Serializes the key if it has not been serializ2ed since the last changes.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.EqualsKey(HularionCore.Pattern.Identifier.ObjectKey)">
+            <summary>
+            Determines whether the provided key is equivalent to this key.
+            </summary>
+            <param name="key">The key to compare.</param>
+            <returns>true iff the given key is equivalent to this key.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.EqualsKey(System.Object)">
+            <summary>
+            Determines whether the provided object is equivalent to this key.
+            </summary>
+            <param name="key">The object to compare.</param>
+            <returns>true iff the given object is equivalent to this key.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.EqualsKey(System.String)">
+            <summary>
+            Determines whether the provided string is equivalent to this key.
+            </summary>
+            <param name="key">The string to compare.</param>
+            <returns>true iff the given string is equivalent to this key.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.CreateUniqueTag">
+            <summary>
+            Creates a unique character string from a GUID.
+            </summary>
+            <returns>A unique character string from a GUID.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.CreateUniqueTagKey">
+            <summary>
+            Creates a unique key from a unique tag.
+            </summary>
+            <returns>S unique key from a unique tag.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.Parse(System.String)">
+            <summary>
+            Parses the given string to create a key.
+            </summary>
+            <param name="serialized">The serialized key.</param>
+            <returns>A key based formed from the given string.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.Parse(System.Object)">
+            <summary>
+            Parses the given object to create a key.
+            </summary>
+            <param name="value">The value containing the key information.</param>
+            <returns>A key based formed from the given object.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.CachedFiniteSeries`1">
+            <summary>
+            A finite series that caches values and allows them to be cleared.
+            </summary>
+            <typeparam name="T">The type of the series value.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.CachedFiniteSeries`1.Clear">
+            <summary>
+            Clears the series cache.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.CachedFiniteSeries`1.GetValue(System.Int32)">
+            <summary>
+            Gets the value at the indicated index.
+            </summary>
+            <param name="index">The index at which to get the value.</param>
+            <returns>The value at the indicated index.</returns>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.CachedFiniteSeries`1.series">
+            <summary>
+            The base series that provides the values.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.CachedFiniteSeries`1.cache">
+            <summary>
+            Contains all of the cached values.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.CachedFiniteSeries`1.Length">
+            <summary>
+            The length of the series.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.CachedFiniteSeries`1.Indices">
+            <summary>
+            Gets all of the indices in the finite series.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.CachedFiniteSeries`1.Values">
+            <summary>
+            Get all of the index/value pairs in the finite series.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.CachedFiniteSeries`1.#ctor(HularionCore.Pattern.Set.IFiniteSeries{`0})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="series">The base series that provides the values.</param>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.CachedSeries`1">
+            <summary>
+            A series that can cache and clear values.
+            </summary>
+            <typeparam name="T">The type of the series value.</typeparam>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.CachedSeries`1.cache">
+            <summary>
+            Contains all of the cached values.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.CachedSeries`1.GetValue(System.Int32)">
+            <summary>
+            Gets the value at the indicated index.
+            </summary>
+            <param name="index">The index at which to get the value.</param>
+            <returns>The value at the indicated index.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.CachedSeries`1.Clear">
+            <summary>
+            Clears the series cache.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.CachedSeries`1.series">
+            <summary>
+            The base series that provides the values.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.CachedSeries`1.#ctor(HularionCore.Pattern.Set.ISeries{`0})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="series">The base series that provides the values.</param>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.FiniteSeries`1">
+            <summary>
+            Creates an IFiniteSeries using a provided ISeries
+            </summary>
+            <typeparam name="T">The type that the series provides.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.FiniteSeries`1.Indices">
+            <summary>
+            The collection of indices in the finite series.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.FiniteSeries`1.Length">
+            <summary>
+            The length of the finite series.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.FiniteSeries`1.Values">
+            <summary>
+            Get all of the index/value pairs in the finite series.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.FiniteSeries`1.GetValue(System.Int32)">
+            <summary>
+            Gets the indes of the series provided by the func at the indicated index.
+            </summary>
+            <param name="index">The inde at which to get the value.</param>
+            <returns>The value at the given index.</returns>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.FiniteSeries`1.series">
+            <summary>
+            The provider that provides the series values.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.FiniteSeries`1.indices">
+            <summary>
+            The collection of indices in the finite series.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.FiniteSeries`1.#ctor(HularionCore.Pattern.Set.ISeries{`0},System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="series">The series that provides the values.</param>
+            <param name="indices">The collection of indices in the finite series.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.FiniteSeries`1.#ctor(HularionCore.Pattern.Set.ISeries{`0},HularionCore.Pattern.Set.IInterval{System.Int32})">
+            <summary>
+            Constructor using a range of indices.
+            </summary>
+            <param name="series">The series that provides the values.</param>
+            <param name="range">The range of values.</param>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.FiniteSeriesFunction`1">
+            <summary>
+            Creates a finite series from a func.
+            </summary>
+            <typeparam name="T">The type of value in the series.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.FiniteSeriesFunction`1.Indices">
+            <summary>
+            The collection of indices in the finite series.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.FiniteSeriesFunction`1.Length">
+            <summary>
+            The length of the finite series.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.FiniteSeriesFunction`1.Values">
+            <summary>
+            Get all of the index/value pairs in the finite series.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.FiniteSeriesFunction`1.GetValue(System.Int32)">
+            <summary>
+            Gets the indes of the series provided by the func at the indicated index.
+            </summary>
+            <param name="index">The inde at which to get the value.</param>
+            <returns>The value at the given index.</returns>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.FiniteSeriesFunction`1.finiteSeries">
+            <summary>
+            The finite series that does all of the work.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.FiniteSeriesFunction`1.#ctor(System.Func{System.Int32,`0},System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="seriesFunction">The Func that provides the values.</param>
+            <param name="indices">The collection of indices in the finite series.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.FiniteSeriesFunction`1.#ctor(System.Func{System.Int32,`0},HularionCore.Pattern.Set.IInterval{System.Int32})">
+            <summary>
+            Constructor using a range of indices.
+            </summary>
+            <param name="seriesFunction">The Func that provides the values.</param>
+            <param name="range">The range of values.</param>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.IFiniteSeries`1">
+            <summary>
+            A finite set of related values that are indexed.
+            </summary>
+            <typeparam name="T">The type of value in the series.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.IFiniteSeries`1.GetValue(System.Int32)">
+            <summary>
+            Gets the value of the series at the indicated index.
+            </summary>
+            <param name="index">The index of the value to get.</param>
+            <returns></returns>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.IFiniteSeries`1.Length">
+            <summary>
+            The length of the series.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.IFiniteSeries`1.Indices">
+            <summary>
+            Gets all of the indices in the finite series.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.IFiniteSeries`1.Values">
+            <summary>
+            Get all of the index/value pairs in the finite series.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.IInterval`1">
+            <summary>
+            Specifies a range of values.
+            </summary>
+            <typeparam name="BoundaryType">The type of value in the range.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.IInterval`1.Low">
+            <summary>
+            The low end of the range.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.IInterval`1.High">
+            <summary>
+            The high end of the range.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.IInterval`1.IncludeLow">
+            <summary>
+            Iff true, low value is included in the range.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.IInterval`1.IncludeHigh">
+            <summary>
+            Iff true, high value is included in the range.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.Interval`1">
+            <summary>
+            Specifies a value interval.
+            </summary>
+            <typeparam name="BoundaryType">The type of value in the range.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.Interval`1.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.Interval`1.Low">
+            <summary>
+            The low end of the range.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.Interval`1.High">
+            <summary>
+            The high end of the range.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.Interval`1.IncludeLow">
+            <summary>
+            Iff true, low value is included in the range.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.Interval`1.IncludeHigh">
+            <summary>
+            Iff true, high value is included in the range.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.IParameterizedFiniteSeries`1">
+            <summary>
+            A finite series that has input parameters at each node.
+            </summary>
+            <typeparam name="T">The type of value in the series.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.IParameterizedFiniteSeries`1.Parameters">
+            <summary>
+            The parameters that the values in the series require.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.IParameterizedFiniteSeries`1.SetInput``1(HularionCore.Pattern.Functional.IParameter,HularionCore.Pattern.Set.IFiniteSeries{``0})">
+            <summary>
+            Sets the input for the series value.
+            </summary>
+            <remarks>
+            There may be multiple inputs for each value, so an input index is required.
+            </remarks>
+            <typeparam name="S">The type of value to set.</typeparam>
+            <param name="parameter">The parameter information.</param>
+            <param name="input">Provides the input parameters.</param>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.IParameterizedSeries`1">
+            <summary>
+            A series that has input parameters at each node.
+            </summary>
+            <typeparam name="T">The type of value in the series.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.IParameterizedSeries`1.Parameters">
+            <summary>
+            The parameters that the values in the series require.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.IParameterizedSeries`1.SetInput``1(HularionCore.Pattern.Functional.IParameter,HularionCore.Pattern.Set.ISeries{``0})">
+            <summary>
+            Sets the input for the series value.
+            </summary>
+            <remarks>
+            There may be multiple inputs for each value, so an input index is required.
+            </remarks>
+            <typeparam name="S">The type of value to set.</typeparam>
+            <param name="parameter">The parameter information.</param>
+            <param name="input">The series providing the parameter.</param>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.ISelector`2">
+            <summary>
+            Makes a selection given some current state of being.
+            </summary>
+            <typeparam name="StateType">The type of the state of being.</typeparam>
+            <typeparam name="SelectionType">The type of the selection.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.ISelector`2.Select(`0)">
+            <summary>
+            Makes a selection given some current state of being.
+            </summary>
+            <param name="state">The state of being used to decide which selection to make.</param>
+            <returns>The resulting selection.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.ISeries`1">
+            <summary>
+            A set of related values that are indexed.  It is guaranteed that there is a value at each index.
+            </summary>
+            <typeparam name="T">The type of value in the series.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.ISeries`1.GetValue(System.Int32)">
+            <summary>
+            Gets the value of the series at the indicated index.
+            </summary>
+            <param name="index">The index of the value to get.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.ParameterizedFiniteSeries`1">
+            <summary>
+            A parameterized finite series using a given series and an Action that sets the parameter.
+            </summary>
+            <typeparam name="T">The type of value in the series.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.ParameterizedFiniteSeries`1.Parameters">
+            <summary>
+            The parameters for each value in the series.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.ParameterizedFiniteSeries`1.Length">
+            <summary>
+            The length of the series.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.ParameterizedFiniteSeries`1.Indices">
+            <summary>
+            The indices of the series.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.ParameterizedFiniteSeries`1.Values">
+            <summary>
+            The values of the series.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.ParameterizedFiniteSeries`1.GetValue(System.Int32)">
+            <summary>
+            Gets the value of the series at the given index.
+            </summary>
+            <param name="index">The index at which to get the value.</param>
+            <returns>The value of the series at the given index.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.ParameterizedFiniteSeries`1.SetInput``1(HularionCore.Pattern.Functional.IParameter,HularionCore.Pattern.Set.IFiniteSeries{``0})">
+            <summary>
+            Sets the input for the series value.
+            </summary>
+            <typeparam name="S">The type of value to set.</typeparam>
+            <param name="parameter">The parameter information.</param>
+            <param name="input">The value of the input.</param>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.ParameterizedFiniteSeries`1.series">
+            <summary>
+            The base series to use.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.ParameterizedFiniteSeries`1.parameters">
+            <summary>
+            The parameters of the values.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.ParameterizedFiniteSeries`1.parameterSetter">
+            <summary>
+            The action that sets the parameters.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.ParameterizedFiniteSeries`1.#ctor(HularionCore.Pattern.Set.IFiniteSeries{`0},System.Collections.Generic.IEnumerable{HularionCore.Pattern.Functional.IParameter},System.Action{HularionCore.Pattern.Functional.IParameter,System.Object})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="series">The base series.</param>
+            <param name="parameters">The parameters of the values.</param>
+            <param name="parameterSetter">The action that sets the parameters.</param>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.ParameterizedSeries`1">
+            <summary>
+            A parameterized series using a given series and an Action that sets the parameter.
+            </summary>
+            <typeparam name="T">The type of value in the series.</typeparam>
+        </member>
+        <member name="P:HularionCore.Pattern.Set.ParameterizedSeries`1.Parameters">
+            <summary>
+            The parameters for each value in the series.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.ParameterizedSeries`1.GetValue(System.Int32)">
+            <summary>
+            Gets the value of the series at the given index.
+            </summary>
+            <param name="index">The index at which to get the value.</param>
+            <returns>The value of the series at the given index.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.ParameterizedSeries`1.SetInput``1(HularionCore.Pattern.Functional.IParameter,HularionCore.Pattern.Set.ISeries{``0})">
+            <summary>
+            Sets the input for the series value.
+            </summary>
+            <typeparam name="S">The type of value to set.</typeparam>
+            <param name="parameter">The parameter information.</param>
+            <param name="input">Provides the input parameters.</param>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.ParameterizedSeries`1.series">
+            <summary>
+            The base series to use.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.ParameterizedSeries`1.parameters">
+            <summary>
+            The parameters of the values.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.ParameterizedSeries`1.parameterSetter">
+            <summary>
+            The action that sets the parameters.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.ParameterizedSeries`1.#ctor(HularionCore.Pattern.Set.ISeries{`0},System.Collections.Generic.IEnumerable{HularionCore.Pattern.Functional.IParameter},System.Action{HularionCore.Pattern.Functional.IParameter,System.Object})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="series">The base series.</param>
+            <param name="parameters">The parameters of the values.</param>
+            <param name="parameterSetter">The action that sets the parameters.</param>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.SelectorFunction`2">
+            <summary>
+            Implements ISelector with the constructor-injected func.
+            </summary>
+            <typeparam name="StateType">The type of the state of being.</typeparam>
+            <typeparam name="SelectionType">The type of the selection.</typeparam>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.SelectorFunction`2.selector">
+            <summary>
+            The func that will make the selection.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.SelectorFunction`2.#ctor(System.Func{`0,`1})">
+            <summary>
+            Constuctor.
+            </summary>
+            <param name="selector">The func that will make the selection.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.SelectorFunction`2.Select(`0)">
+            <summary>
+            Makes the selection given the func set in the constructor.
+            </summary>
+            <param name="state">The current state of being.</param>
+            <returns>The selection.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Set.SeriesFunction`1">
+            <summary>
+            Creates an ISeries using a provided Func
+            </summary>
+            <typeparam name="T">The type that the series provides.</typeparam>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.SeriesFunction`1.seriesProvider">
+            <summary>
+            The func that provides the series values.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.SeriesFunction`1.cacheValues">
+            <summary>
+            Determines whether to cached the series values.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Set.SeriesFunction`1.cache">
+            <summary>
+            Contains the values to return if they are cached.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.SeriesFunction`1.#ctor(System.Func{System.Int32,`0},System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="seriesProvider">The func that provides the series values.</param>
+            <param name="cacheValues">Iff true, the series values are generated only once on demand.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.SeriesFunction`1.#ctor(HularionCore.Pattern.Functional.IParameterizedProvider{System.Int32,`0},System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="seriesProvider">The provider that provides the series values.</param>
+            <param name="cacheValues">Iff true, the series values are generated only once on demand.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Set.SeriesFunction`1.GetValue(System.Int32)">
+            <summary>
+            Gets the indes of the series provided by the func at the indicated index.
+            </summary>
+            <param name="index">The inde at which to get the value.</param>
+            <returns>The value at the given index.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Topology.CombinationGenerator`1">
+            <summary>
+            Provides a standard implementation of a combination provider.
+            </summary>
+            <typeparam name="T">The type of the object to get the combinations for.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Topology.CombinationGenerator`1.GenerateCombinations(System.Int32,System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Generates all combinatons of the given size of the source items.
+            </summary>
+            <param name="size">The size of the combinations to generate.</param>
+            <param name="source">The items to use to create the combinations.</param>
+            <returns>All of the combinations of the given size.</returns>
+        </member>
+        <member name="T:HularionCore.Pattern.Topology.TreeTraverser`1">
+            <summary>
+            Traverses a tree to provide information or execute actions against node.s
+            </summary>
+            <typeparam name="NodeType">The type of node in the tree.</typeparam>
+        </member>
+        <member name="M:HularionCore.Pattern.Topology.TreeTraverser`1.TraverseTreePrivate(`0,System.Func{`0,`0[]},System.Func{`0,System.Boolean},System.Boolean,System.Action{`0})">
+            <summary>
+            A generic tree processor that can be used to process trees in any parent-edge order.
+            </summary>
+            <param name="root">The root node.</param>
+            <param name="childSelector">Returns the child nodes of a node or an empty array if there are none.</param>
+            <param name="processor">Processes the nodes in order.</param>
+            <param name="parentFirst">True iff the parent should be selected before the child nodes.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Topology.TreeTraverser`1.TraverseTree(HularionCore.Pattern.Topology.TreeTraversalOrder,`0,System.Func{`0,`0[]},System.Func{`0,System.Boolean},System.Action{`0})">
+            <summary>
+            Traverses the tree with the provided root node and processes nodes in the specified order.
+            </summary>
+            <param name="order">The order in which to process nodes in the tree.</param>
+            <param name="root">The root node of the tree.</param>
+            <param name="childSelector">Provides the child nodes of a given node.  The "left" node must be at the zero index.</param>
+            <param name="processor">Processes each node in order until there are no remaining nodes or the processor returns false.</param>
+        </member>
+        <member name="M:HularionCore.Pattern.Topology.TreeTraverser`1.CreateEvaluationPlan(HularionCore.Pattern.Topology.TreeTraversalOrder,`0,System.Func{`0,`0[]},System.Boolean)">
+            <summary>
+            Creates an array of NodeType that can be used to evaluate the tree as spefified by the order.       
+            </summary>
+            <param name="order">The order in which nodes will appear in the evaluation plan.</param>
+            <param name="root">The root node of the tree.</param>
+            <param name="childSelector">Provides the child nodes of a given node.  The "left" node must be at the zero index.</param>
+            <param name="includeLeaves">Iff tru, the leaf nodes are included in the evaluation plan.</param>
+            <returns>An array of NodeType representing a sequence for evaluating the nodes.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Topology.TreeTraverser`1.CreateEvaluationPlan(HularionCore.Pattern.Topology.TreeTraversalOrder,`0[],System.Func{`0,`0[]},System.Boolean)">
+            <summary>
+            Creates an array of NodeType that can be used to evaluate the tree as spefified by the order.       
+            </summary>
+            <param name="order">The order in which nodes will appear in the evaluation plan.</param>
+            <param name="roots">The root nodes of the tree.</param>
+            <param name="childSelector">Provides the child nodes of a given node.  The "left" node must be at the zero index.</param>
+            <param name="includeLeaves">Iff tru, the leaf nodes are included in the evaluation plan.</param>
+            <returns>An array of NodeType representing a sequence for evaluating the nodes.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Topology.TreeTraverser`1.CreateUniqueNodeEvaluationPlan(HularionCore.Pattern.Topology.TreeTraversalOrder,`0,System.Func{`0,`0[]},System.Boolean)">
+            <summary>
+            Creates an evaluation plan that ignores duplicate nodes, handling just the first encounter.
+            </summary>
+            <param name="order">The order in which nodes will appear in the evaluation plan.</param>
+            <param name="root">The root node of the tree.</param>
+            <param name="childSelector">Provides the child nodes of a given node.  The "left" node must be at the zero index.</param>
+            <param name="includeLeaves">Iff true, the leaf nodes are included in the evaluation plan.</param>
+            <returns>An array of NodeType representing a sequence for evaluating the nodes.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Topology.TreeTraverser`1.CreateUniqueNodeEvaluationPlan(HularionCore.Pattern.Topology.TreeTraversalOrder,`0[],System.Func{`0,`0[]},System.Boolean)">
+            <summary>
+            Creates an evaluation plan that ignores duplicate nodes, handling just the first encounter.
+            </summary>
+            <param name="order">The order in which nodes will appear in the evaluation plan.</param>
+            <param name="roots">The root nodes of the tree.</param>
+            <param name="childSelector">Provides the child nodes of a given node.  The "left" node must be at the zero index.</param>
+            <param name="includeLeaves">Iff true, the leaf nodes are included in the evaluation plan.</param>
+            <returns>An array of NodeType representing a sequence for evaluating the nodes.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Topology.TreeTraverser`1.WeaveExecute(HularionCore.Pattern.Topology.TreeWeaveOrder,`0,System.Func{`0,`0[]},System.Action{HularionCore.Pattern.Topology.TreeTraverser{`0}.NodeState},System.Action{HularionCore.Pattern.Topology.TreeTraverser{`0}.NodeState},System.Action{HularionCore.Pattern.Topology.TreeTraverser{`0}.NodeState},System.Action{HularionCore.Pattern.Topology.TreeTraverser{`0}.NodeState})">
+            <summary>
+            Weaves through the tree, executing one of the actions as the reader transitions from one node to the next.
+            On leaving a node, exitAction(node) is called first.  Then lastAction(node) if the node is the last of it's siblings.  Finally, upAction(node.Parent) is called if node is not root.
+            </summary>
+            <param name="order">Starts the weave from left or right.</param>
+            <param name="root">The root node of the tree.</param>
+            <param name="childSelector">Selects the children of a node.</param>
+            <param name="entryAction">Executes when the reader first enters a node.</param>
+            <param name="exitAction">Executes when the reader leaves a node for good, moving to its sibling or parent.</param>
+            <param name="lastAction">Executes when the reader leaves the last node in an array of nodes.</param>
+            <param name="upAction">Executes when the reader transitions from a node to its parent.</param>
+        </member>
+        <member name="T:HularionCore.Pattern.Topology.TreeTraverser`1.NodeState">
+            <summary>
+            The state of a node to handle.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Topology.TreeTraverser`1.NodeState.Subject">
+            <summary>
+            The node currently under examination.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Topology.TreeTraverser`1.NodeState.Parent">
+            <summary>
+            The node that provided the row this node belongs to.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Topology.TreeTraverser`1.NodeState.ParentState">
+            <summary>
+            The NodeState of the parent.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Topology.TreeTraverser`1.NodeState.ChildrenStates">
+            <summary>
+            The child NodeState objects.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Topology.TreeTraverser`1.NodeState.IsRoot">
+            <summary>
+            True iff this no has no parent node.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Topology.TreeTraverser`1.NodeState.IsLeaf">
+            <summary>
+            True iff this nod has no child nodes.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Topology.TreeTraverser`1.NodeState.IsRowFirst">
+            <summary>
+            True iff this is the first node in the row as provided by its parent.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Topology.TreeTraverser`1.NodeState.IsRowLast">
+            <summary>
+            True iff this is the last node in the row as provided by its parent.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Topology.TreeTraverser`1.NodeState.RowIndex">
+            <summary>
+            The zero-based index of this node relative to its row as provided by its parent.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Topology.TreeTraverser`1.NodeState.RowLength">
+            <summary>
+            The length of the row this node belongs to as provided by its parent.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Pattern.Topology.TreeTraverser`1.NodeState.Depth">
+            <summary>
+            The descendant number of this node compared to root (depth 0).
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Topology.TreeTraversalOrder">
+            <summary>
+            The available traversal patterns.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Topology.TreeTraversalOrder.LeftRightParent">
+            <summary>
+            Nodes are selected in left, right, parent order,
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Topology.TreeTraversalOrder.RightLeftParent">
+            <summary>
+            Nodes are selected in right, left, parent order,
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Topology.TreeTraversalOrder.ParentLeftRight">
+            <summary>
+            Nodes are selected in parent, left, right order,
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Topology.TreeTraversalOrder.ParentRightLeft">
+            <summary>
+            Nodes are selected in parent, right, left order,
+            </summary>
+        </member>
+        <member name="T:HularionCore.Pattern.Topology.TreeWeaveOrder">
+            <summary>
+            Indicates the direction to weave through the tree.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Topology.TreeWeaveOrder.FromLeft">
+            <summary>
+            Weave starting from the left.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Pattern.Topology.TreeWeaveOrder.FromRight">
+            <summary>
+            Weave starting from the right.
+            </summary>
+        </member>
+        <member name="T:HularionCore.Structure.Table`2">
+            <summary>
+            A class used to construct object tables.
+            </summary>
+            <remarks>
+            The types for the columns and rows must be defined, but the values can be any type.  Values that are not set will be treated as null.
+            </remarks>
+            <typeparam name="ColumnType">The type used to reference columns.  If the type is an enum, each value of the enum will be added as a column automatically.</typeparam>
+            <typeparam name="RowType">The type used to reference rows.  If the type is an enum, each value of the enum will be added as a row automatically.</typeparam>
+        </member>
+        <member name="F:HularionCore.Structure.Table`2.columns">
+            <summary>
+            The dictionary that contains the columns.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Structure.Table`2.rows">
+            <summary>
+            The dictionary that contains the rows.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Structure.Table`2.values">
+            <summary>
+            The dictionary that contains the table data.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Structure.Table`2.columnValues">
+            <summary>
+            The dictionary that contains the data associated with a column.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Structure.Table`2.rowValues">
+            <summary>
+            The dictionary that contains the data associated with a column.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Structure.Table`2.columnCounter">
+            <summary>
+            The counter used to index the columns.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Structure.Table`2.rowCounter">
+            <summary>
+            The counter used to index the rows.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Structure.Table`2.availableColumnKeys">
+            <summary>
+            A list of keys from columns that were deleted.  These keys will be recycled.
+            </summary>
+        </member>
+        <member name="F:HularionCore.Structure.Table`2.availableRowKeys">
+            <summary>
+            A list of keys from rows that were deleted.  These keys will be recycled.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Structure.Table`2.Columns">
+            <summary>
+            A list of the columns in the table.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Structure.Table`2.Rows">
+            <summary>
+            A list of the rows in the table.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.#ctor(HularionCore.Structure.Table{`0,`1})">
+            <summary>
+            Copy Constructor.
+            </summary>
+            <param name="table">The Table to copy.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.AddColumn(`0)">
+            <summary>
+            Adds the column to the table.
+            </summary>
+            <param name="column">The column to add to the table.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.AddColumns(`0[])">
+            <summary>
+            Adds all of the provided columns to the table.
+            </summary>
+            <param name="columns">The columns to add to the table.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.RemoveColumn(`0)">
+            <summary>
+            Removes the column from the table.
+            </summary>
+            <param name="column">The column to remove.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.RemoveColumns(`0[])">
+            <summary>
+            Removes the provided columns from the table.
+            </summary>
+            <param name="columns">The columns to remove.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.ContainsColumn(`0)">
+            <summary>
+            Returns true if the column exists in the table and false otherwise.
+            </summary>
+            <param name="column">The column to search for.</param>
+            <returns>true: The column exists in the table.  false: The column does not exist in the table.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.ChangeColumn(`0,`0)">
+            <summary>
+            Changes the column so that the column will be referenced by the new ColumnType object instead of the old one.
+            </summary>
+            <exception cref="T:System.ArgumentException">Throws an exception if the current column does not exist in the table.</exception>
+            <param name="currentColumn">The current ColumnType used to reference the column.</param>
+            <param name="newColumn">The new ColumnType object used to reference the column.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.AddRow(`1)">
+            <summary>
+            Adds the row to the table.
+            </summary>
+            <param name="row">The row to add to the table.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.AddRows(`1[])">
+            <summary>
+            Adds the provided rows to the table.
+            </summary>
+            <param name="rows">The rows to add to the table.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.RemoveRow(`1)">
+            <summary>
+            Removes the row from the table.
+            </summary>
+            <param name="row">The row to remove.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.RemoveRows(`1[])">
+            <summary>
+            Removes the provided rows to the table.
+            </summary>
+            <param name="rows">The rows to remove to the table.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.ContainsRow(`1)">
+            <summary>
+            Returns true if the row exists in the table and false otherwise.
+            </summary>
+            <param name="row">The row to search for.</param>
+            <returns>true: The row exists in the table. false: The row does not exist in the table.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.ChangeRow(`1,`1)">
+            <summary>
+            Changes the row so that the row will be referenced by the new RowType object instead of the old one.
+            </summary>
+            <param name="currentRow">The current RowType used to reference the row.</param>
+            <param name="newRow">The new RowType object used to reference the row.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.SetValue(`0,`1,System.Object)">
+            <summary>
+            Sets the object at the given Column and Row location.
+            </summary>
+            <param name="column">The column in which to place the value.</param>
+            <param name="row">The row in which to place the value.</param>
+            <param name="Value">The object to store in the Column/Row location.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetValue(`0,`1,System.Object@)">
+            <summary>
+            Gets the object stored at the given Column and Row location.
+            </summary>
+            <param name="column">The column to search.</param>
+            <param name="row">The row to search.</param>
+            <param name="value">The object at the Column/Row location. The object is null if no value was found.</param>
+            <returns>true: A value was found.  false: A value was not found.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetEntry(`0,`1)">
+            <summary>
+            Returns the entry of the table at the provided column and row.
+            </summary>
+            <param name="column">The column of the entry.</param>
+            <param name="row">The row of the entry.</param>
+            <returns>The entry at the indicated column and row or null if the column or row do not exist.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetEntry``1(`0,`1)">
+            <summary>
+            Returns the entry of the table at the provided column and row.
+            </summary>
+            <param name="column">The column of the entry.</param>
+            <param name="row">The row of the entry.</param>
+            <typeparam name="T">The type of value in the entry.</typeparam>
+            <returns>The entry at the indicated column and row or null if the column or row do not exist.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetValue``1(`0,`1)">
+            <summary>
+            Gets the object stored at the given Column and Row location.
+            </summary>
+            <typeparam name="T">The type of object to return.  This must be the type of the object that is stored.</typeparam>
+            <param name="column">The column to search.</param>
+            <param name="row">The row to search.</param>
+            <returns>The object or the object's default value give the type T if the object is null.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetColumnValues(`0)">
+            <summary>
+            Gets all of the values associated with a column.
+            </summary>
+            <param name="column">The column of values to get.</param>
+            <returns>All of the values associated with the provided column.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetColumnValues``1(`0)">
+            <summary>
+            Gets all of the values associated with a column.
+            </summary>
+            <param name="column">The column of values to get.</param>
+            <typeparam name="T">The type of values to return.</typeparam>
+            <returns>All of the values associated with the provided column.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetRowValues(`1)">
+            <summary>
+            Gets all of the values associated with a row.
+            </summary>
+            <param name="row">The row of values to get.</param>
+            <returns>All of the values associated with the provided row.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetRowValues``1(`1)">
+            <summary>
+            Gets all of the values associated with a row.
+            </summary>
+            <param name="row">The row of values to get.</param>
+            <typeparam name="T">The type of values to return.</typeparam>
+            <returns>All of the values associated with the provided row.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetColumnEntries(`0)">
+            <summary>
+            Gets all of the entries associated with the provided column.
+            </summary>
+            <param name="column">The column of entries to get.</param>
+            <returns>All of the entries associated with the provided column.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetColumnEntries``1(`0)">
+            <summary>
+            Gets all of the entries associated with the provided column.
+            </summary>
+            <param name="column">The column of entries to get.</param>
+            <typeparam name="T">The type of the value in the entries.</typeparam>
+            <returns>All of the entries associated with the provided column.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetRowEntries(`1)">
+            <summary>
+            Gets all of the entries in the provided row.
+            </summary>
+            <param name="row">The row of entries to get.</param>
+            <returns>All of the entries in the provided row.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetRowEntries``1(`1)">
+            <summary>
+            Gets all of the entries in the provided row.
+            </summary>
+            <typeparam name="T">The type of the value of the entries.</typeparam>
+            <param name="row">The row of entries to get.</param>
+            <returns>All of the entries in the provided row.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetAllEntries``1">
+            <summary>
+            Gets all of the entries in the table.
+            </summary>
+            <typeparam name="T">The type of the entry value.</typeparam>
+            <returns>All of the entries in the table.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetAllEntries">
+            <summary>
+            Gets all of the entries in the table.
+            </summary>
+            <returns>All of the entries in the table.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetColumnConnectedRows(`0)">
+            <summary>
+            Gets all of the rows that share a value with the provided column.
+            </summary>
+            <param name="column">The column whose associated rows will be returned.</param>
+            <returns>All of the rows that share a value with the provided column.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetRowConnectedColumns(`1)">
+            <summary>
+            Gets all of the columns that share a value with the provided row.
+            </summary>
+            <param name="row">The row whose associated columns will be returned.</param>
+            <returns>All of the columns that share a value with the provided row.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.ContainsValue(`0,`1)">
+            <summary>
+            Returns true if there is a value at the given Column and Row location and false otherwise.
+            </summary>
+            <param name="column">The column to search.</param>
+            <param name="row">The row to search.</param>
+            <returns>true: A value exists at the Column/Row location.  false: A value does not exist at the Column Row location.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.ClearValue(`0,`1)">
+            <summary>
+            Removes the value with the indicated column and row from the table.
+            </summary>
+            <param name="column">The column of the value to remove.</param>
+            <param name="row">The row of the value to remove.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.ClearValues">
+            <summary>
+            Clears the values from the table.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.ClearColumnValues(`0)">
+            <summary>
+            Removes all of the values in the specified column.
+            </summary>
+            <param name="column">The column from which to remove the values.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.ClearRowValues(`1)">
+            <summary>
+            Removes all of the values in the specified row.
+            </summary>
+            <param name="row">The row from which to remove the values.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetAllValues">
+            <summary>
+            Gets all of the values.
+            </summary>
+            <returns>All o fthe values.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetAllValues``1">
+            <summary>
+            Gets all of the values cast as the specified type.
+            </summary>
+            <typeparam name="ValueType">The type to cast the values to.</typeparam>
+            <returns>All of the values as the given type.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.Copy(HularionCore.Structure.Table{`0,`1})">
+            <summary>
+            Copies the given Table T to this Table.
+            </summary>
+            <param name="table">The table to copy.</param>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.MakeKey(`0,`1)">
+            <summary>
+            Creates a ulong key for a table value given a column name and a row name.
+            </summary>
+            <param name="column">The name of the column.</param>
+            <param name="row">The name of the row.</param>
+            <returns>A key that represents the value at the given column and row.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.ReverseKey(System.UInt64)">
+            <summary>
+            Creates column and row keys given a value key.
+            </summary>
+            <param name="key">The key of a value.</param>
+            <returns>A column and row keys given a value key.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetColumnKey(System.UInt64)">
+            <summary>
+            Gets a column key given a table key.
+            </summary>
+            <param name="key">The table key.</param>
+            <returns>The column key.</returns>
+        </member>
+        <member name="M:HularionCore.Structure.Table`2.GetRowKey(System.UInt64)">
+            <summary>
+            Gets the row key given a table key.
+            </summary>
+            <param name="key">The table key.</param>
+            <returns>The row key.</returns>
+        </member>
+        <member name="T:HularionCore.Structure.TableEntry`2">
+            <summary>
+            An entry within a table.
+            </summary>
+            <typeparam name="ColumnType">The type of the table's columns.</typeparam>
+            <typeparam name="RowType">The type of the table's rows</typeparam>
+        </member>
+        <member name="P:HularionCore.Structure.TableEntry`2.Column">
+            <summary>
+            A column in the table.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Structure.TableEntry`2.Row">
+            <summary>
+            A row in the table.
+            </summary>
+        </member>
+        <member name="P:HularionCore.Structure.TableEntry`2.Value">
+            <summary>
+            The value in the table at the column and row.
+            </summary>
+        </member>
+        <member name="M:HularionCore.Structure.TableEntry`2.GetValue``1">
+            <summary>
+            Casts the value to the indicated type.
+            </summary>
+            <typeparam name="T">The type to cast the value to.</typeparam>
+            <returns>The value of the table entry casted to the indicated type.</returns>
+        </member>
+        <member name="T:HularionCore.Structure.TableEntry`3">
+            <summary>
+            An entry within a table.
+            </summary>
+            <typeparam name="ColumnType">The type of the table's columns.</typeparam>
+            <typeparam name="RowType">The type of the table's rows</typeparam>
+            <typeparam name="ValueType">The type of the value of the entry.</typeparam>
+        </member>
+        <member name="P:HularionCore.Structure.TableEntry`3.Value">
+            <summary>
+            The value in the table at the column and row.
+            </summary>
+        </member>
+        <member name="T:HularionCore.TypeGraph.TypeExtensions">
+            <summary>
+            Adds some useful extensions to Type.
+            </summary>
+        </member>
+        <member name="M:HularionCore.TypeGraph.TypeExtensions.IsStatic(System.Reflection.PropertyInfo)">
+            <summary>
+            Returns true iff the property has both a getter and setter and they are static.
+            </summary>
+            <param name="property">The property to check.</param>
+            <returns>true iff the property has both a getter and setter and they are static.</returns>
+        </member>
+        <member name="M:HularionCore.TypeGraph.TypeExtensions.GetNonStaticGetSetProperties(System.Type)">
+            <summary>
+            Gets the non-static properties with getters and setters.
+            </summary>
+            <param name="type">The type to inspect.</param>
+            <returns>The non-static properties with getters and setters.</returns>
+        </member>
+        <member name="M:HularionCore.TypeGraph.TypeExtensions.IsStatic(System.Reflection.FieldInfo)">
+            <summary>
+            Returns true iff the field is static.
+            </summary>
+            <param name="field">The field to check.</param>
+            <returns>true iff the field is static.</returns>
+        </member>
+        <member name="M:HularionCore.TypeGraph.TypeExtensions.GetNonStaticFields(System.Type)">
+            <summary>
+            Gets the non-static fields.
+            </summary>
+            <param name="type">The type to inspect.</param>
+            <returns>The non-static fields.</returns>
+        </member>
+        <member name="T:HularionCore.TypeGraph.TypeNode">
+            <summary>
+            Describes a type and links it to its members.
+            </summary>
+        </member>
+        <member name="P:HularionCore.TypeGraph.TypeNode.Type">
+            <summary>
+            The type of the node.
+            </summary>
+        </member>
+        <member name="P:HularionCore.TypeGraph.TypeNode.GenericDefinition">
+            <summary>
+            If Type is generic, this is the generic definition.
+            </summary>
+        </member>
+        <member name="P:HularionCore.TypeGraph.TypeNode.Members">
+            <summary>
+            The members of this node.
+            </summary>
+        </member>
+        <member name="P:HularionCore.TypeGraph.TypeNode.Generics">
+            <summary>
+            The members of this node.
+            </summary>
+        </member>
+        <member name="M:HularionCore.TypeGraph.TypeNode.CreateTypeTree``1">
+            <summary>
+            Creates a tree of TypeNode based on the provided type.
+            </summary>
+            <typeparam name="T">The type from which to create the tree.</typeparam>
+            <returns>A tree of TypeNode based on the provided type.</returns>
+        </member>
+        <member name="M:HularionCore.TypeGraph.TypeNode.CreateTypeTree(System.Type)">
+            <summary>
+            Creates a tree of TypeNode based on the provided type.
+            </summary>
+            <param name="type">The type from which to create the tree.</param>
+            <returns>A tree of TypeNode based on the provided type.</returns>
+        </member>
+        <member name="M:HularionCore.TypeGraph.TypeNode.CreateTypeTreePlan``1">
+            <summary>
+            Creates a PLR plan of TypeNodes based on the provided type.
+            </summary>
+            <typeparam name="T">The type from which to create the tree.</typeparam>
+            <returns>A tree of TypeNode based on the provided type.</returns>
+        </member>
+        <member name="M:HularionCore.TypeGraph.TypeNode.CreateTypeTreePlan(System.Type)">
+            <summary>
+            Creates a PLR evaluation plan of TypeNodes based on the provided type.
+            </summary>
+            <param name="type">The type from which to create the tree.</param>
+            <returns>A tree of TypeNode based on the provided type.</returns>
+        </member>
+        <member name="T:HularionCore.TypeGraph.TypeNodeManager">
+            <summary>
+            Manages and provides TypeNode object.
+            </summary>
+        </member>
+        <member name="P:HularionCore.TypeGraph.TypeNodeManager.TypeNodeProvider">
+            <summary>
+            Provides a TypeNode given the provided type.
+            </summary>
+        </member>
+        <member name="M:HularionCore.TypeGraph.TypeNodeManager.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="T:HularionCore.TypeGraph.TypeNodeMember">
+            <summary>
+            Represents the member (property/field) of a type.
+            </summary>
+        </member>
+        <member name="P:HularionCore.TypeGraph.TypeNodeMember.Parent">
+            <summary>
+            The node to which this member belongs.
+            </summary>
+        </member>
+        <member name="P:HularionCore.TypeGraph.TypeNodeMember.Name">
+            <summary>
+            The name of the member.
+            </summary>
+        </member>
+        <member name="P:HularionCore.TypeGraph.TypeNodeMember.Type">
+            <summary>
+            The type of the member.
+            </summary>
+        </member>
+        <member name="P:HularionCore.TypeGraph.TypeNodeMember.IsGenericParameter">
+            <summary>
+            True if the type of this member is given by a generic.
+            </summary>
+        </member>
+        <member name="P:HularionCore.TypeGraph.TypeNodeMember.Member">
+            <summary>
+            The value of the member.
+            </summary>
+        </member>
+        <member name="P:HularionCore.TypeGraph.TypeNodeMember.Property">
+            <summary>
+            The property this member represents if it is a property node.
+            </summary>
+        </member>
+        <member name="P:HularionCore.TypeGraph.TypeNodeMember.Field">
+            <summary>
+            The field this member represents if it is a field node.
+            </summary>
+        </member>
+        <member name="P:HularionCore.TypeGraph.TypeNodeMember.IsProperty">
+            <summary>
+            True iff the property is not null.
+            </summary>
+        </member>
+        <member name="P:HularionCore.TypeGraph.TypeNodeMember.IsField">
+            <summary>
+            True iff the field is not null.
+            </summary>
+        </member>
+        <member name="M:HularionCore.TypeGraph.TypeNodeMember.GetMemberValue(System.Object)">
+            <summary>
+            Gets the value of the member given the instance of the parent.
+            </summary>
+            <param name="parent">The instance from which to extrace the member.</param>
+            <returns>The value of the member value from the parent instance.</returns>
+        </member>
+    </members>
+</doc>
