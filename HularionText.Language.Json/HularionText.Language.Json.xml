@@ -1,0 +1,495 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HularionText.Language.Json</name>
+    </assembly>
+    <members>
+        <member name="T:HularionText.Language.Json.DeserializationRequest">
+            <summary>
+            A request in the deserialization process.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.DeserializationRequest.Element">
+            <summary>
+            The element to deserialize.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.DeserializationRequest.Type">
+            <summary>
+            The destination type of the element content.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.DeserializationRequest.TypeNodeProvider">
+            <summary>
+            Provides a TypeNode given a Type.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.DeserializationRequest.DeserializedValue">
+            <summary>
+            The deserialized value.
+            </summary>
+        </member>
+        <member name="T:HularionText.Language.Json.Elements.JsonArray">
+            <summary>
+            Represents a JSON array.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonArray.ElementType">
+            <summary>
+            The type of element.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonArray.Values">
+            <summary>
+            The values in the array.
+            </summary>
+        </member>
+        <member name="M:HularionText.Language.Json.Elements.JsonArray.MakeAnonymous">
+            <summary>
+            Converts this element to a list of object.
+            </summary>
+            <returns>The objects in this array.</returns>
+        </member>
+        <member name="T:HularionText.Language.Json.Elements.JsonBool">
+            <summary>
+            Represents a JSON boolean vlaue.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonBool.ElementType">
+            <summary>
+            The type of the element.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonBool.Value">
+            <summary>
+            The value of the element.
+            </summary>
+        </member>
+        <member name="T:HularionText.Language.Json.Elements.JsonElement">
+            <summary>
+            An element in a JsonDocument.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonElement.ElementType">
+            <summary>
+            The type of element.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonElement.Parent">
+            <summary>
+            The parent of this element.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonElement.Name">
+            <summary>
+            The name of this element.
+            </summary>
+        </member>
+        <member name="M:HularionText.Language.Json.Elements.JsonElement.AddNode(HularionText.Language.Json.Elements.JsonElement)">
+            <summary>
+            Adds a node to this element.
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:HularionText.Language.Json.Elements.JsonElement.GetStringValue(System.Boolean)">
+            <summary>
+            Gets the string value of this element.
+            </summary>
+            <param name="addQuotes">Iff true, quotes will be added to the ends of the string.</param>
+            <returns>The string value of this element.</returns>
+        </member>
+        <member name="M:HularionText.Language.Json.Elements.JsonElement.GetValue">
+            <summary>
+            Gets the value of the node.
+            </summary>
+            <returns>The value of the node.</returns>
+        </member>
+        <member name="M:HularionText.Language.Json.Elements.JsonElement.GetNextNodes">
+            <summary>
+            Gets the nodes for the child elements.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:HularionText.Language.Json.Elements.JsonElementType">
+            <summary>
+            The possible types of JSON elements in this context.
+            </summary>
+        </member>
+        <member name="F:HularionText.Language.Json.Elements.JsonElementType.Unknown">
+            <summary>
+            The element is unknown.
+            </summary>
+        </member>
+        <member name="F:HularionText.Language.Json.Elements.JsonElementType.Root">
+            <summary>
+            The root element of a JsonDocument.
+            </summary>
+        </member>
+        <member name="F:HularionText.Language.Json.Elements.JsonElementType.Object">
+            <summary>
+            A JSON object.
+            </summary>
+        </member>
+        <member name="F:HularionText.Language.Json.Elements.JsonElementType.Array">
+            <summary>
+            A JSON array.
+            </summary>
+        </member>
+        <member name="F:HularionText.Language.Json.Elements.JsonElementType.String">
+            <summary>
+            A JSON string.
+            </summary>
+        </member>
+        <member name="F:HularionText.Language.Json.Elements.JsonElementType.Number">
+            <summary>
+            A JSON number.
+            </summary>
+        </member>
+        <member name="F:HularionText.Language.Json.Elements.JsonElementType.Bool">
+            <summary>
+            A JSON boolean value.
+            </summary>
+        </member>
+        <member name="T:HularionText.Language.Json.Elements.JsonNumber">
+            <summary>
+            Represents a JSON number.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonNumber.ElementType">
+            <summary>
+            The type of the element.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonNumber.Value">
+            <summary>
+            The value of the number as read from a JSON string.
+            </summary>
+        </member>
+        <member name="M:HularionText.Language.Json.Elements.JsonNumber.GetValue">
+            <summary>
+            Parses the Value and returns a number type.
+            </summary>
+            <returns>The parsed number value.</returns>
+        </member>
+        <member name="T:HularionText.Language.Json.Elements.JsonObject">
+            <summary>
+            Represents a JSON object.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonObject.ElementType">
+            <summary>
+            The type of the element.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonObject.Values">
+            <summary>
+            The values within the object.
+            </summary>
+        </member>
+        <member name="M:HularionText.Language.Json.Elements.JsonObject.MakeAnonymous">
+            <summary>
+            Stores the values into a string-object Dictionary.
+            </summary>
+            <returns>The anonymized values.</returns>
+        </member>
+        <member name="T:HularionText.Language.Json.Elements.JsonRoot">
+            <summary>
+            A root element for a JSON document. Root is not part of the JSON object.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonRoot.ElementType">
+            <summary>
+            The type of the element.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonRoot.Values">
+            <summary>
+            The values within the JSON object.
+            </summary>
+        </member>
+        <member name="M:HularionText.Language.Json.Elements.JsonRoot.MakeAnonymous">
+            <summary>
+            Converts this document to a structure of dictionaries and lists.
+            </summary>
+            <returns>The anonomized object.</returns>
+        </member>
+        <member name="T:HularionText.Language.Json.Elements.JsonString">
+            <summary>
+            Represents a JSON string.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonString.ElementType">
+            <summary>
+            The type of the element.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonString.Value">
+            <summary>
+            The value the element.
+            </summary>
+        </member>
+        <member name="T:HularionText.Language.Json.Elements.JsonUnknown">
+            <summary>
+            Represents an unknown JSON element.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonUnknown.ElementType">
+            <summary>
+            The type of the element.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.Elements.JsonUnknown.Value">
+            <summary>
+            The value of the element taken from a JSON string.
+            </summary>
+        </member>
+        <member name="T:HularionText.Language.Json.JsonDocument">
+            <summary>
+            An abstracted form of a JSON object. 
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.JsonDocument.Root">
+            <summary>
+            The root container object of the document. This is not a proper JSON object itself.
+            </summary>
+        </member>
+        <member name="M:HularionText.Language.Json.JsonDocument.MakeAnonymous">
+            <summary>
+            Converts this document to a structure of dictionaries and lists.
+            </summary>
+            <returns>The anonymized document.</returns>
+        </member>
+        <member name="M:HularionText.Language.Json.JsonDocument.ToDocumentString(HularionText.Language.Json.JsonSerializationSpacing)">
+            <summary>
+            Converts this document to a JSON string.
+            </summary>
+            <param name="spacing">An option to set the whitespace format of the result.</param>
+            <returns>A JSON string.</returns>
+        </member>
+        <member name="T:HularionText.Language.Json.JsonLanguage">
+            <summary>
+            A language parser for JSON that can convert JSON string into a JsonDocument.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:HularionText.Language.Json.JsonLanguage.SymbolTree" -->
+        <member name="M:HularionText.Language.Json.JsonLanguage.Parse(System.String)">
+            <summary>
+            Parses the text string into a JsonDocument.
+            </summary>
+            <param name="text">The text to parse/</param>
+            <returns>A JsonDocument.</returns>
+        </member>
+        <member name="T:HularionText.Language.Json.JsonSerializationSpacing">
+            <summary>
+            Options for whitespace formatting for a JSON string.
+            </summary>
+        </member>
+        <member name="F:HularionText.Language.Json.JsonSerializationSpacing.Minimized">
+            <summary>
+            The JSON string will have no extra whitespace.
+            </summary>
+        </member>
+        <member name="F:HularionText.Language.Json.JsonSerializationSpacing.Expanded">
+            <summary>
+            The JSON string will contain newlines and tabs to separate data.
+            </summary>
+        </member>
+        <member name="T:HularionText.Language.Json.JsonSerializer">
+            <summary>
+            Serializes typed objects to and from JsonDocument objects.
+            </summary>
+        </member>
+        <member name="M:HularionText.Language.Json.JsonSerializer.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:HularionText.Language.Json.JsonSerializer.Serialize(System.Object,HularionText.Language.Json.JsonSerializationSpacing)">
+            <summary>
+            Serializes the given value to a JsonDocument, and then serializes the JsonDocument to a string.
+            </summary>
+            <param name="value"></param>
+            <returns>The serialized value.</returns>
+        </member>
+        <member name="M:HularionText.Language.Json.JsonSerializer.SerializeToJsonDocument(System.Object)">
+            <summary>
+            Serializes the given value to a JsonDocument.
+            </summary>
+            <param name="value"></param>
+            <returns>The serialized value.</returns>
+        </member>
+        <member name="M:HularionText.Language.Json.JsonSerializer.Deserialize``1(System.String)">
+            <summary>
+            Deserializes the text to a JsonDocument, and then deserializes the JsonDocument to an object of the provided type.
+            </summary>
+            <typeparam name="T">The type to which the text is deserialized.</typeparam>
+            <param name="text">The text to deserialize.</param>
+            <returns>The typed object containing the information in text.</returns>
+        </member>
+        <member name="M:HularionText.Language.Json.JsonSerializer.Deserialize(System.Type,System.String)">
+            <summary>
+            Deserializes the text to a JsonDocument, and then deserializes the JsonDocument to an object of the provided type.
+            </summary>
+            <param name="type">The type to which the text is deserialized.</param>
+            <param name="text">The text to deserialize.</param>
+            <returns>The typed object containing the information in text.</returns>
+        </member>
+        <member name="M:HularionText.Language.Json.JsonSerializer.DeserializeAll``1(System.String)">
+            <summary>
+            Deserializes the text to zero or more JsonDocument objects, and then deserializes the JsonDocument objects to an object of the provided type.
+            </summary>
+            <typeparam name="T">The type to which the text is deserialized.</typeparam>
+            <param name="text">The text to deserialize.</param>
+            <returns>The typed objects containing the information in text.</returns>
+        </member>
+        <member name="M:HularionText.Language.Json.JsonSerializer.DeserializeAll(System.Type,System.String)">
+            <summary>
+            Deserializes the text to zero or more JsonDocument objects, and then deserializes the JsonDocument objects to an object of the provided type.
+            </summary>
+            <param name="type">The type to which the text is deserialized.</param>
+            <param name="text">The text to deserialize.</param>
+            <returns>The typed objects containing the information in text.</returns>
+        </member>
+        <member name="M:HularionText.Language.Json.JsonSerializer.SetTypeSerializer``1(HularionText.Language.Json.TypeSerializer)">
+            <summary>
+            Sets the serializer for the specified type. If the type is a generic definition, all manifested types (including generics) will use this serializer unless that type is also set separately.
+            </summary>
+            <typeparam name="T">The type for which the serializer is set.</typeparam>
+            <param name="serializer">The serializer to set.</param>
+        </member>
+        <member name="M:HularionText.Language.Json.JsonSerializer.SetTypeSerializer(System.Type,HularionText.Language.Json.TypeSerializer)">
+            <summary>
+            Sets the serializer for the specified type. If the type is a generic definition, all manifested types (including generics) will use this serializer unless that type is also set separately.
+            </summary>
+            <param name="type">The type for which the serializer is set.</param>
+            <param name="serializer">The serializer to set.</param>
+        </member>
+        <member name="T:HularionText.Language.Json.SerializationDetail">
+            <summary>
+            Contains the details for serializing and deserializing values.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.SerializationDetail.TypedValue">
+            <summary>
+            Information related to the value.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.SerializationDetail.Element">
+            <summary>
+            The element to deserialize.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.SerializationDetail.TypeNodeProvider">
+            <summary>
+            Provides the TypeNode for the given type.
+            </summary>
+            <remarks>Use the TypeNode of a type to get its members and get/set values.</remarks>
+        </member>
+        <member name="P:HularionText.Language.Json.SerializationDetail.ValueMap">
+            <summary>
+            The value map used in the deserialization process.
+            </summary>
+        </member>
+        <member name="T:HularionText.Language.Json.Serializers.CollectionSerializer">
+            <summary>
+            Contains the serialization details for collection types.
+            </summary>
+        </member>
+        <member name="M:HularionText.Language.Json.Serializers.CollectionSerializer.MakeSerializer">
+            <summary>
+            Creates the serializer.
+            </summary>
+            <returns>The serializer.</returns>
+        </member>
+        <member name="M:HularionText.Language.Json.Serializers.CollectionSerializer.SetSerializerTypes(HularionText.Language.Json.JsonSerializer)">
+            <summary>
+            Sets the serializr for the related types.
+            </summary>
+            <param name="serializer">The serializer in which to set the type serializers.</param>
+        </member>
+        <member name="T:HularionText.Language.Json.Serializers.DictionarySerializer">
+            <summary>
+            Contains the serialization details for Dictionary types.
+            </summary>
+        </member>
+        <member name="M:HularionText.Language.Json.Serializers.DictionarySerializer.MakeSerializer">
+            <summary>
+            Creates the serializer.
+            </summary>
+            <returns>The serializer.</returns>
+        </member>
+        <member name="M:HularionText.Language.Json.Serializers.DictionarySerializer.SetSerializerTypes(HularionText.Language.Json.JsonSerializer)">
+            <summary>
+            Sets the serializr for the related types.
+            </summary>
+            <param name="serializer">The serializer in which to set the type serializers.</param>
+        </member>
+        <member name="T:HularionText.Language.Json.Serializers.KeyValuePairSerializer">
+            <summary>
+            Contains the serialization details for the KeyValuePair type.
+            </summary>
+        </member>
+        <member name="M:HularionText.Language.Json.Serializers.KeyValuePairSerializer.MakeSerializer">
+            <summary>
+            Creates the serializer.
+            </summary>
+            <returns>The serializer.</returns>
+        </member>
+        <member name="M:HularionText.Language.Json.Serializers.KeyValuePairSerializer.SetSerializerTypes(HularionText.Language.Json.JsonSerializer)">
+            <summary>
+            Sets the serializr for the related types.
+            </summary>
+            <param name="serializer">The serializer in which to set the type serializers.</param>
+        </member>
+        <member name="T:HularionText.Language.Json.TypedValue">
+            <summary>
+            Contains the information for examining and placing a value.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.TypedValue.Type">
+            <summary>
+            The type of the value bein examined.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.TypedValue.Value">
+            <summary>
+            The value being examined.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.TypedValue.Name">
+            <summary>
+            The name of the value if it is a member of another value.
+            </summary>
+        </member>
+        <member name="T:HularionText.Language.Json.TypeSerializer">
+            <summary>
+            Contains the serialization details for a given type.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.TypeSerializer.Type">
+            <summary>
+            The type that is set for the deserializer. 
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.TypeSerializer.Serialize">
+            <summary>
+            This function must serialize an object to a JsonElement using the provided detail object.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.TypeSerializer.Deserialize">
+            <summary>
+            This function must deserialize the JsonElement in the detail object to a typed object.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.TypeSerializer.GetNextValues">
+            <summary>
+            When serializing to a JsonArray or JsonObject, this function must provide the next values to serialize.
+            </summary>
+        </member>
+        <member name="P:HularionText.Language.Json.TypeSerializer.GetNextDeserializationRequests">
+            <summary>
+            If not null, this will provide the next elements in the serialization tree. Use if the type is not a normal value, object, or array.
+            </summary>
+        </member>
+    </members>
+</doc>
