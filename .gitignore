@@ -2,5 +2,5 @@
 *.vs
 obj/
 bin/
-
+*.user
 
