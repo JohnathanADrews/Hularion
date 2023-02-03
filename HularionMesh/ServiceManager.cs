@@ -140,7 +140,8 @@ namespace HularionMesh
         {
             lock (linkTable)
             {
-                return linkTable.GetAllEntries<IDomainLinkService>().Select(x => new MeshDomainLink() { DomainA = x.Column, DomainB = x.Row }).ToList();
+                var links = linkTable.GetAllEntries<IDomainLinkService>().Select(x => new MeshDomainLink() { DomainA = x.Column, DomainB = x.Row, Key = x.Value.LinkDomain.Key }).ToList();
+                return links.Distinct().ToList();
             }
         }
 

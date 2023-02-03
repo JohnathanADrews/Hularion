@@ -266,6 +266,8 @@ namespace HularionMesh.Query
                     new ExpressionNode(){ Expression = expression.Right }
                 };
             });
+
+
             var plan = traverser.CreateEvaluationPlan(TreeTraversalOrder.ParentLeftRight, root, node =>
             {
                 switch (node.Expression.NodeType)
@@ -318,6 +320,21 @@ namespace HularionMesh.Query
                     case ExpressionType.Constant:
                         if (!hasComparison) { throw new ArgumentException(String.Format("The provided expression must contain a comparison to be a valid where clause. (e.g. &&, ||, ^, ==, != <, <=, >, >=). [w58Jmnn9fk6L2RZH7UhrlA]")); }
                         node.Type = ExpressionNode.NodeType.Constant;
+                        return node.Next;
+                    case ExpressionType.Convert:
+                        node.Type = ExpressionNode.NodeType.Convert;
+                        var expression = node.Expression;
+                        while(expression.NodeType == ExpressionType.Convert) { expression = ((UnaryExpression)expression).Operand; }
+                        node.Expression = expression;
+                        if (expression.NodeType == ExpressionType.MemberAccess)
+                        {
+                            node.Type = ExpressionNode.NodeType.Member;
+                        }
+                        if(expression.NodeType == ExpressionType.Constant)
+                        {
+                            node.Type = ExpressionNode.NodeType.Constant;
+                        }
+                        //node.Next = new ExpressionNode[] { new ExpressionNode() { Expression = expression } };
                         return node.Next;
                     default:
                         throw new ArgumentException(String.Format("The provided expression contains an unhandled operation. {0} {1}. [ce36hUYe9UKcqCk2Fakz3w]", node.Expression.NodeType, node.ToString()));
@@ -379,6 +396,10 @@ namespace HularionMesh.Query
                         node.Where.Value = ((ConstantExpression)next0.Expression).Value;
                         node.Where.Nodes = new WhereExpressionNode[] { };
                     }
+                }
+                if (node.Type == ExpressionNode.NodeType.Convert)
+                {
+
                 }
 
             }
@@ -570,7 +591,8 @@ namespace HularionMesh.Query
                 BinaryOperator,
                 Comparison,
                 Member,
-                Constant
+                Constant,
+                Convert
             }
 
         }

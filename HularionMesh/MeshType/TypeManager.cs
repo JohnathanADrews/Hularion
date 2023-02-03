@@ -254,7 +254,8 @@ namespace HularionMesh.MeshType
                             memberAssigners.Add((typeObject, domainObject) =>
                             {
                                 if (!domainObject.Meta.ContainsKey(MeshKeyword.ValueCreator.Alias)) { return; }
-                                property.SetValue(typeObject, domainObject.Meta[MeshKeyword.ValueCreator.Alias]);
+                                if (IsType(property.PropertyType, stringType)) { property.SetValue(typeObject, MeshKey.Parse(domainObject.Meta[MeshKeyword.ValueCreator.Alias]).Serialized); }
+                                if (IsOrDerivedFrom(property.PropertyType, meshKeyType)) { property.SetValue(typeObject, MeshKey.Parse(domainObject.Meta[MeshKeyword.ValueCreator.Alias])); }
                             });
                         }
                         break;
@@ -272,7 +273,8 @@ namespace HularionMesh.MeshType
                             memberAssigners.Add((typeObject, domainObject) =>
                             {
                                 if (!domainObject.Meta.ContainsKey(MeshKeyword.ValueUpdater.Alias)) { return; }
-                                property.SetValue(typeObject, domainObject.Meta[MeshKeyword.ValueUpdater.Alias]);
+                                if (IsType(property.PropertyType, stringType)) { property.SetValue(typeObject, MeshKey.Parse(domainObject.Meta[MeshKeyword.ValueUpdater.Alias]).Serialized); }
+                                if (IsOrDerivedFrom(property.PropertyType, meshKeyType)) { property.SetValue(typeObject, MeshKey.Parse(domainObject.Meta[MeshKeyword.ValueUpdater.Alias])); }
                             });
                         }
                         break;

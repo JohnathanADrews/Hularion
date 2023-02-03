@@ -35,6 +35,12 @@ namespace HularionMesh.Connector.HularionDataFile
         public HularionDataFileProvider FileProvider { get; private set; }
 
         /// <summary>
+        /// If true, the mesh will be checked at a regular interval for updates. If it is updated and this is true, the file will be updates.
+        /// </summary>
+        public bool DoAutomaticUpdates { get { return FileProvider.DoAutomaticUpdates; } set { FileProvider.DoAutomaticUpdates = value; } }
+
+
+        /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="repository">The mesh repository.</param>
@@ -48,9 +54,11 @@ namespace HularionMesh.Connector.HularionDataFile
         /// <summary>
         /// Flushes the file, saving any changes.
         /// </summary>
-        public void FlushFile()
+        /// <param name="stopAutomaticUpdates">If true, automatic updates will be stopped. This should be set to true the last time the file is updated.</param>
+        public void FlushFile(bool stopAutomaticUpdates = true)
         {
-            FileProvider.Flush();
+            if (stopAutomaticUpdates) { DoAutomaticUpdates = false; }
+            FileProvider.Flush(true);
         }
 
     }

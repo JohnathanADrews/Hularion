@@ -4,21 +4,29 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>www.hularion.com</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/JohnathanADrews/Hularion</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.0</Version>
-    <Authors>Johnathan A Drews</Authors>
-    <Company>Johnathan A Drews</Company>
     <Description>A JSON serializer using HularionText.</Description>
+    <RepositoryUrl>https://github.com/JohnathanADrews/Hularion</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>2023</Copyright>
+    <PackageIcon>Hularion image.png</PackageIcon>
+    <Version>1.0.4</Version>
+    <Company>Johnathan A Drews</Company>
+    <Authors>Johnathan A Drews</Authors>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\dev\Standard\HularionRelease\2023-01-30-02 Hularion - License applied\HularionText.Language.Json\HularionText.Language.Json.xml</DocumentationFile>
+    <DocumentationFile>C:\dev\Standard\Hularion\HularionText.Language.Json\HularionText.Language.Json.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\Hularion image.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -26,8 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HularionText" Version="1.0.1" />
+    <PackageReference Include="HularionText" Version="1.0.4" />
   </ItemGroup>
-
 
 </Project>

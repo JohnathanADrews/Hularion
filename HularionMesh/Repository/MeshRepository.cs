@@ -825,6 +825,14 @@ namespace HularionMesh.Repository
         public RepositoryQueryResponse<T> QueryTree<T>(WhereExpressionNode where)
             where T : class
         {
+            var domain = TypeRegistrar.GetDomain<T>();
+            if (domain.IsGeneric)
+            {
+                var generics = MeshGeneric.FromType<T>(TypeRegistrar.TypeKeyProvider);
+                var serialized = MeshGeneric.SerializeGenerics(generics);
+                var genericWhere = new WhereExpressionNode() { Mode = WhereExpressionNodeValueMode.Meta, Value = serialized, Comparison = DataTypeComparison.Equal, Property = MeshKeyword.Generics.Alias };
+                where = where.CombineWithOperator(genericWhere, BinaryOperator.AND);
+            }
             var request = new DomainAggregateQueryRequest() { Read = new AggregateQueryItem() { Domain = TypeRegistrar.GetDomain<T>(), RecurrenceRootWhere = where, Reads = DomainReadRequest.ReadKeys, Mode = AggregateDomainMode.Domain } };
             var service = MeshServicesProvider.AggregateServiceProvider.Provide();
             var queryResult = service.QueryProcessor.Process(request);
@@ -1384,27 +1392,22 @@ namespace HularionMesh.Repository
         public RepositoryCollection GetCollection()
         {
             var collection = new RepositoryCollection();
-            //collection.Domains = MeshServicesProvider.DynamicProvider.MeshDomainsProvider.Provide().ToList();
             collection.Domains = MeshServicesProvider.DomainServiceCommunicator.AllValueDomainsProvider.Provide().Response.ToList();
             var objects = new List<DomainObject>();
             foreach (var domain in collection.Domains)
             {
-                //var service = MeshServicesProvider.DynamicProvider.DomainValueServiceProvider.Provide(domain);
                 var service = MeshServicesProvider.DomainServiceCommunicator.ValuesServiceByDomainProvider.Provide(domain).Response;
                 var reads = service.QueryProcessor.Process(new DomainValueQueryRequest() { Reads = DomainReadRequest.ReadAll, Where = WhereExpressionNode.ReadAll });
                 objects.AddRange(reads.Values);
             }
             collection.Objects = objects;
-            //var linkDomains = MeshServicesProvider.DynamicProvider.LinkedDomainsProvider.Provide();
-            collection.LinkDomains = MeshServicesProvider.DomainServiceCommunicator.AllLinkDomainsProvider.Provide().Response.ToList();
-            var links = new List<DomainLinker>();
-            //var linkServices = new HashSet<IDomainLinkService>(linkDomains.Select(x => MeshServicesProvider.DynamicProvider.DomainLinkServiceProvider.Provide(x)));
-            var linkServices = new HashSet<IDomainLinkService>(collection.LinkDomains.Select(x => MeshServicesProvider.DomainServiceCommunicator.LinkServiceByLinkedDomainsProvider.Provide(x.GetLinkedDomains()).Response));
 
+            collection.LinkDomains = MeshServicesProvider.DomainServiceCommunicator.AllLinkDomainsProvider.Provide().Response.ToList();
+
+            var links = new List<DomainLinker>();
+            var linkServices = new HashSet<IDomainLinkService>(collection.LinkDomains.Select(x => MeshServicesProvider.DomainServiceCommunicator.LinkServiceByLinkedDomainsProvider.Provide(x.GetLinkedDomains()).Response));
             foreach (var service in linkServices)
             {
-                //var service = MeshServicesProvider.DynamicProvider.DomainLinkServiceProvider.Provide(domain);
-                service.AllLinksProvider.Provide();
                 links.AddRange(service.AllLinksProvider.Provide());
             }
             collection.Links = links.Distinct().ToList();

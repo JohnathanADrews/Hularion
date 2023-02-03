@@ -49,6 +49,10 @@ namespace HularionMesh.Connector.HularionDataFile
         /// </summary>
         public IProvider<IDomainAggregateService> AggregateServiceProvider { get; private set; }
 
+        /// <summary>
+        /// If true, the mesh will be checked at a regular interval for updates. If it is updated and this is true, the file will be updates.
+        /// </summary>
+        public bool DoAutomaticUpdates { get { return fileAccessor.DoAutomaticUpdates; } set { fileAccessor.DoAutomaticUpdates = value; } }
 
         private static IParameterizedCreator<MeshDomain, IMeshKey> domainValueKeyCreator =
             ParameterizedCreator.FromSingle<MeshDomain, IMeshKey>(domain =>
@@ -97,14 +101,6 @@ namespace HularionMesh.Connector.HularionDataFile
             });
             AggregateServiceProvider = new ProviderFunction<IDomainAggregateService>(()=> aggregateService);
 
-            //memoryProvider.AggregateServiceProvider.ProcessSuffixes.AddSuffix(() => 
-            //{ 
-            //    fileAccessor.CurrentFileStatus.FileIsUpdated = true; 
-            //});
-            //memoryProvider.AggregateServiceProvider.Provide().AffectProcessor.ProcessSuffixes.AddSuffix(() => 
-            //{ 
-            //    fileAccessor.CurrentFileStatus.FileIsUpdated = true; 
-            //});
 
             fileAccessor.FileProvider = new ProviderFunction<string>(() => GetHularionFile(memoryProvider));
         }
@@ -121,13 +117,13 @@ namespace HularionMesh.Connector.HularionDataFile
             {
                 file = new MeshServicesFile();
                 var serialized = hularionSerializer.Serialize(file);
-                fileAccessor.WriteEntireFile(serialized);
+                fileAccessor.WriteEntireFile(serialized, false);
             }
 
             var domainProvider = ParameterizedProvider.FromSingle<IMeshKey, MeshDomain>(key => memoryProvider.DomainServiceCommunicator.DomainByKeyProvider.Provide(key).Response);
             memoryProvider.AggregateServiceProvider.Provide().ImportObjectsAndLinks(domainProvider, file.Objects, file.Links);
 
-            fileAccessor.ProcessUpdates = true;
+            //fileAccessor.ProcessUpdates = true;
         }
 
         /// <summary>
@@ -182,10 +178,12 @@ namespace HularionMesh.Connector.HularionDataFile
         /// <summary>
         /// Flushes the current state of mesh services to a file.
         /// </summary>
-        public void Flush()
+        /// <param name="stopProcessing">if true (default), automatic updates will be turned off.</param>
+        public void Flush(bool stopProcessing = true)
         {
+            if (stopProcessing) { DoAutomaticUpdates = false; }
             var content = GetHularionFile(this.memoryProvider);
-            fileAccessor.WriteEntireFile(content);
+            fileAccessor.WriteEntireFile(content, stopProcessing);
         }
 
     }

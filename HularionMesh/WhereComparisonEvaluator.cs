@@ -32,6 +32,9 @@ namespace HularionMesh
         private static Type int16Type = typeof(short);
         private static Type int32Type = typeof(int);
         private static Type int64Type = typeof(long);
+        private static Type uInt16Type = typeof(ushort);
+        private static Type uInt32Type = typeof(uint);
+        private static Type uInt64Type = typeof(ulong);
         private static Type floatType = typeof(float);
         private static Type doubleType = typeof(double);
         private static Type decimalType = typeof(decimal);
@@ -52,23 +55,108 @@ namespace HularionMesh
 
         private static HashSet<Type> keyTypes = new HashSet<Type>(new Type[] { keyType });
 
+        private static long toLong(object value)
+        {
+            return (long)Convert.ChangeType(value, int64Type);
+        }
+        private static double toDouble(object value)
+        {
+            return (double)Convert.ChangeType(value, doubleType);
+        }
+        private static decimal toDecimal(object value)
+        {
+            return (decimal)Convert.ChangeType(value, decimalType);
+        }
+        private static ulong toULong(object value)
+        {
+            return (ulong)Convert.ChangeType(value, uInt64Type);
+        }
+
+
+
         static WhereComparisonEvaluator()
         {
             var intTypes = new Type[] { int8Type, int16Type, int32Type, int64Type };
+            var uIntTypes = new Type[] { uInt16Type, uInt32Type, uInt64Type };
             var floatTypes = new Type[] { floatType, doubleType };
 
             foreach (var type1 in intTypes)
             {
                 foreach (var type2 in intTypes)
                 {
-                    equalTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => x == y));
-                    notEqualTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => x != y));
-                    greaterThanTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => (long)x > (long)y));
-                    greaterThanOrEqualToTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => (long)x >= (long)y));
-                    lessThanTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => (long)x < (long)y));
-                    lessThanOrEqualToTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => (long)x <= (long)y));
-                    //Setup the In collection as a hash set prior to call.
-                    inTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => ((HashSet<long>)x).Contains((long)y)));
+                    equalTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => x.Equals(y)));
+                    notEqualTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => !x.Equals(y)));
+                    greaterThanTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => toLong(x) > toLong(y)));
+                    greaterThanOrEqualToTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => toLong(x) >= toLong(y)));
+                    lessThanTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => toLong(x) < toLong(y)));
+                    lessThanOrEqualToTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => toLong(x) <= toLong(y)));
+                    inTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => ((HashSet<long>)x).Contains(toLong(y))));
+                }
+            }
+
+            foreach (var type1 in uIntTypes)
+            {
+                foreach (var type2 in uIntTypes)
+                {
+                    equalTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => x.Equals(y)));
+                    notEqualTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => !x.Equals(y)));
+                    greaterThanTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => toULong(x) > toULong(y)));
+                    greaterThanOrEqualToTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => toULong(x) >= toULong(y)));
+                    lessThanTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => toULong(x) < toULong(y)));
+                    lessThanOrEqualToTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => toULong(x) <= toULong(y)));
+                    inTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => ((HashSet<ulong>)x).Contains(toULong(y))));
+                }
+            }
+
+            foreach (var type1 in intTypes)
+            {
+                foreach (var type2 in uIntTypes)
+                {
+                    equalTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => x.Equals(y)));
+                    notEqualTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => !x.Equals(y)));
+                    greaterThanTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) =>
+                    {
+                        if (toLong(x) < 0) { return false; }
+                        return toULong(x) > toULong(y);
+                    }));
+                    greaterThanOrEqualToTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) =>
+                    {
+                        if (toLong(x) < 0) { return false; }
+                        return toULong(x) >= toULong(y);
+                    }));
+                    lessThanTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) =>
+                    {
+                        if (toLong(x) < 0) { return true; }
+                        return toULong(x) < toULong(y);
+                    }));
+                    lessThanOrEqualToTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) =>
+                    {
+                        if (toLong(x) < 0) { return true; }
+                        return toULong(x) <= toULong(y);
+                    }));
+
+                    equalTable.SetValue(type2, type1, new Func<object, object, bool>((y, x) => x.Equals(y)));
+                    notEqualTable.SetValue(type2, type1, new Func<object, object, bool>((y, x) => !x.Equals(y)));
+                    greaterThanTable.SetValue(type2, type1, new Func<object, object, bool>((y, x) =>
+                    {
+                        if (toLong(x) < 0) { return false; }
+                        return toULong(x) > toULong(y);
+                    }));
+                    greaterThanOrEqualToTable.SetValue(type2, type1, new Func<object, object, bool>((y, x) =>
+                    {
+                        if (toLong(x) < 0) { return false; }
+                        return toULong(x) >= toULong(y);
+                    }));
+                    lessThanTable.SetValue(type2, type1, new Func<object, object, bool>((y, x) =>
+                    {
+                        if (toLong(x) < 0) { return true; }
+                        return toULong(x) < toULong(y);
+                    }));
+                    lessThanOrEqualToTable.SetValue(type2, type1, new Func<object, object, bool>((y, x) =>
+                    {
+                        if (toLong(x) < 0) { return true; }
+                        return toULong(x) <= toULong(y);
+                    }));
                 }
             }
 
@@ -76,8 +164,8 @@ namespace HularionMesh
             {
                 foreach (var type2 in floatTypes)
                 {
-                    equalTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => x == y));
-                    notEqualTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => x != y));
+                    equalTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => x.Equals(y)));
+                    notEqualTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => !x.Equals(y)));
                     greaterThanTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => (double)x > (double)y));
                     greaterThanOrEqualToTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => (double)x >= (double)y));
                     lessThanTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => (double)x < (double)y));
@@ -95,37 +183,36 @@ namespace HularionMesh
                     equalTable.SetValue(type2, type1, new Func<object, object, bool>((x, y) => x == y));
                     notEqualTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => x != y));
                     notEqualTable.SetValue(type2, type1, new Func<object, object, bool>((x, y) => x != y));
-                    greaterThanTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => (double)x > (double)y));
-                    greaterThanTable.SetValue(type2, type1, new Func<object, object, bool>((x, y) => (double)x > (double)y));
-                    greaterThanOrEqualToTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => (double)x >= (double)y));
-                    greaterThanOrEqualToTable.SetValue(type2, type1, new Func<object, object, bool>((x, y) => (double)x >= (double)y));
-                    lessThanTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => (double)x < (double)y));
-                    lessThanTable.SetValue(type2, type1, new Func<object, object, bool>((x, y) => (double)x < (double)y));
-                    lessThanOrEqualToTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => (double)x <= (double)y));
-                    lessThanOrEqualToTable.SetValue(type2, type1, new Func<object, object, bool>((x, y) => (double)x <= (double)y));
+                    greaterThanTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => toDouble(x) > toDouble(y)));
+                    greaterThanTable.SetValue(type2, type1, new Func<object, object, bool>((x, y) => toDouble(x) > toDouble(y)));
+                    greaterThanOrEqualToTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => toDouble(x) >= toDouble(y)));
+                    greaterThanOrEqualToTable.SetValue(type2, type1, new Func<object, object, bool>((x, y) => toDouble(x) >= toDouble(y)));
+                    lessThanTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => toDouble(x) < toDouble(y)));
+                    lessThanTable.SetValue(type2, type1, new Func<object, object, bool>((x, y) => toDouble(x) < toDouble(y)));
+                    lessThanOrEqualToTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => toDouble(x) <= toDouble(y)));
+                    lessThanOrEqualToTable.SetValue(type2, type1, new Func<object, object, bool>((x, y) => toDouble(x) <= toDouble(y)));
                     //Setup the In collection as a hash set prior to call.
-                    inTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => ((HashSet<double>)x).Contains((double)y)));
-                    inTable.SetValue(type2, type1, new Func<object, object, bool>((x, y) => ((HashSet<double>)x).Contains((double)y)));
+                    inTable.SetValue(type1, type2, new Func<object, object, bool>((x, y) => ((HashSet<double>)x).Contains(toDouble(y))));
+                    inTable.SetValue(type2, type1, new Func<object, object, bool>((x, y) => ((HashSet<double>)x).Contains(toDouble(y))));
                 }
             }
 
             foreach (var type in intTypes)
             {
-                equalTable.SetValue(type, decimalType, new Func<object, object, bool>((x, y) => new decimal((long)x) == (decimal)y));
-                equalTable.SetValue(decimalType, type, new Func<object, object, bool>((x, y) => (decimal)x == new decimal((long)y)));
-                notEqualTable.SetValue(type, decimalType, new Func<object, object, bool>((x, y) => new decimal((long)x) != (decimal)y));
-                notEqualTable.SetValue(decimalType, type, new Func<object, object, bool>((x, y) => (decimal)x != new decimal((long)y)));
-                greaterThanTable.SetValue(type, decimalType, new Func<object, object, bool>((x, y) => new decimal((long)x) > (decimal)y));
-                greaterThanTable.SetValue(decimalType, type, new Func<object, object, bool>((x, y) => (decimal)x > new decimal((long)y)));
-                greaterThanOrEqualToTable.SetValue(type, decimalType, new Func<object, object, bool>((x, y) => new decimal((long)x) >= (decimal)y));
-                greaterThanOrEqualToTable.SetValue(decimalType, type, new Func<object, object, bool>((x, y) => (decimal)x >= new decimal((long)y)));
-                lessThanTable.SetValue(type, decimalType, new Func<object, object, bool>((x, y) => new decimal((long)x) < (decimal)y));
-                lessThanTable.SetValue(decimalType, type, new Func<object, object, bool>((x, y) => (decimal)x < new decimal((long)y)));
-                lessThanOrEqualToTable.SetValue(type, decimalType, new Func<object, object, bool>((x, y) => new decimal((long)x) <= (decimal)y));
-                lessThanOrEqualToTable.SetValue(decimalType, type, new Func<object, object, bool>((x, y) => (decimal)x <= new decimal((long)y)));
-                //Setup the In collection as a hash set prior to call.
-                inTable.SetValue(type, decimalType, new Func<object, object, bool>((x, y) => ((HashSet<decimal>)x).Contains((decimal)y)));
-                inTable.SetValue(decimalType, type, new Func<object, object, bool>((x, y) => ((HashSet<decimal>)y).Contains((decimal)x)));
+                equalTable.SetValue(type, decimalType, new Func<object, object, bool>((x, y) => toDecimal(x) == toDecimal(y)));
+                equalTable.SetValue(decimalType, type, new Func<object, object, bool>((x, y) => toDecimal(x) == toDecimal(y)));
+                notEqualTable.SetValue(type, decimalType, new Func<object, object, bool>((x, y) => toDecimal(x) != toDecimal(y)));
+                notEqualTable.SetValue(decimalType, type, new Func<object, object, bool>((x, y) => toDecimal(x) != toDecimal(y)));
+                greaterThanTable.SetValue(type, decimalType, new Func<object, object, bool>((x, y) => toDecimal(x) > toDecimal(y)));
+                greaterThanTable.SetValue(decimalType, type, new Func<object, object, bool>((x, y) => toDecimal(x) > toDecimal(y)));
+                greaterThanOrEqualToTable.SetValue(type, decimalType, new Func<object, object, bool>((x, y) => toDecimal(x) >= toDecimal(y)));
+                greaterThanOrEqualToTable.SetValue(decimalType, type, new Func<object, object, bool>((x, y) => toDecimal(x) >= toDecimal(y)));
+                lessThanTable.SetValue(type, decimalType, new Func<object, object, bool>((x, y) => toDecimal(x) < toDecimal(y)));
+                lessThanTable.SetValue(decimalType, type, new Func<object, object, bool>((x, y) => toDecimal(x) < toDecimal(y)));
+                lessThanOrEqualToTable.SetValue(type, decimalType, new Func<object, object, bool>((x, y) => toDecimal(x) <= toDecimal(y)));
+                lessThanOrEqualToTable.SetValue(decimalType, type, new Func<object, object, bool>((x, y) => toDecimal(x) <= toDecimal(y)));
+                inTable.SetValue(type, decimalType, new Func<object, object, bool>((x, y) => ((HashSet<decimal>)x).Contains(toDecimal(y))));
+                inTable.SetValue(decimalType, type, new Func<object, object, bool>((x, y) => ((HashSet<decimal>)y).Contains(toDecimal(x))));
             }
 
             foreach (var type in floatTypes)
@@ -149,7 +236,6 @@ namespace HularionMesh
 
             equalTable.SetValue(stringType, stringType, new Func<object, object, bool>((x, y) => String.Equals(x,y)));
             notEqualTable.SetValue(stringType, stringType, new Func<object, object, bool>((x, y) => !String.Equals(x, y)));
-            //TODO: Setup a regular expression to deal with like
             likeTable.SetValue(stringType, stringType, new Func<object, object, bool>((x, y) =>
             {
                 if (!likeRegex.ContainsKey((string)x))
@@ -203,6 +289,8 @@ namespace HularionMesh
                 if (node.Mode == WhereExpressionNodeValueMode.Key && valueType == typeof(object[])) { actual = new HashSet<IMeshKey>(((IEnumerable<object>)node.Value).Select(x => MeshKey.Parse(x.ToString()))); }
             }
 
+            Type aType = actual == null ? null : actual.GetType();
+            Type vType = value == null ? null : value.GetType();
             switch (node.Comparison)
             {
                 case DataTypeComparison.Equal:
@@ -215,23 +303,23 @@ namespace HularionMesh
                     break;
                 case DataTypeComparison.GreaterThan:
                     if (actual == null || value == null) { result = false; break; }
-                    result = greaterThanTable.GetValue<Func<object, object, bool>>(actual.GetType(), value.GetType())(actual, value);
+                    result = greaterThanTable.GetValue<Func<object, object, bool>>(actual.GetType(), value.GetType())(value, actual);
                     break;
                 case DataTypeComparison.GreaterThanOrEqualTo:
                     if (actual == null || value == null) { result = false; break; }
-                    result = greaterThanOrEqualToTable.GetValue<Func<object, object, bool>>(actual.GetType(), value.GetType())(actual, value);
+                    result = greaterThanOrEqualToTable.GetValue<Func<object, object, bool>>(actual.GetType(), value.GetType())(value, actual);
                     break;
                 case DataTypeComparison.LessThan:
                     if (actual == null || value == null) { result = false; break; }
-                    result = lessThanTable.GetValue<Func<object, object, bool>>(actual.GetType(), value.GetType())(actual, value);
+                    result = lessThanTable.GetValue<Func<object, object, bool>>(actual.GetType(), value.GetType())(value, actual);
                     break;
                 case DataTypeComparison.LessThanOrEqualTo:
                     if (actual == null || value == null) { result = false; break; }
-                    result = lessThanOrEqualToTable.GetValue<Func<object, object, bool>>(actual.GetType(), value.GetType())(actual, value);
+                    result = lessThanOrEqualToTable.GetValue<Func<object, object, bool>>(actual.GetType(), value.GetType())(value, actual);
                     break;
                 case DataTypeComparison.Like:
                     if (actual == null || value == null) { result = false; break; }
-                    result = likeTable.GetValue<Func<object, object, bool>>(actual.GetType(), value.GetType())(actual, value);
+                    result = likeTable.GetValue<Func<object, object, bool>>(actual.GetType(), value.GetType())(value, actual);
                     break;
                 case DataTypeComparison.In:
                     if (actual == null || value == null) { result = false; break; }

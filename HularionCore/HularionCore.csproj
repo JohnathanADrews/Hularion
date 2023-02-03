@@ -13,7 +13,10 @@
     <PackageProjectUrl>www.hularion.com</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JohnathanADrews/Hularion</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>1.0.1</Version>
+    <PackageIcon>Hularion image.png</PackageIcon>
+    <Version>1.0.3</Version>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -21,11 +24,14 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <WarningLevel>5</WarningLevel>
-    <DocumentationFile>C:\dev\Standard\HularionRelease\2023-01-30-02 Hularion - License applied\HularionCore\HularionCore.xml</DocumentationFile>
+    <DocumentationFile>C:\dev\Standard\Hularion\HularionCore\HularionCore.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\Hularion image.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

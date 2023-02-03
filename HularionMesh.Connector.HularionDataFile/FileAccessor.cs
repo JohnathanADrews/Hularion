@@ -54,7 +54,7 @@ namespace HularionMesh.Connector.HularionDataFile
         /// <summary>
         /// If true, updates will be processed to the file. Default is false.
         /// </summary>
-        public bool ProcessUpdates { get; set; } = false;
+        public bool DoAutomaticUpdates { get; set; } = false;
 
         /// <summary>
         /// Constructor.
@@ -90,7 +90,7 @@ namespace HularionMesh.Connector.HularionDataFile
                 if (!CurrentFileStatus.FileIsUpdated || FileProvider == null) { continue; }
                 lock (CurrentFileStatus)
                 {
-                    if (CurrentFileStatus.FileIsUpdated && FileProvider != null && ProcessUpdates)
+                    if (CurrentFileStatus.FileIsUpdated && FileProvider != null && DoAutomaticUpdates)
                     {
                         var file = FileProvider.Provide();
                         blockMutex.WaitOne();
@@ -118,8 +118,10 @@ namespace HularionMesh.Connector.HularionDataFile
         /// Writes the content to the file.
         /// </summary>
         /// <param name="content">The content to write.</param>
-        public void WriteEntireFile(string content)
+        /// <param name="stopAutomaticUpdates">Stops automatic updates to prevent an incomplete write.</param>
+        public void WriteEntireFile(string content, bool stopAutomaticUpdates)
         {
+            if (stopAutomaticUpdates) { DoAutomaticUpdates = false; }
             blockMutex.WaitOne();
             File.WriteAllText(this.filename, content);
             blockMutex.ReleaseMutex();
