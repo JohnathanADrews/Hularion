@@ -9,7 +9,7 @@
     <Product>Hularion Core</Product>
     <Description>Functionality for general development.</Description>
     <Copyright>2023</Copyright>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>www.hularion.com</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JohnathanADrews/Hularion</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -26,7 +26,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\LICENSE.txt">
+    <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
