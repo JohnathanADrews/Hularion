@@ -1,3 +1,9 @@
+# Hularion TM
+
+## Software with a Strategy TM
+
+<br/>
+
 # The Hularion Project
 
 Hularion is a project focused on creating a full stack software development and runtime offering. I am committed to developing Hularion as a free and open source project, with the possible exception of enterprise-level tools dedicated to integrating Hularion within an existing enterprise structure.
@@ -44,4 +50,5 @@ https://www.nuget.org/profiles/JohnathanADrews
 ## Social
 
 ### Twitter (https://twitter.com/JohnathanADrews)
+### Truth (https://truthsocial.com/@JohnathanADrews)
 
