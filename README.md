@@ -1,6 +1,6 @@
-# Hularion TM
+# Hularion
 
-## Software with a Strategy TM
+## Software with a Strategy
 
 <br/>
 
