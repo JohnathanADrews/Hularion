@@ -1,8 +1,4 @@
-# Hularion
-
-## Software with a Strategy
-
-<br/>
+# Hularion - Software with a Strategy
 
 # The Hularion Project
 
