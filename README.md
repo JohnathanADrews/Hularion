@@ -25,12 +25,14 @@ Hularion Mesh is a data storage solution that allows data from C# objects, SQL, 
    
 2. HularionMesh.Connector.Postgres
 
-   This connector will connect Mesh to a Postgres database and use it as a data store.
+   This connects Mesh to a Postgres database and uses it as a data store.
 
+
+<br/>
 
 ## Coming Soon:
 
-3. HularionMesh.Connector.Sqlite
+1. HularionMesh.Connector.Sqlite
 
    This connector will connect Mesh to a Sqlite database file and use it as a data store.
 
