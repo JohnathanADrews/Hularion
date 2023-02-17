@@ -12,6 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #endregion
 
+using HularionMesh.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,10 +41,24 @@ namespace HularionMesh.DomainValue
         public WhereExpressionNode Where { get; set; }
 
         /// <summary>
+        /// The key for the domain to which this update belongs.
+        /// </summary>
+        public IMeshKey DomainKey { get; set; }
+
+        /// <summary>
+        /// The generics applied to the domain to which this update belongs.
+        /// </summary>
+        public MeshGeneric[] Generics { get; set; }
+
+        /// <summary>
         /// Constructor.
         /// </summary>
-        public DomainObjectUpdater()
+        /// <param name="domainKey">The key for the domain to which this update belongs.</param>
+        /// <param name="generics">The generics applied to the domain to which this update belongs.</param>
+        public DomainObjectUpdater(IMeshKey domainKey, MeshGeneric[] generics)
         {
+            DomainKey = domainKey;
+            Generics = generics;
         }
 
         /// <summary>
@@ -52,6 +67,15 @@ namespace HularionMesh.DomainValue
         /// <param name="value">The value containing the update information.</param>
         public DomainObjectUpdater(DomainObject value)
         {
+            DomainKey = value.Key.GetDomainKeyPart();
+            if (!value.Meta.ContainsKey(MeshKeyword.Generics.Alias) || String.IsNullOrWhiteSpace((string)value.Meta[MeshKeyword.Generics.Alias])) 
+            { 
+                Generics = new MeshGeneric[] { }; 
+            }
+            else
+            {
+                Generics = MeshGeneric.Deserialize((string)value.Meta[MeshKeyword.Generics.Alias]);
+            }
             this.Values = value.Values.ToDictionary(x => x.Key, x => x.Value);
             this.Meta = value.Meta.ToDictionary(x => x.Key, x => x.Value);
             Where = WhereExpressionNode.CreateKeysIn(value.Key);
@@ -66,6 +90,30 @@ namespace HularionMesh.DomainValue
         public static DomainObjectUpdater Derive<T>(T value)
         {
             return new DomainObjectUpdater(DomainObject.Derive(value));
+        }
+
+        /// <summary>
+        /// Sets the values in the domain object according to this update.
+        /// </summary>
+        /// <param name="domainObject">The object containing the values to set.</param>
+        public void SetValues(DomainObject domainObject)
+        {
+            foreach (var value in Values)
+            {
+                domainObject.Values[value.Key] = value.Value;
+            }
+        }
+
+        /// <summary>
+        /// Sets the meta in the domain object according to this update.
+        /// </summary>
+        /// <param name="domainObject">The object containing the values to set.</param>
+        public void SetMeta(DomainObject domainObject)
+        {
+            foreach (var meta in Meta)
+            {
+                domainObject.Meta[meta.Key] = meta.Value;
+            }
         }
 
     }

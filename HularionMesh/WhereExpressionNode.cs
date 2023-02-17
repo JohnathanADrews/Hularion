@@ -15,6 +15,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 using HularionCore.General;
 using HularionCore.Logic;
 using HularionCore.Pattern.Functional;
+using HularionCore.Pattern.Identifier;
 using HularionCore.Pattern.Topology;
 using HularionMesh.Domain;
 using HularionMesh.MeshType;
@@ -30,7 +31,6 @@ namespace HularionMesh
     /// </summary>
     public class WhereExpressionNode
     {
-
         /// <summary>
         /// (Leaf node only.) The name of the property that is checked against the value and operator.
         /// </summary>
@@ -57,7 +57,7 @@ namespace HularionMesh
             {
                 if (value == null) { return; }
                 var type = value.GetType();
-                //if (type.IsArray && ((Array)value).Length == 1) { Value= ((Array)value).GetValue(0); return; }
+                if (type.IsArray && ((Array)value).Length == 1) { Value = ((Array)value).GetValue(0); return; }
                 //if (typeof(IEnumerable<>).IsAssignableFrom(type) && ((IEnumerable<>)value).) { }
                 Value = value;
             }
@@ -399,8 +399,15 @@ namespace HularionMesh
         /// Creates a node using the operator.
         /// </summary>
         /// <returns>A node using the operator.</returns>
-        public static WhereExpressionNode CreateBinaryOperatorNode(BinaryOperator binaryOperator, bool negated = false)
+        public static WhereExpressionNode CreateBinaryOperatorNode(BinaryOperator binaryOperator, bool negated = false, bool createNodes = false)
         {
+            if (createNodes)
+            {
+                var where = new WhereExpressionNode() { Operator = binaryOperator, Negated = negated, Nodes = new WhereExpressionNode[2] };
+                where.Nodes[0] = new WhereExpressionNode();
+                where.Nodes[1] = new WhereExpressionNode();
+                return where;
+            }
             return new WhereExpressionNode() { Operator = binaryOperator, Negated = negated, Nodes = new WhereExpressionNode[2] };
         }
 
@@ -417,9 +424,10 @@ namespace HularionMesh
         /// Creates a node using the comparison.
         /// </summary>
         /// <returns>A node using the comparison.</returns>
-        public static WhereExpressionNode CreateComparisonNode(DataTypeComparison comparison, bool negated = false)
+        public static WhereExpressionNode CreateComparisonNode(DataTypeComparison comparison, string property = null, object value = null, bool negated = false)
         {
-            return new WhereExpressionNode() { Comparison = comparison, Negated = negated, Nodes = new WhereExpressionNode[2] };
+            var result = new WhereExpressionNode() { Comparison = comparison, Negated = negated, Property = property, Value = value };            
+            return result;
         }
 
         /// <summary>

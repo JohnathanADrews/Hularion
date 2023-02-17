@@ -152,6 +152,15 @@ namespace HularionMesh.SystemDomain
         }
 
         /// <summary>
+        /// Adds the items to the set.
+        /// </summary>
+        /// <param name="items">The items to add.</param>
+        public void AddMany(params T[] items)
+        {
+            AddRange(items);
+        }
+
+        /// <summary>
         /// Adds the the given items.
         /// </summary>
         /// <param name="items">The items to add.</param>
@@ -192,6 +201,23 @@ namespace HularionMesh.SystemDomain
         public bool Contains(T item)
         {
             return Items.Contains(item);
+        }
+
+        /// <summary>
+        /// Removes the item if it exists.
+        /// </summary>
+        /// <param name="item">The item to remove.</param>
+        public void Remove(T item)
+        {
+            Items.Remove(item);
+        }
+
+        /// <summary>
+        /// Clears all items from the set.
+        /// </summary>
+        public void Clear()
+        {
+            Items.Clear();
         }
 
         /// <summary>
@@ -332,16 +358,23 @@ namespace HularionMesh.SystemDomain
             if (set == null) { return new List<object>(); }
             return (List<object>)set.GetType().GetMethod(methodToObjectList).Invoke(set, new object[] { });
         }
-        
+
         public static IList<object> GetDomainObjectValues(DomainObject value)
         {
             if (!value.Values.ContainsKey(MeshKeyword.UniqueSetDomainItems.Alias)) { return new List<object>(); }
             if (value.Values[MeshKeyword.UniqueSetDomainItems.Alias] == null) { return new List<object>(); }
             var items = value.Values[MeshKeyword.UniqueSetDomainItems.Alias];
-            if(items == null) { return new List<object>(); }
+            if (items == null) { return new List<object>(); }
             var setType = UniqueSetDomainType.MakeGenericType(items.GetType().GetGenericArguments()[0]);
             var set = Activator.CreateInstance(setType, new object[] { items });
             return GetUniqueSetValues(set);
+        }
+
+        public static IList<object> GetUpdaterValues(DomainObjectUpdater updater)
+        {
+            var domainObject = new DomainObject();
+            domainObject.Values[MeshKeyword.UniqueSetDomainItems.Alias] = updater.Values[MeshKeyword.UniqueSetDomainItems.Alias];
+            return GetDomainObjectValues(domainObject);
         }
 
         public static object MakeGenericList(Type type, IEnumerable<object> objects)
@@ -506,30 +539,72 @@ namespace HularionMesh.SystemDomain
             var values = UniqueSet.GetUniqueSetValues(link.Value);
 
             if (DataType.TypeIsKnown(valueType)) { return; }
+            var valueDomain = repository.GetDomainFromType(valueType);
+
+            //var subjectDomain = repository.GetDomainFromType(valueType);
+            //var linkDomain = repository.GetDomainFromType(valueType);
+            var currentKeys = new List<IMeshKey>();
+            if (link.DomainObject != null && link.DomainObject.Key != null)
+            {
+                var domainRead = new AggregateQueryItem()
+                {
+                    Mode = AggregateDomainMode.Domain,
+                    Domain = link.OperationLink.RealizedDomain.Domain,
+                    DomainWhere = WhereExpressionNode.CreateKeysIn(link.DomainObject.Key)
+                };
+                var linkRead = new AggregateQueryItem()
+                {
+                    Mode = AggregateDomainMode.Link,
+                    LinkWhere = WhereExpressionNode.CreateMemberIn(MeshKeyword.SMember.Alias, new string[] { UniqueSet.UniqueSetItemsDomainValue })
+                        .CombineWithOperator(WhereExpressionNode.CreateMemberIn(MeshKeyword.TMember.Alias, new string[] { UniqueSet.UniqueSetItemsDomainValue }), BinaryOperator.OR)
+                };
+                var linkedRead = new AggregateQueryItem()
+                {
+                    Mode = AggregateDomainMode.Domain,
+                    Domain = valueDomain
+                };
+                domainRead.Links.Add(linkRead);
+                linkRead.Links.Add(linkedRead);
+                var aggregateService = repository.MeshServicesProvider.AggregateServiceProvider.Provide();
+                var linkresult = aggregateService.QueryProcessor.Process(new DomainAggregateQueryRequest() { Read = domainRead });
+
+                currentKeys = linkresult.Links.First().ToKeys.ToList();
+            }
+
+            var updateLinkKeys = new List<IMeshKey>();
 
             foreach (var value in values)
             {
                 var next = link.LinkProvider.Provide(value);
+                var domainObject = DomainObject.Derive(value);
                 if (next == null)
                 {
                     next = new SaveLink() 
                     { 
                         Parent = link, 
-                        DomainObject = DomainObject.Derive(value), 
+                        DomainObject = domainObject, 
                         OperationLink = link.OperationLink.Members[UniqueSet.UniqueSetItemsDomainValue].Member, 
                         Value = value,
                         LinkProvider = link.LinkProvider
                     };
                     link.Added.Add(next);
                 }
+                if (domainObject.Key != null)
+                {
+                    updateLinkKeys.Add(next.DomainObject.Key);
+                }
                 link.Links.Add(next);
             }
+
+            var removeLinkKeys = currentKeys.Where(x => !updateLinkKeys.Contains(x)).ToList();
+
 
             link.LinkAffectorProvider = new ProviderFunction<AggregateAffectorItem[]>(() =>
             {
                 var affectors = new List<AggregateAffectorItem>();
                 foreach (var next in link.Links)
                 {
+                    if (next.DomainObject.Key != null && currentKeys.Contains(next.DomainObject.Key)) { continue; }
                     affectors.Add(new AggregateAffectorItem()
                     {
                         Link = new DomainLinkAffectRequest()
@@ -539,7 +614,23 @@ namespace HularionMesh.SystemDomain
                             DomainB = next.OperationLink.RealizedDomain.Domain,
                             AMember = UniqueSet.UniqueSetItemsDomainValue,
                             ObjectAKey = link.DomainObject.Key,
-                            ObjectBKey = next.DomainObject.Key
+                            ObjectBKey = next.DomainObject.Key,
+                            LinkIsExclusive = false
+                        }
+                    });
+                }
+                foreach(var key in removeLinkKeys)
+                {
+                    affectors.Add(new AggregateAffectorItem()
+                    {
+                        Link = new DomainLinkAffectRequest()
+                        {
+                            Mode = LinkAffectMode.UnlinkKeys,
+                            DomainA = link.OperationLink.RealizedDomain.Domain,
+                            DomainB = valueDomain,
+                            AMember = UniqueSet.UniqueSetItemsDomainValue,
+                            ObjectAKey = link.DomainObject.Key,
+                            ObjectBKey = key
                         }
                     });
                 }

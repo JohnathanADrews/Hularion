@@ -141,6 +141,23 @@ namespace HularionMesh.SystemDomain
         }
 
         /// <summary>
+        /// Removes the specified item from the map.
+        /// </summary>
+        /// <param name="key">The key of the key/item pair to remove.</param>
+        public void Remove(KeyType key)
+        {
+            Mapping.Remove(key);
+        }
+
+        /// <summary>
+        /// Removes all items from the map.
+        /// </summary>
+        public void Clear()
+        {
+            Mapping.Clear();
+        }
+
+        /// <summary>
         /// Gets all the key/value pairs in the map.
         /// </summary>
         /// <returns>All the key/value pairs in the map.</returns>

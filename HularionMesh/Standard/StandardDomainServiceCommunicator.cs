@@ -130,14 +130,14 @@ namespace HularionMesh.Standard
             AllValueDomainsProvider = new ProviderFunction<ServiceResponse<IEnumerable<MeshDomain>>>(() =>
             {
                 var response = new ServiceResponse<IEnumerable<MeshDomain>>() { };
-                try
+                //try
                 {
                     response.Response = service.GetAllValueDomains();
                 }
-                catch (Exception e)
-                {
-                    response.Messages.Add(new ServiceResponseMessage() { IsError = true, Message = String.Format("StandardDomainServiceCommunicator.AllValueDomainsProvider encountered an error - [OEYlMPOntEyFapvSnp2i4Q].\n\n {0}", e.ToString()) });
-                }
+                //catch (Exception e)
+                //{
+                //    response.Messages.Add(new ServiceResponseMessage() { IsError = true, Message = String.Format("StandardDomainServiceCommunicator.AllValueDomainsProvider encountered an error - [OEYlMPOntEyFapvSnp2i4Q].\n\n {0}", e.ToString()) });
+                //}
                 return response;
             });
             AllLinkDomainsProvider = new ProviderFunction<ServiceResponse<IEnumerable<MeshDomainLink>>>(() =>
@@ -156,27 +156,27 @@ namespace HularionMesh.Standard
             ValuesServiceByDomainProvider = ParameterizedProvider.FromSingle<MeshDomain, ServiceResponse<IDomainValueService>>(domain =>
             {
                 var response = new ServiceResponse<IDomainValueService>() { Request = domain };
-                try
+                //try
                 {
                     response.Response = service.GetDomainValueService(domain);
                 }
-                catch (Exception e)
-                {
-                    response.Messages.Add(new ServiceResponseMessage() { IsError = true, Message = String.Format("StandardDomainServiceCommunicator.ServiceByDomainProvider encountered an error - [PN2lVuRRvkKdIoeW4ZcetQ].\n\n {0}", e.ToString()) });
-                }
+                //catch (Exception e)
+                //{
+                //    response.Messages.Add(new ServiceResponseMessage() { IsError = true, Message = String.Format("StandardDomainServiceCommunicator.ServiceByDomainProvider encountered an error - [PN2lVuRRvkKdIoeW4ZcetQ].\n\n {0}", e.ToString()) });
+                //}
                 return response;
             });
             ValueServiceByDomainKeyProvider = ParameterizedProvider.FromSingle<IMeshKey, ServiceResponse<IDomainValueService>>(domainKey =>
             {
                 var response = new ServiceResponse<IDomainValueService>() { Request = domainKey };
-                try
+                //try
                 {
                     response.Response = service.GetDomainValueService(domainKey);
                 }
-                catch (Exception e)
-                {
-                    response.Messages.Add(new ServiceResponseMessage() { IsError = true, Message = String.Format("StandardDomainServiceCommunicator.ServiceByDomainKeyProvider encountered an error - [9IiiqUsJakGMm5GQQdiVTw].\n\n {0}", e.ToString()) });
-                }
+                //catch (Exception e)
+                //{
+                //    response.Messages.Add(new ServiceResponseMessage() { IsError = true, Message = String.Format("StandardDomainServiceCommunicator.ServiceByDomainKeyProvider encountered an error - [9IiiqUsJakGMm5GQQdiVTw].\n\n {0}", e.ToString()) });
+                //}
                 return response;
             });
             LinkServiceByLinkedDomainsProvider = ParameterizedProvider.FromSingle<LinkedDomains, ServiceResponse<IDomainLinkService>>(linkedDomains =>

@@ -147,6 +147,7 @@ namespace HularionMesh.Memory
                 foreach (var match in matches)
                 {
                     store.Remove(match.Key);
+                    keyStore.Remove(match.Value.Key.Serialized);
                 }
             }
         }

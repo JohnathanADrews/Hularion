@@ -50,6 +50,14 @@ namespace HularionMesh
         IMeshKey SetPart(MeshKeyPart partKey, string partValue);
 
         /// <summary>
+        /// Sets the part of the key indicated by partKey.
+        /// </summary>
+        /// <param name="partKey">The part of the key to set.</param>
+        /// <param name="partValue">The value to associate with the part.</param>
+        /// <returns>this IMeshKey</returns>
+        IMeshKey SetPart(string partKey, string partValue);
+
+        /// <summary>
         /// Sets the s-type key part for this key.
         /// </summary>
         /// <param name="partValue">The value of the s-type key.</param>

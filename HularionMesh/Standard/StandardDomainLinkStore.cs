@@ -123,7 +123,7 @@ namespace HularionMesh.Standard
         /// </summary>
         /// <param name="aKeys">The keys of the S-type objects.</param>
         /// <param name="bKeys">The keys of the T-type objects.</param>
-        public void UnLink(IEnumerable<IMeshKey> aKeys, IEnumerable<IMeshKey> bKeys, IMeshKey userKey = null)
+        public void UnLink(IEnumerable<IMeshKey> aKeys, IEnumerable<IMeshKey> bKeys, string sMemberName = null, string tMemberName = null, IMeshKey userKey = null)
         {
             IEnumerable<IMeshKey> sKeys;
             IEnumerable<IMeshKey> tKeys;
@@ -141,6 +141,20 @@ namespace HularionMesh.Standard
             var deleteWhere = WhereExpressionNode.CreateBinaryOperatorNode(BinaryOperator.AND);
             deleteWhere.Nodes[0] = WhereExpressionNode.CreateMemberIn(MeshKeyword.SKey.Alias, sKeys.Select(x => (object)x).ToList());
             deleteWhere.Nodes[1] = WhereExpressionNode.CreateMemberIn(MeshKeyword.TKey.Alias, tKeys.Select(x => (object)x).ToList());
+            if (sMemberName != null)
+            {
+                var memberWhere = WhereExpressionNode.CreateComparisonNode(DataTypeComparison.Equal);
+                memberWhere.Property = MeshKeyword.SMember.Alias;
+                memberWhere.Value = sMemberName;
+                deleteWhere.Nodes[0] = deleteWhere.Nodes[0].CombineWithOperator(memberWhere, BinaryOperator.AND);
+            }
+            if (tMemberName != null)
+            {
+                var memberWhere = WhereExpressionNode.CreateComparisonNode(DataTypeComparison.Equal);
+                memberWhere.Property = MeshKeyword.TMember.Alias;
+                memberWhere.Value = tMemberName;
+                deleteWhere.Nodes[1] = deleteWhere.Nodes[1].CombineWithOperator(memberWhere, BinaryOperator.AND);
+            }
 
             var deleteRequest = new DomainValueAffectRequest()
             {
@@ -161,13 +175,15 @@ namespace HularionMesh.Standard
             var result = new Dictionary<IMeshKey, IEnumerable<DomainLinker>>();
             if (keys == null || keys.Count() == 0) { return result; }
 
+            keys = keys.Distinct().ToList();
+
             if (STypeDomain == TTypeDomain)
             {
                 var where = new WhereExpressionNode() {  Operator = BinaryOperator.OR };
                 where.Nodes = new WhereExpressionNode[]
                 {
-                    new WhereExpressionNode() { Type = DataType.Text8, Comparison = DataTypeComparison.In, Property = MeshKeyword.TKey.Name, Values = keys.Select(x => x).ToArray() },
-                    new WhereExpressionNode() { Type = DataType.Text8, Comparison = DataTypeComparison.In, Property = MeshKeyword.SKey.Name, Values = keys.Select(x => x).ToArray() }
+                    new WhereExpressionNode() { Type = DataType.MeshKey, Comparison = DataTypeComparison.In, Property = MeshKeyword.TKey.Name, Values = keys.Select(x => x).ToArray() },
+                    new WhereExpressionNode() { Type = DataType.MeshKey, Comparison = DataTypeComparison.In, Property = MeshKeyword.SKey.Name, Values = keys.Select(x => x).ToArray() }
                 };
                 var query = new DomainValueQueryRequest() { Where = where, Reads = DomainReadRequest.ReadAll };
                 var queryResult = LinkDomainService.QueryProcessor.Process(query);
@@ -191,20 +207,18 @@ namespace HularionMesh.Standard
             else
             {
                 var domain = STypeDomain;
-                var where = new WhereExpressionNode() { Type = DataType.Text8, Comparison = DataTypeComparison.In, Property = MeshKeyword.SKey.Name };
+                var where = WhereExpressionNode.CreateMemberIn(MeshKeyword.SKey.Alias, keys.Select(x => (object)x).ToList());
                 if (TTypeDomain.KeyIsObjectInThisDomain(keys.First()))
                 {
                     domain = TTypeDomain;
-                    where.Property = MeshKeyword.TKey.Name;
+                    where.Property = MeshKeyword.TKey.Alias;
                 }
-                where.Values = keys.Select(x => x).ToArray();
                 var query = new DomainValueQueryRequest() { Where = where, Reads = DomainReadRequest.ReadAll };
                 var queryResult = LinkDomainService.QueryProcessor.Process(query);
-                //var hashKeys = new HashSet<IMeshKey>(keys);
                 if (domain == STypeDomain)
                 {
                     foreach (var value in queryResult.Values)
-                    {//FromDomainObject
+                    {
                         var key = MeshKey.Parse(value.Values[MeshKeyword.SKey.Name]);
                         if (!result.ContainsKey(key)) { result.Add(key, new List<DomainLinker>()); }
                         ((List<DomainLinker>)result[key]).Add(DomainLinker.FromDomainObject(value));
@@ -253,6 +267,36 @@ namespace HularionMesh.Standard
             }
             //If the keys are not S-type (and therefor T-type), map them to the S-type keys.
             return linkers.ToDictionary(x => x.Key, x => (IEnumerable<IMeshKey>)x.Value.Select(y => y.SKey).ToList());
+        }
+
+        /// <summary>
+        /// Gets the linkers for the given linked keys and member name.
+        /// </summary>
+        /// <param name="linkedKeys">The S-type keys or T-type keys.</param>
+        /// <param name="memberName">The name of the member for the given key.</param>
+        /// <returns>The linkers for the links with the matching keys and member names.</returns>
+        public IDictionary<IMeshKey, IEnumerable<DomainLinker>> GetLinks(IEnumerable<IMeshKey> linkedKeys, string memberName)
+        {
+            var result = GetLinkedLinkers(linkedKeys);
+            var keys = result.Keys.ToList();
+            foreach(var key in keys)
+            {
+                var list = result[key];
+                var matches = new List<DomainLinker>();
+                foreach(var linker in list)
+                {
+                    if (key.EqualsKey(linker.SKey) && linker.SMember == memberName)
+                    {
+                        matches.Add(linker);
+                    }
+                    if (key.EqualsKey(linker.TKey) && linker.TMember == memberName)
+                    {
+                        matches.Add(linker);
+                    }
+                }
+                result[key] = matches;
+            }
+            return result;
         }
 
         /// <summary>

@@ -111,13 +111,8 @@ namespace HularionMesh.Domain
 
         public static MeshGeneric[] FromType(Type type, IParameterizedProvider<Type, IMeshKey> typeKeyProvider)
         {
-            //MeshGeneric result = null;
             var traverser = new TreeTraverser<Type>();
             var types = new Dictionary<Type, MeshGeneric>();
-            if (type.Name.Contains("ClassA"))
-            {
-
-            }
 
             types.Add(type, new MeshGeneric() { Mode = TypeGenericMode.Argument });
             traverser.CreateEvaluationPlan(TreeTraversalOrder.ParentLeftRight, type, node =>
@@ -132,7 +127,7 @@ namespace HularionMesh.Domain
                 }
                 var genericTypes = node.GenericTypeArguments;
                 if (genericTypes.Length == 0 && node.IsGenericType) { genericTypes = node.GetTypeInfo().GenericTypeParameters; }
-                var next = genericTypes.Where(x => !types.ContainsKey(x)).ToArray();
+                var next = genericTypes.Where(x => !types.ContainsKey(x)).Distinct().ToArray();
                 foreach (var genericType in genericTypes)
                 {
                     if (!types.ContainsKey(genericType)) { types.Add(genericType, new MeshGeneric() { Mode = TypeGenericMode.Argument }); }
@@ -140,7 +135,7 @@ namespace HularionMesh.Domain
                 }
                 return next;
             }, true);
-            var result = types[type];
+            var result = types[type].Clone();
             if (type.IsGenericType)
             {
                 var parameters = type.GetGenericTypeDefinition().GetTypeInfo().GenericTypeParameters;
@@ -179,6 +174,7 @@ namespace HularionMesh.Domain
         public static MeshGeneric[] Deserialize(string serialized)
         {
             var generics = new List<MeshGeneric>();
+            if (String.IsNullOrWhiteSpace(serialized)) { return generics.ToArray(); }
             var stack = new Stack<Tuple<int, MeshGeneric, int[]>>();
             for (var i = 0; i < serialized.Length; i++)
             {
@@ -272,23 +268,34 @@ namespace HularionMesh.Domain
 
         public static MeshGeneric[] CloneAll(MeshGeneric[] generics)
         {
-            var traverser = new TreeTraverser<MeshGeneric>();
-            var map = new Dictionary<MeshGeneric, MeshGeneric>();
-            var root = new MeshGeneric() { Generics = generics.ToList() };
-            var result = new MeshGeneric();
-            map.Add(root, result);
-            traverser.CreateEvaluationPlan(TreeTraversalOrder.ParentLeftRight, root, node =>
+            var traverser = new TreeTraverser<GenericContainer>();
+            //var root = new GenericContainer() { Next = generics.Select(x=>new GenericContainer() { Generic = x }).ToList() };
+            var roots = generics.Select(x => new GenericContainer() { Generic = x }).ToList();
+            foreach (var root in roots)
             {
-                var targetGeneric = map[node];
-                foreach (var sourceGeneric in node.Generics)
+                var plan = traverser.CreateEvaluationPlan(TreeTraversalOrder.ParentLeftRight, root, node =>
                 {
-                    var next = CloneTop(sourceGeneric);
-                    targetGeneric.Generics.Add(next);
-                    map.Add(sourceGeneric, next);
+                    node.Clone = CloneTop(node.Generic);
+                    node.Next = node.Generic.Generics.Select(x => new GenericContainer() { Generic = x }).ToList();
+                    return node.Next.ToArray();
+                }, true);
+                foreach (var item in plan)
+                {
+                    item.Clone.Generics = item.Next.Select(x => x.Clone).ToList();
                 }
-                return node.Generics.ToArray();
-            }, true);
-            return result.Generics.ToArray();
+            }
+
+            return roots.Select(x=>x.Clone).ToArray();
+        }
+
+
+        private class GenericContainer
+        {
+            public MeshGeneric Generic { get; set; }
+
+            public MeshGeneric Clone { get; set; }
+
+            public List<GenericContainer> Next { get; set; } = new List<GenericContainer>();
         }
     }
 

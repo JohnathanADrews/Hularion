@@ -131,7 +131,6 @@ namespace HularionMesh.Repository
                             node.Links.Add(nextLink);
                             continue; 
                         }
-                        //var memberOL = node.OperationLink.Members[value.Key].Member;
                         nextLink = new SaveLink() { Parent = node, Value = value.Value, LinkProvider = linkProvider };
                         nextLink.MemberOperationLink = node.OperationLink.Members[value.Key];
                         nextLink.OperationLink = nextLink.MemberOperationLink.Member;

@@ -241,7 +241,7 @@ namespace HularionMesh.DomainLink
         /// <returns>The ordered domains given the two provided domains.</returns>
         public OrderedLinkedKeys GetOrderedKeys(IMeshKey aKey, IMeshKey bKey)
         {
-            var ordered = new OrderedLinkedKeys() { FirstKey = aKey, SecondKey = aKey };
+            var ordered = new OrderedLinkedKeys() { FirstKey = aKey, SecondKey = bKey };
             var aDomainKey = aKey.GetDomainKeyPart();
             var bDomainKey = bKey.GetDomainKeyPart();
             if (string.CompareOrdinal(aDomainKey.Serialized, bDomainKey.Serialized) > 0)

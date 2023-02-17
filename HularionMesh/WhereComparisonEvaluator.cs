@@ -327,16 +327,22 @@ namespace HularionMesh
                     //if (actualType.IsArray) { actualType = actualType.GetElementType(); }
                     Type argumentType;
                     HashSet<object> values;
+                    var ienumType = typeof(IEnumerable<object>);
                     if (actualType.IsArray)
                     {
                         values = new HashSet<object>((object[])actual);
                         if (values.Count() > 0) { actualType = values.First().GetType(); }
                         else { actualType = actualType.GetElementType(); }
                     }
-                    else
+                    else if (ienumType.IsAssignableFrom(actualType))
                     {
                         values = new HashSet<object>((IEnumerable<object>)actual);
                         argumentType = actualType.GetGenericArguments()[0];
+                    }
+                    else
+                    {
+                        values = new HashSet<object>(new object[]{ actual });
+                        argumentType = actualType;
                     }
                     var valueType = value.GetType();
                     if (keyType.IsAssignableFrom(valueType))

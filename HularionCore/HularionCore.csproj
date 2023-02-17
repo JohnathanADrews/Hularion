@@ -6,7 +6,7 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Johnathan A Drews</Authors>
     <Company />
-    <Product>HularionCore</Product>
+    <Product>Hularion Core</Product>
     <Description>Functionality for general development.</Description>
     <Copyright>2023</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -14,19 +14,18 @@
     <RepositoryUrl>https://github.com/JohnathanADrews/Hularion</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageIcon>Hularion image.png</PackageIcon>
-    <Version>1.0.3</Version>
-    <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-    <Title>HularionCore</Title>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Version>1.0.7</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile></DocumentationFile>
+    <WarningLevel>5</WarningLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\dev\Standard\Hularion\HularionCore\HularionCore.xml</DocumentationFile>
+    <WarningLevel>0</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,13 +36,6 @@
     <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 

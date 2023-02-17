@@ -14,6 +14,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 using HularionCore.Pattern.Functional;
 using HularionMesh.Domain;
+using HularionMesh.Query;
+using HularionMesh.Structure;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -54,6 +56,18 @@ namespace HularionMesh.Repository
         /// Provides the domain mechanic give the mesh domain. Set this to overrie the DomainMechanicManager's DomainMechaincProvider provider.
         /// </summary>
         IParameterizedProvider<MeshDomain, IDomainRepositoryMechanic> DomainMechanicProvider { get; }
+
+        /// <summary>
+        /// The mesh mechanism that will provide the data services whether file, database, cloud, etcetera.
+        /// </summary>
+        IMeshServiceProvider MeshServicesProvider { get; }
+
+        /// <summary>
+        /// Creates a mesh query that can be used to query the mesh.
+        /// </summary>
+        /// <typeparam name="DomainType">The type of the domain to use as the root query.</typeparam>
+        /// <returns>The mesh query for the domain associated with the given type.</returns>
+        MeshRootQuery<DomainType> CreateQuery<DomainType>() where DomainType : class;
 
     }
 }

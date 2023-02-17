@@ -186,6 +186,8 @@ namespace HularionMesh.Standard
             AffectProcessor = ParameterizedFacade.FromSingle<DomainLinkAffectRequest, DomainLinkAffectResponse>(
                 request =>
                 {
+
+
                     string sMember = null;
                     string tMember = null;
 
@@ -200,6 +202,7 @@ namespace HularionMesh.Standard
                         sMember = request.BMember;
                         tMember = request.AMember;
                     }
+
 
                     if (request.Mode == LinkAffectMode.LinkKeys || request.Mode == LinkAffectMode.UnlinkKeys)
                     {
@@ -218,10 +221,14 @@ namespace HularionMesh.Standard
                         switch (request.Mode)
                         {
                             case LinkAffectMode.LinkKeys:
-                                Store.Link(new IMeshKey[] { sKey }, new IMeshKey[] { tKey }, sMember, tMember, MeshKey.Parse(request.UserKey));
+                                if (request.LinkIsExclusive)
+                                {
+                                    RemoveCurrentLinks(sKey, tKey, sMember, tMember);
+                                }
+                                Store.Link(new IMeshKey[] { sKey }, new IMeshKey[] { tKey }, sMemberName: sMember, tMemberName: tMember, MeshKey.Parse(request.UserKey));
                                 break;
                             case LinkAffectMode.UnlinkKeys:
-                                Store.UnLink(new IMeshKey[] { sKey }, new IMeshKey[] { tKey });
+                                Store.UnLink(new IMeshKey[] { sKey }, new IMeshKey[] { tKey }, sMemberName: sMember, tMemberName: tMember);
                                 break;
                         }
                     }
@@ -282,5 +289,29 @@ namespace HularionMesh.Standard
                 link.Value.AddRange(links.Where(x => include.Contains(x)).ToList());
             }
         }
+
+
+        private void RemoveCurrentLinks(IMeshKey sKey, IMeshKey tKey, string sMemberName = null, string tMemberName = null)
+        {
+            IDictionary<IMeshKey, IEnumerable<DomainLinker>> linkers = null;
+            if (sMemberName != null)
+            {
+                linkers = Store.GetLinks(new IMeshKey[] { sKey }, sMemberName);
+                foreach(var linker in linkers)
+                {
+                    Store.UnLink(new IMeshKey[] { linker.Key }, linker.Value.Select(x=>x.TKey).ToArray(), sMemberName:sMemberName, tMemberName: tMemberName);
+                }
+            }
+            if (tMemberName != null)
+            {
+                linkers = Store.GetLinks(new IMeshKey[] { tKey }, tMemberName);
+                foreach (var linker in linkers)
+                {
+                    Store.UnLink(new IMeshKey[] { linker.Key }, linker.Value.Select(x => x.TKey).ToArray(), sMemberName: sMemberName, tMemberName: tMemberName);
+                }
+            }
+            
+        }
+
     }
 }

@@ -43,6 +43,11 @@ namespace HularionMesh.DomainLink
         public LinkAffectMode Mode { get; set; }
 
         /// <summary>
+        /// true iff the linked objects can have only one link related to the given member.
+        /// </summary>
+        public bool LinkIsExclusive { get; set; } = true;
+
+        /// <summary>
         /// The root node in the where expression for the A-type values. Used in LinkWhere and UnlinkWhere modes.
         /// </summary>
         public WhereExpressionNode WhereA { get; set; }

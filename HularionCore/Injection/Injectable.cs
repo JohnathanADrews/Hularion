@@ -12,6 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #endregion
 
+using HularionCore.TypeGraph;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +26,8 @@ namespace HularionCore.Injector
     /// <typeparam name="InjectableType">The derived type or an interface implemented by the derived type.</typeparam>
     public abstract class Injectable<InjectableType>
     {
-        private PropertyInfo[] injectableProperties = typeof(InjectableType).GetProperties();
-        private FieldInfo[] injectableFields = typeof(InjectableType).GetFields();
+        private PropertyInfo[] injectableProperties = typeof(InjectableType).GetNonStaticGetSetProperties().ToArray();
+        private FieldInfo[] injectableFields = typeof(InjectableType).GetNonStaticFields().ToArray();
 
         private Dictionary<string, PropertyInfo> thisProperties;
         private Dictionary<string, FieldInfo> thisFields;

@@ -183,13 +183,18 @@ namespace HularionMesh.Domain
         }
 
         /// <summary>
+        /// The key property for a domain object.
+        /// </summary>
+        public static ValueProperty ObjectMeshKey = new ValueProperty() { Name = MeshKeyword.Key.Alias, Type = DataType.MeshKey.Key.Serialized };
+
+        /// <summary>
         /// The datetime that the domain object was created.
         /// </summary>
         public static ValueProperty CreationTime = new ValueProperty() { Name = MeshKeyword.ValueCreationTime.Alias, Type = DataType.DateTime.Key.Serialized };
         /// <summary>
         /// The key of the user who created the domain object.
         /// </summary>
-        public static ValueProperty CreationUser = new ValueProperty() { Name = MeshKeyword.ValueCreator.Alias, Type = MeshKey.TypeKey.Serialized };
+        public static ValueProperty CreationUser = new ValueProperty() { Name = MeshKeyword.ValueCreator.Alias, Type = DataType.MeshKey.Key.Serialized };
         /// <summary>
         /// The datetome the domain object was last updated.
         /// </summary>
@@ -197,7 +202,7 @@ namespace HularionMesh.Domain
         /// <summary>
         /// The key of the user who last updated the domain object.
         /// </summary>
-        public static ValueProperty UpdateUser = new ValueProperty() { Name = MeshKeyword.ValueUpdater.Alias, Type = MeshKey.TypeKey.Serialized };
+        public static ValueProperty UpdateUser = new ValueProperty() { Name = MeshKeyword.ValueUpdater.Alias, Type = DataType.MeshKey.Key.Serialized };
         /// <summary>
         /// The generic arguments specified for the domain object.
         /// </summary>
@@ -206,6 +211,18 @@ namespace HularionMesh.Domain
         /// The meta-information properties such as creation time and creation user.
         /// </summary>
         public static ValueProperty[] MetaProperties { get; private set; } = new ValueProperty[] { CreationTime, CreationUser, UpdateTime, UpdateUser, Generics };
+
+        /// <summary>
+        /// Maps the MetaProperty enum values to the corresponding ValueProperty.
+        /// </summary>
+        public static Dictionary<MetaProperty, ValueProperty> MetaMap = new Dictionary<MetaProperty, ValueProperty>()
+        {
+            { MetaProperty.ValueCreator, CreationUser },
+            { MetaProperty.CreationTime, CreationTime },
+            { MetaProperty.UpdateTime, UpdateTime },
+            { MetaProperty.ValueUpdater, UpdateUser },
+            { MetaProperty.Generics, Generics }
+        };
 
         /// <summary>
         /// Determines whether the key is for an object within this domain.
@@ -221,7 +238,7 @@ namespace HularionMesh.Domain
         public override bool Equals(object obj)
         {
             if(obj == null || !thisType.IsAssignableFrom(obj.GetType())) { return false; }
-            return this.GetHashCode() == ((MeshDomain)obj).GetHashCode();
+            return this.Key.EqualsKey(((MeshDomain)obj).Key);
         }
 
         public override int GetHashCode()

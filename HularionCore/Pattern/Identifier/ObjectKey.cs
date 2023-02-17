@@ -329,10 +329,22 @@ namespace HularionCore.Pattern.Identifier
         /// <summary>
         /// Creates a unique key from a unique tag.
         /// </summary>
-        /// <returns>S unique key from a unique tag.</returns>
+        /// <returns>A unique key from a unique tag.</returns>
         public static ObjectKey CreateUniqueTagKey()
         {
-            return ObjectKey.Parse(TagFromGuid(Guid.NewGuid()));
+            return ObjectKey.Parse(CreateUniqueTag());
+        }
+
+        /// <summary>
+        /// Creates a unique key from a unique tag.
+        /// </summary>
+        /// <param name="keyPart">The part of the key in which to place the tag.</param>
+        /// <returns>A unique key from a unique tag.</returns>
+        public static ObjectKey CreateUniqueTagKey(string keyPart)
+        {
+            var key = new ObjectKey();
+            key.SetPart(keyPart, CreateUniqueTag());
+            return key;
         }
 
         /// <summary>
@@ -359,5 +371,20 @@ namespace HularionCore.Pattern.Identifier
             return new ObjectKey() { Serialized = String.Format("0", value.ToString()) };
         }
 
+
+        public override string ToString()
+        {
+            return Serialized;
+        }
+
+        public override int GetHashCode()
+        {
+            return Serialized.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return EqualsKey(obj);
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace HularionMesh.Repository
         public string Key { get; private set; } = MeshKey.CreateUniqueTag();
 
         /// <summary>
-        /// The mesh mechanism that will provide the data services whether, file, database, cloud, etcetera.
+        /// The mesh mechanism that will provide the data services whether file, database, cloud, etcetera.
         /// </summary>
         public IMeshServiceProvider MeshServicesProvider { get; private set; }
 

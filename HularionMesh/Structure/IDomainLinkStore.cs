@@ -62,7 +62,7 @@ namespace HularionMesh.Structure
         /// <param name="bKeys">The keys of the T-type objects.</param>
         /// <param name="userKey">The key of the user making the link request.</param>
         /// <remarks>The implementer should use MeshDomain.KeyIsObjectInThisDomain() to determine which of aKeys and bKeys are S-type keys and T-type keys.</remarks>
-        void UnLink(IEnumerable<IMeshKey> aKeys, IEnumerable<IMeshKey> bKeys, IMeshKey userKey = null);
+        void UnLink(IEnumerable<IMeshKey> aKeys, IEnumerable<IMeshKey> bKeys, string sMemberName = null, string tMemberName = null, IMeshKey userKey = null);
 
         /// <summary>
         /// Gets the link objects of the linked domain that are related to each of the provided keys.
@@ -79,6 +79,14 @@ namespace HularionMesh.Structure
         /// <returns>The keys of the linked domain that are related to each of the provided keys.</returns>
         /// <remarks>If A1 is linked to B1, B2, and C1, then given A1.Key, the result is (A1.Key,{ B1.Key, B2.Key, C1.Key }).</remarks>
         IDictionary<IMeshKey, IEnumerable<IMeshKey>> GetLinkedKeys(IEnumerable<IMeshKey> keys);
+
+        /// <summary>
+        /// Gets the linkers for the given linked keys and member name.
+        /// </summary>
+        /// <param name="linkedKeys">The S-type keys or T-type keys.</param>
+        /// <param name="memberName">The name of the member for the given key.</param>
+        /// <returns>The linkers for the links with the matching keys and member names.</returns>
+        IDictionary<IMeshKey, IEnumerable<DomainLinker>> GetLinks(IEnumerable<IMeshKey> linkedKeys, string memberName);
 
         /// <summary>
         /// Gets the linkers with the given keys.

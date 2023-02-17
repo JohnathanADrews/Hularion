@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HularionMesh.Connector.Postgres</name>
+    </assembly>
+    <members>
+        <member name="T:HularionMesh.Connector.Postgres.PostgresMeshRepositoryBuilder">
+            <summary>
+            A repository builder for a Postgres connector.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.PostgresMeshRepositoryBuilder.RegistrationDetail">
+            <summary>
+            The details for registering an assembly.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.PostgresMeshRepositoryBuilder.ConnectionString">
+            <summary>
+            The connection string to the database server/
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.PostgresMeshRepositoryBuilder.DatabaseName">
+            <summary>
+            The name of the database.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.PostgresMeshRepositoryBuilder.UserProfile">
+            <summary>
+            The profile of the user connecting to the database.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Connector.Postgres.PostgresMeshRepositoryBuilder.CreateRepository``1(System.String,System.String,HularionMesh.User.UserProfile)">
+            <summary>
+            Creates a MeshRepository using a Postgres store with a standard setup.
+            </summary>
+            <typeparam name="IncludeAttributeType">The type of attribute that will cause a class to be added as a domain if that class has the attribute.</typeparam>
+            <param name="userProfile">The profile of the user creating the repository.</param>
+            <returns>An in-memory MeshRepository</returns>
+        </member>
+        <member name="M:HularionMesh.Connector.Postgres.PostgresMeshRepositoryBuilder.CreateRepository(System.String,System.Collections.Generic.IEnumerable{System.Type},System.Collections.Generic.IEnumerable{System.Reflection.Assembly},System.String,HularionMesh.User.UserProfile,System.Boolean,System.Boolean)">
+            <summary>
+            Creates a MeshRepository using a Postgres store with a standard setup.
+            </summary>
+            <typeparam name="IncludeAttributeType">The type of attribute that will cause a class to be added as a domain if that class has the attribute.</typeparam>
+            <param name="userProfile">The profile of the user creating the repository.</param>
+            <returns>An in-memory MeshRepository</returns>
+        </member>
+        <member name="M:HularionMesh.Connector.Postgres.PostgresMeshRepositoryBuilder.Create">
+            <summary>
+            Creates the repository using the values set in this.
+            </summary>
+            <returns>A MeshRepository.</returns>
+        </member>
+        <member name="T:HularionMesh.Connector.Postgres.PostgresMeshService">
+            <summary>
+            The mesh services provider for communicating with Postgres.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Connector.Postgres.PostgresMeshService.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="connectionString">The connection details for connecting to a postgres server.</param>
+        </member>
+        <member name="T:HularionMesh.Connector.Postgres.PostgresRepository">
+            <summary>
+            A repository that connects to a Postgres database.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.PostgresRepository.SqlTypeProvider">
+            <summary>
+            Provides an ISqlType given the mesh data type.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.PostgresRepository.SqlTypesProvider">
+            <summary>
+            Provides all the database system types.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.PostgresRepository.DomainValueKeyCreator">
+            <summary>
+            Creates domain object keys given the provided domain.
+            </summary>
+            <remarks>StandardDomainForm.DomainValueKeyCreator  is the standard creator.</remarks>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.PostgresRepository.LinkKeyFormProvider">
+            <summary>
+            Provides the link form specification for linked domains.
+            </summary>
+            <remarks>StandardLinkForm.LinkKeyFormProvider is the standard specification.</remarks>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.PostgresRepository.ObjectNameCreator">
+            <summary>
+            Creates a language-specific name given the SqlObject.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.PostgresRepository.ConnectionString">
+            <summary>
+            The string containing the connection details to connect to a Postgres database.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Connector.Postgres.PostgresRepository.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="connectionString">The string containing the connection details to connect to a Postgres database.</param>
+        </member>
+        <member name="M:HularionMesh.Connector.Postgres.PostgresRepository.CreateTable(HularionMesh.Translator.SqlBase.ORM.CreateTableSpecification)">
+            <summary>
+            Creates the table using the provided table specification.
+            </summary>
+            <param name="table">The specification to create the table.</param>
+        </member>
+        <member name="M:HularionMesh.Connector.Postgres.PostgresRepository.AddTableColumns(System.String,HularionMesh.Translator.SqlBase.ORM.CreateColumnSpecification[])">
+            <summary>
+            Adds the table columns to the table with name tableName.
+            </summary>
+            <param name="tableName">The name of the table to add the columns.</param>
+            <param name="columns">The columns to add to the table.</param>
+        </member>
+        <member name="M:HularionMesh.Connector.Postgres.PostgresRepository.ExecuteCommand(System.String,System.Collections.Generic.IEnumerable{HularionMesh.Translator.SqlBase.ORM.SqlMeshParameter})">
+            <summary>
+            Executes the provided command.
+            </summary>
+            <param name="command">The command to execute.</param>
+            <param name="parameters">The parameters to use in the command.</param>
+        </member>
+        <member name="M:HularionMesh.Connector.Postgres.PostgresRepository.ExecuteQuery(System.String,System.Collections.Generic.IEnumerable{HularionMesh.Translator.SqlBase.ORM.SqlMeshParameter})">
+            <summary>
+            Executes the query using the provided parameters and returns a DataTable with the result.
+            </summary>
+            <param name="query">The query to retrieve the values.</param>
+            <param name="parameters">The parameters to the query.</param>
+            <returns>A DataTable with the result of the query.</returns>
+        </member>
+        <member name="T:HularionMesh.Connector.Postgres.SqlType">
+            <summary>
+            Contains the details for translating sql types to and from mesh data types.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.SqlType.MeshDataType">
+            <summary>
+            The type of the Mesh DataType to which this is related.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.SqlType.SqlTypeNames">
+            <summary>
+            The names of the SQL types.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.SqlType.SqlPrimaryKeyTypeNames">
+            <summary>
+            The names of the SQL types if it is a primary key.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.SqlType.ToCSTransform">
+            <summary>
+            Converts the SQL values to a C# typed value.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.SqlType.ToSqlTransform">
+            <summary>
+            Converts a C# typed value to the SQL values.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.SqlType.SqlTypeCount">
+            <summary>
+            The number of SQL types to which the mesh type maps.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Postgres.SqlType.SqlTypeProvider">
+            <summary>
+            Provides the ISqlType that corresponds to the provided mesh data type.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Connector.Postgres.SqlType.#ctor(HularionMesh.MeshType.DataType,System.String,System.Func{System.Object,System.Object},System.Func{System.Object,System.Object})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="dataType">The mesh data type.</param>
+            <param name="sqlTypeNames">The name of the sql type.</param>
+            <param name="toCSTransform">Converts a sql value to a c# typed value.</param>
+        </member>
+        <member name="M:HularionMesh.Connector.Postgres.SqlType.#ctor(HularionMesh.MeshType.DataType,System.String[],System.Func{System.Object[],System.Object},System.Func{System.Object,System.Object[]})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="dataType">The mesh data type.</param>
+            <param name="sqlTypeNames">The name of the sql type.</param>
+            <param name="toCSTransform">Converts a sql value to a c# typed value.</param>
+        </member>
+        <member name="M:HularionMesh.Connector.Postgres.SqlType.GetTypes">
+            <summary>
+            Gets all the SQL types.
+            </summary>
+            <returns>All the SQL types.</returns>
+        </member>
+    </members>
+</doc>

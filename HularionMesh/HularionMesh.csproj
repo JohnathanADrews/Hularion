@@ -13,12 +13,7 @@
     <RepositoryUrl>https://github.com/JohnathanADrews/Hularion</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageIcon>Hularion image.png</PackageIcon>
-    <Version>1.0.4</Version>
-    <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-    <Title>HularionMesh</Title>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>orm database mesh graph</PackageTags>
+    <Version>1.0.7</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -31,12 +26,6 @@
     <WarningLevel>3</WarningLevel>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="IMeshKey - Copy.cs" />
-    <Compile Remove="MeshKey - Copy.cs" />
-    <Compile Remove="Repository\RepositoryBuilder.cs" />
-    <Compile Remove="SystemDomain\UniqueSetDomain.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\Hularion image.png">
@@ -50,14 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HularionCore" Version="1.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <ProjectReference Include="..\HularionCore\HularionCore.csproj" />
   </ItemGroup>
 
 </Project>

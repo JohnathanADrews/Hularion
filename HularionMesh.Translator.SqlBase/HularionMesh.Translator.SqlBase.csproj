@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Johnathan A Drews</Authors>
+    <Description>Encapsulates most of the details for creating a Hularion Mesh to SQL  connector.</Description>
+    <Copyright>2023</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>www.hularion.com</PackageProjectUrl>
+    <PackageIcon>Hularion image.png</PackageIcon>
+    <RepositoryUrl>https://github.com/JohnathanADrews/Hularion</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>1.0.7</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\dev\Standard\Hularion\HularionMesh.Translator.SqlBase\HularionMesh.Translator.SqlBase.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <None Include="..\Hularion image.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HularionCore\HularionCore.csproj" />
+    <ProjectReference Include="..\HularionMesh\HularionMesh.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -348,6 +348,11 @@
             The mode in which to handle the request.
             </summary>
         </member>
+        <member name="P:HularionMesh.DomainLink.DomainLinkAffectRequest.LinkIsExclusive">
+            <summary>
+            true iff the linked objects can have only one link related to the given member.
+            </summary>
+        </member>
         <member name="P:HularionMesh.DomainLink.DomainLinkAffectRequest.WhereA">
             <summary>
             The root node in the where expression for the A-type values. Used in LinkWhere and UnlinkWhere modes.
@@ -904,10 +909,22 @@
             The where clause used to locate the nodes to update.
             </summary>
         </member>
-        <member name="M:HularionMesh.DomainValue.DomainObjectUpdater.#ctor">
+        <member name="P:HularionMesh.DomainValue.DomainObjectUpdater.DomainKey">
+            <summary>
+            The key for the domain to which this update belongs.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.DomainValue.DomainObjectUpdater.Generics">
+            <summary>
+            The generics applied to the domain to which this update belongs.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.DomainValue.DomainObjectUpdater.#ctor(HularionMesh.IMeshKey,HularionMesh.Domain.MeshGeneric[])">
             <summary>
             Constructor.
             </summary>
+            <param name="domainKey">The key for the domain to which this update belongs.</param>
+            <param name="generics">The generics applied to the domain to which this update belongs.</param>
         </member>
         <member name="M:HularionMesh.DomainValue.DomainObjectUpdater.#ctor(HularionMesh.DomainValue.DomainObject)">
             <summary>
@@ -922,6 +939,18 @@
             <typeparam name="T">The type of the value from which the updater is derived.</typeparam>
             <param name="value">The value containing the update information.</param>
             <returns>The domain updater.</returns>
+        </member>
+        <member name="M:HularionMesh.DomainValue.DomainObjectUpdater.SetValues(HularionMesh.DomainValue.DomainObject)">
+            <summary>
+            Sets the values in the domain object according to this update.
+            </summary>
+            <param name="domainObject">The object containing the values to set.</param>
+        </member>
+        <member name="M:HularionMesh.DomainValue.DomainObjectUpdater.SetMeta(HularionMesh.DomainValue.DomainObject)">
+            <summary>
+            Sets the meta in the domain object according to this update.
+            </summary>
+            <param name="domainObject">The object containing the values to set.</param>
         </member>
         <member name="T:HularionMesh.DomainValue.DomainReadRequest">
             <summary>
@@ -1337,6 +1366,11 @@
             </summary>
             <returns>The created default domain object.</returns>
         </member>
+        <member name="F:HularionMesh.Domain.MeshDomain.ObjectMeshKey">
+            <summary>
+            The key property for a domain object.
+            </summary>
+        </member>
         <member name="F:HularionMesh.Domain.MeshDomain.CreationTime">
             <summary>
             The datetime that the domain object was created.
@@ -1365,6 +1399,11 @@
         <member name="P:HularionMesh.Domain.MeshDomain.MetaProperties">
             <summary>
             The meta-information properties such as creation time and creation user.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Domain.MeshDomain.MetaMap">
+            <summary>
+            Maps the MetaProperty enum values to the corresponding ValueProperty.
             </summary>
         </member>
         <member name="M:HularionMesh.Domain.MeshDomain.KeyIsObjectInThisDomain(HularionMesh.IMeshKey)">
@@ -1437,6 +1476,11 @@
         <member name="F:HularionMesh.Domain.TypeGenericMode.Argument">
             <summary>
             The generic is an realized domain, having generics which are realized domains or data types.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Domain.MetaProperty">
+            <summary>
+            The meta-data properties in mesh.
             </summary>
         </member>
         <member name="T:HularionMesh.Domain.RealizedMeshDomain">
@@ -1729,6 +1773,14 @@
             </summary>
         </member>
         <member name="M:HularionMesh.IMeshKey.SetPart(HularionMesh.MeshKeyPart,System.String)">
+            <summary>
+            Sets the part of the key indicated by partKey.
+            </summary>
+            <param name="partKey">The part of the key to set.</param>
+            <param name="partValue">The value to associate with the part.</param>
+            <returns>this IMeshKey</returns>
+        </member>
+        <member name="M:HularionMesh.IMeshKey.SetPart(System.String,System.String)">
             <summary>
             Sets the part of the key indicated by partKey.
             </summary>
@@ -3309,6 +3361,18 @@
             Provides the domain mechanic give the mesh domain. Set this to overrie the DomainMechanicManager's DomainMechaincProvider provider.
             </summary>
         </member>
+        <member name="P:HularionMesh.Repository.IMeshRepository.MeshServicesProvider">
+            <summary>
+            The mesh mechanism that will provide the data services whether file, database, cloud, etcetera.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Repository.IMeshRepository.CreateQuery``1">
+            <summary>
+            Creates a mesh query that can be used to query the mesh.
+            </summary>
+            <typeparam name="DomainType">The type of the domain to use as the root query.</typeparam>
+            <returns>The mesh query for the domain associated with the given type.</returns>
+        </member>
         <member name="T:HularionMesh.Repository.MeshRepository">
             <summary>
             A repository for registering domains and interacting with a mesh service.
@@ -3321,7 +3385,7 @@
         </member>
         <member name="P:HularionMesh.Repository.MeshRepository.MeshServicesProvider">
             <summary>
-            The mesh mechanism that will provide the data services whether, file, database, cloud, etcetera.
+            The mesh mechanism that will provide the data services whether file, database, cloud, etcetera.
             </summary>
         </member>
         <member name="P:HularionMesh.Repository.MeshRepository.TypeRegistrar">
@@ -4223,7 +4287,7 @@
             <param name="tMemberName">The name of the member of the T-type objects that is ocupied by S-type objects.</param>
             <param name="userKey">The key of the user making the link request.</param>
         </member>
-        <member name="M:HularionMesh.Standard.StandardDomainLinkStore.UnLink(System.Collections.Generic.IEnumerable{HularionMesh.IMeshKey},System.Collections.Generic.IEnumerable{HularionMesh.IMeshKey},HularionMesh.IMeshKey)">
+        <member name="M:HularionMesh.Standard.StandardDomainLinkStore.UnLink(System.Collections.Generic.IEnumerable{HularionMesh.IMeshKey},System.Collections.Generic.IEnumerable{HularionMesh.IMeshKey},System.String,System.String,HularionMesh.IMeshKey)">
             <summary>
             Unlinks the objects with the provided keys.
             </summary>
@@ -4244,6 +4308,14 @@
             </summary>
             <param name="keys">The keys of the subject domain for which the related linked keys will be provided.</param>
             <returns>The keys of the linked domain that are related to each of the provided keys.</returns>
+        </member>
+        <member name="M:HularionMesh.Standard.StandardDomainLinkStore.GetLinks(System.Collections.Generic.IEnumerable{HularionMesh.IMeshKey},System.String)">
+            <summary>
+            Gets the linkers for the given linked keys and member name.
+            </summary>
+            <param name="linkedKeys">The S-type keys or T-type keys.</param>
+            <param name="memberName">The name of the member for the given key.</param>
+            <returns>The linkers for the links with the matching keys and member names.</returns>
         </member>
         <member name="M:HularionMesh.Standard.StandardDomainLinkStore.GetLinks(HularionMesh.IMeshKey[])">
             <summary>
@@ -4463,7 +4535,7 @@
             <param name="userKey">The key of the user making the link request.</param>
             <remarks>The implementer should use MeshDomain.KeyIsObjectInThisDomain() to determine which of aKeys and bKeys are S-type keys and T-type keys.</remarks>
         </member>
-        <member name="M:HularionMesh.Structure.IDomainLinkStore.UnLink(System.Collections.Generic.IEnumerable{HularionMesh.IMeshKey},System.Collections.Generic.IEnumerable{HularionMesh.IMeshKey},HularionMesh.IMeshKey)">
+        <member name="M:HularionMesh.Structure.IDomainLinkStore.UnLink(System.Collections.Generic.IEnumerable{HularionMesh.IMeshKey},System.Collections.Generic.IEnumerable{HularionMesh.IMeshKey},System.String,System.String,HularionMesh.IMeshKey)">
             <summary>
             Unlinks the objects with the provided keys.
             </summary>
@@ -4487,6 +4559,14 @@
             <param name="keys">The keys of the domain for which the related linked keys will be provided. If "keys" are for "DomainA", the resutl will be keys for "DomainB".</param>
             <returns>The keys of the linked domain that are related to each of the provided keys.</returns>
             <remarks>If A1 is linked to B1, B2, and C1, then given A1.Key, the result is (A1.Key,{ B1.Key, B2.Key, C1.Key }).</remarks>
+        </member>
+        <member name="M:HularionMesh.Structure.IDomainLinkStore.GetLinks(System.Collections.Generic.IEnumerable{HularionMesh.IMeshKey},System.String)">
+            <summary>
+            Gets the linkers for the given linked keys and member name.
+            </summary>
+            <param name="linkedKeys">The S-type keys or T-type keys.</param>
+            <param name="memberName">The name of the member for the given key.</param>
+            <returns>The linkers for the links with the matching keys and member names.</returns>
         </member>
         <member name="M:HularionMesh.Structure.IDomainLinkStore.GetLinks(HularionMesh.IMeshKey[])">
             <summary>
@@ -4854,6 +4934,17 @@
             <param name="key">The key.</param>
             <returns>The value associated to the given key.</returns>
         </member>
+        <member name="M:HularionMesh.SystemDomain.Map`2.Remove(`0)">
+            <summary>
+            Removes the specified item from the map.
+            </summary>
+            <param name="key">The key of the key/item pair to remove.</param>
+        </member>
+        <member name="M:HularionMesh.SystemDomain.Map`2.Clear">
+            <summary>
+            Removes all items from the map.
+            </summary>
+        </member>
         <member name="M:HularionMesh.SystemDomain.Map`2.GetKeyedValues">
             <summary>
             Gets all the key/value pairs in the map.
@@ -5026,6 +5117,12 @@
             </summary>
             <param name="items">The items to add.</param>
         </member>
+        <member name="M:HularionMesh.SystemDomain.UniqueSet`1.AddMany(`0[])">
+            <summary>
+            Adds the items to the set.
+            </summary>
+            <param name="items">The items to add.</param>
+        </member>
         <member name="M:HularionMesh.SystemDomain.UniqueSet`1.AddObjectRange(System.Collections.Generic.IEnumerable{System.Object})">
             <summary>
             Adds the the given items.
@@ -5044,6 +5141,17 @@
             </summary>
             <param name="item">The item to check.</param>
             <returns>true iff the item is contained in the set.</returns>
+        </member>
+        <member name="M:HularionMesh.SystemDomain.UniqueSet`1.Remove(`0)">
+            <summary>
+            Removes the item if it exists.
+            </summary>
+            <param name="item">The item to remove.</param>
+        </member>
+        <member name="M:HularionMesh.SystemDomain.UniqueSet`1.Clear">
+            <summary>
+            Clears all items from the set.
+            </summary>
         </member>
         <member name="M:HularionMesh.SystemDomain.UniqueSet`1.ToArray">
             <summary>
@@ -5267,7 +5375,7 @@
             </summary>
             <returns>A node that evaluates to false.</returns>
         </member>
-        <member name="M:HularionMesh.WhereExpressionNode.CreateBinaryOperatorNode(HularionCore.Logic.BinaryOperator,System.Boolean)">
+        <member name="M:HularionMesh.WhereExpressionNode.CreateBinaryOperatorNode(HularionCore.Logic.BinaryOperator,System.Boolean,System.Boolean)">
             <summary>
             Creates a node using the operator.
             </summary>
@@ -5279,7 +5387,7 @@
             </summary>
             <returns>A node using the operator.</returns>
         </member>
-        <member name="M:HularionMesh.WhereExpressionNode.CreateComparisonNode(HularionMesh.MeshType.DataTypeComparison,System.Boolean)">
+        <member name="M:HularionMesh.WhereExpressionNode.CreateComparisonNode(HularionMesh.MeshType.DataTypeComparison,System.String,System.Object,System.Boolean)">
             <summary>
             Creates a node using the comparison.
             </summary>

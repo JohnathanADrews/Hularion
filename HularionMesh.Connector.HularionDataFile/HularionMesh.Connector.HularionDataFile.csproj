@@ -11,14 +11,8 @@
     <RepositoryUrl>https://github.com/JohnathanADrews/Hularion</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageIcon>Hularion image.png</PackageIcon>
-    <Version>1.0.4</Version>
-    <Company>Johnathan A Drews</Company>
     <Authors>Johnathan A Drews</Authors>
-    <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-    <Title>HularionMesh.Connector.HularionDataFile</Title>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>orm database mesh file graph</PackageTags>
+    <Version>1.0.7</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -37,15 +31,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HularionMesh" Version="1.0.4" />
-    <PackageReference Include="HularionText.Language.Json" Version="1.0.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <ProjectReference Include="..\HularionCore\HularionCore.csproj" />
+    <ProjectReference Include="..\HularionMesh\HularionMesh.csproj" />
+    <ProjectReference Include="..\HularionText.Language.Json\HularionText.Language.Json.csproj" />
+    <ProjectReference Include="..\HularionText\HularionText.csproj" />
   </ItemGroup>
 
 </Project>

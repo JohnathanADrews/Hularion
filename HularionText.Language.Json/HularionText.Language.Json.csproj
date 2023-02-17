@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -11,13 +11,9 @@
     <RepositoryType>git</RepositoryType>
     <Copyright>2023</Copyright>
     <PackageIcon>Hularion image.png</PackageIcon>
-    <Version>1.0.4</Version>
     <Company>Johnathan A Drews</Company>
     <Authors>Johnathan A Drews</Authors>
-    <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>text json serializer</PackageTags>
+    <Version>1.0.7</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -36,14 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HularionText" Version="1.0.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <ProjectReference Include="..\HularionCore\HularionCore.csproj" />
+    <ProjectReference Include="..\HularionText\HularionText.csproj" />
   </ItemGroup>
 
 </Project>

@@ -40,8 +40,8 @@ namespace HularionMesh.DomainLink
         /// </summary>
         public MeshDomainLink()
         {
-            Properties.Add(new ValueProperty() { Name = MeshKeyword.SKey.Alias, Type = DataType.Text8.Key.Serialized });
-            Properties.Add(new ValueProperty() { Name = MeshKeyword.TKey.Alias, Type = DataType.Text8.Key.Serialized });
+            Properties.Add(new ValueProperty() { Name = MeshKeyword.SKey.Alias, Type = DataType.MeshKey.Key.Serialized });
+            Properties.Add(new ValueProperty() { Name = MeshKeyword.TKey.Alias, Type = DataType.MeshKey.Key.Serialized });
             Properties.Add(new ValueProperty() { Name = MeshKeyword.SMember.Alias, Type = DataType.Text8.Key.Serialized });
             Properties.Add(new ValueProperty() { Name = MeshKeyword.TMember.Alias, Type = DataType.Text8.Key.Serialized });
         }

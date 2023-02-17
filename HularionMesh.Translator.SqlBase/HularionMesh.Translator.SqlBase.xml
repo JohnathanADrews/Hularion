@@ -1,0 +1,1349 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HularionMesh.Translator.SqlBase</name>
+    </assembly>
+    <members>
+        <member name="T:HularionMesh.Translator.SqlBase.Extensions">
+            <summary>
+            Extensions on Mesh objects.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Extensions.GetSqlTableName(HularionMesh.Domain.MeshDomain,HularionMesh.DomainValue.DomainObject,HularionCore.Pattern.Functional.IParameterizedProvider{HularionMesh.MeshType.DataType,HularionMesh.Translator.SqlBase.ISqlType})">
+            <summary>
+            Gets the SQL table name given the domain and domain object. This incorporates any generics and other necessary information into the na,e.
+            </summary>
+            <param name="domain">The domain for which to get the table name.</param>
+            <param name="domainObject">The domain object for which to get the table name.</param>
+            <returns>The SQL table name given the domain and domain object.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Extensions.GetSqlTableName(HularionMesh.Domain.MeshDomain,System.String[])">
+            <summary>
+            Gets a SQL table name for a domain given a set of affixes, which could be generics or other infomation.
+            </summary>
+            <param name="domain">The domain for which to get the table name.</param>
+            <param name="suffixes">The affixes to the table name.</param>
+            <returns>The SQL table name for a domain and affixes.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Extensions.CreateTableName(HularionMesh.Translator.SqlBase.ISqlRepository,System.String)">
+            <summary>
+            Creates a table name using the ObjectNameCreator given to the repository.
+            </summary>
+            <param name="repository">The repository that is extended.</param>
+            <param name="name">The base table name.</param>
+            <returns>The name of the table formatted for the appropriate data source.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Extensions.CreateTableName(HularionMesh.Translator.SqlBase.ISqlRepository,System.Object)">
+            <summary>
+            Creates a table name using the ObjectNameCreator given to the repository.
+            </summary>
+            <param name="repository">The repository that is extended.</param>
+            <param name="name">The base table name.</param>
+            <returns>The name of the table formatted for the appropriate data source.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Extensions.CreateColumnName(HularionMesh.Translator.SqlBase.ISqlRepository,System.String)">
+            <summary>
+            Creates a column name using the ObjectNameCreator given to the repository.
+            </summary>
+            <param name="repository">The repository that is extended.</param>
+            <param name="name">The base column name.</param>
+            <returns>The name of the column formatted for the appropriate data source.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Extensions.CreateColumnName(HularionMesh.Translator.SqlBase.ISqlRepository,System.Object)">
+            <summary>
+            Creates a column name using the ObjectNameCreator given to the repository.
+            </summary>
+            <param name="repository">The repository that is extended.</param>
+            <param name="name">The base column name.</param>
+            <returns>The name of the column formatted for the appropriate data source.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Extensions.CreateDatabaseName(HularionMesh.Translator.SqlBase.ISqlRepository,System.String)">
+            <summary>
+            Creates a database name using the ObjectNameCreator given to the repository.
+            </summary>
+            <param name="repository">The repository that is extended.</param>
+            <param name="name">The base database name.</param>
+            <returns>The name of the database formatted for the appropriate data source.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Extensions.GetKey(HularionMesh.Translator.SqlBase.ISqlType)">
+            <summary>
+            Creates a key given the sql type. The key contains the 
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ISqlRepository">
+            <summary>
+            An interface with the necessary SQL functionality to implement a mesh connector.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ISqlRepository.CreateTable(HularionMesh.Translator.SqlBase.ORM.CreateTableSpecification)">
+            <summary>
+            Creates the table using the provided table specification.
+            </summary>
+            <param name="table">The specification to create the table.</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:HularionMesh.Translator.SqlBase.ISqlRepository.AddTableColumns(System.String,HularionMesh.Translator.SqlBase.ORM.CreateColumnSpecification[])" -->
+        <member name="M:HularionMesh.Translator.SqlBase.ISqlRepository.ExecuteCommand(System.String,System.Collections.Generic.IEnumerable{HularionMesh.Translator.SqlBase.ORM.SqlMeshParameter})">
+            <summary>
+            Executes the provided command.
+            </summary>
+            <param name="command">The command to execute.</param>
+            <param name="parameters">The parameters to use in the command.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ISqlRepository.ExecuteQuery(System.String,System.Collections.Generic.IEnumerable{HularionMesh.Translator.SqlBase.ORM.SqlMeshParameter})">
+            <summary>
+            Executes the query using the provided parameters and returns a DataTable with the result.
+            </summary>
+            <param name="query">The query to retrieve the values.</param>
+            <param name="parameters">The parameters to the query.</param>
+            <returns>A DataTable with the result of the query.</returns>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ISqlRepository.SqlTypeProvider">
+            <summary>
+            Provides an ISqlType given the mesh data type.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ISqlRepository.SqlTypesProvider">
+            <summary>
+            Provides all the database system types.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ISqlRepository.DomainValueKeyCreator">
+            <summary>
+            Creates domain object keys given the provided domain.
+            </summary>
+            <remarks>StandardDomainForm.DomainValueKeyCreator  is the standard creator.</remarks>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ISqlRepository.LinkKeyFormProvider">
+            <summary>
+            Provides the link form specification for linked domains.
+            </summary>
+            <remarks>StandardLinkForm.LinkKeyFormProvider is the standard specification.</remarks>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ISqlRepository.ObjectNameCreator">
+            <summary>
+            Creates a language-specific name given the SqlObject. e.g. Adds [ and ] to the ends of the name.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ISqlRepository.WhereTransformer">
+            <summary>
+            Transforms a WhereExpressionNode to conform to an implemented connector.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ISqlType">
+            <summary>
+            The necessary interface for a SQL type.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ISqlType.MeshDataType">
+            <summary>
+            The type of the Mesh DataType to which this is related.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ISqlType.ToCSTransform">
+            <summary>
+            Transforms the SQL type to a C# type.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ISqlType.ToSqlTransform">
+            <summary>
+            Converts a C# typed value to a SQL value.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ISqlType.SqlTypeNames">
+            <summary>
+            The name of the SQL types to which the mesh type maps.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ISqlType.SqlPrimaryKeyTypeNames">
+            <summary>
+            The name of the SQL types to which the mesh type maps if it is a primary key. (e.g. varchar(128) instead of varchar(max))
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ISqlType.SqlTypeCount">
+            <summary>
+            The number of SQL types to which the mesh type maps.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.Mechanic.ISqlRepositoryMechanic">
+            <summary>
+            The mechanics for interacting with a SQL repository in a unique way.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Mechanic.ISqlRepositoryMechanic.SqlDomainTranslator">
+            <summary>
+            Sets the SqlDomainTranslator when the domain is being created.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mechanic.ISqlRepositoryMechanic.CreateDomain(HularionMesh.Translator.SqlBase.ORM.CreateTableSpecification)">
+            <summary>
+            Creates the domain using the given table specification. 
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mechanic.ISqlRepositoryMechanic.PrepareGenerics(HularionMesh.Translator.SqlBase.SqlMeshRepository,HularionMesh.Translator.SqlBase.ISqlRepository,HularionMesh.Domain.MeshDomain,HularionMesh.Domain.MeshGeneric[])">
+            <summary>
+            Prepares the domain to handle the provided generics.
+            </summary>
+            <param name="meshRepository">The calling repository.</param>
+            <param name="sqlRepository">The SQL implementation connector.</param>
+            <param name="domain">The domain to prepare.</param>
+            <param name="generics">The generics to prepare.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mechanic.ISqlRepositoryMechanic.SetupInsert(HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshInsert,HularionMesh.DomainValue.DomainObject[])">
+            <summary>
+            Sets up the insert statement.
+            </summary>
+            <param name="insert">The insert statement to setup.</param>
+            <param name="values">The values to insert.S</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mechanic.ISqlRepositoryMechanic.SetupUpdate(HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshUpdate,HularionMesh.DomainValue.DomainObjectUpdater[])">
+            <summary>
+            Sets up the update statement.
+            </summary>
+            <param name="update">The update statement.</param>
+            <param name="updaters">The update values.</param>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.Mechanic.MechanicUpdateOption">
+            <summary>
+            Options for a mechanic when updating values.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.Mechanic.MechanicUpdateOption.UpdateNone">
+            <summary>
+            Update none of the values in the mechanic domain.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.Mechanic.MechanicUpdateOption.UpdateMeta">
+            <summary>
+            Updates just the Meta values in the mechanic domain.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.Mechanic.MechanicUpdateOption.UpdateAll">
+            <summary>
+            Update all values in the mechanic domain.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.Mechanic.SetSqlMechanic">
+            <summary>
+            The details for implementing Set in a SQL repository.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Mechanic.SetSqlMechanic.SqlDomainTranslator">
+            <summary>
+            Sets the SqlDomainTranslator when the domain is being created.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mechanic.SetSqlMechanic.SetupUpdate(HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshUpdate,HularionMesh.DomainValue.DomainObjectUpdater[])">
+            <summary>
+            Sets up the update statement.
+            </summary>
+            <param name="update">The update statement.</param>
+            <param name="updaters">The update values.</param>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.Mesh.SqlDomainService">
+            <summary>
+            Implements IDomainService for SQL domains.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainService.#ctor(HularionMesh.Translator.SqlBase.ISqlRepository)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="sqlRepository">Contains the SQL system-specific functionality.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainService.CreateDomain(HularionMesh.Domain.MeshDomain)">
+            <summary>
+            Creates the given domain.
+            </summary>
+            <param name="domain">The domain to create.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainService.UpdateDomain(HularionMesh.Domain.MeshDomain)">
+            <summary>
+            Updates the given domain.
+            </summary>
+            <param name="domain">The domain to update.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainService.DeleteDomain(HularionMesh.IMeshKey)">
+            <summary>
+            Deletes the domain with the given key.
+            </summary>
+            <param name="domainKey">THe key fo the domain to delete.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainService.GetDomain(HularionMesh.IMeshKey)">
+            <summary>
+            Provides the MeshDomain given the domain key.
+            </summary>
+            <param name="domainKey">The key of the domain to get.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainService.GetDomain(System.String)">
+            <summary>
+            Provides the MeshDomain given the domain's friendly name.
+            </summary>
+            <param name="friendlyName">The friendly name of the domain to get.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainService.GetAllValueDomains">
+            <summary>
+            Provides all the MeshDomains.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainService.GetAllLinkDomains">
+            <summary>
+            Provides all the LinkedDomains.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainService.GetDomainValueService(HularionMesh.Domain.MeshDomain)">
+            <summary>
+            Provides the IDomainValueService given the MeshDomain.
+            </summary>
+            <param name="domain">The domain affected by the service to get.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainService.GetDomainValueService(HularionMesh.IMeshKey)">
+            <summary>
+            Provides the IDomainValueService given the MeshDomain's key.
+            </summary>
+            <param name="domainKey">The key of the domain affected by the service to get.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainService.GetDomainLinkService(HularionMesh.DomainLink.LinkedDomains)">
+            <summary>
+            Provides the IDomainLinkService given the LinkedDomains.
+            </summary>
+            <param name="domains">The link domain between domains affected by the service to get.</param>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.Mesh.SqlDomainValueStore">
+            <summary>
+            Implements IDomainValueStore by storing data to a SQL database.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Mesh.SqlDomainValueStore.SqlDomain">
+            <summary>
+            The mesh domain sql translator.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainValueStore.#ctor(HularionMesh.Translator.SqlBase.SqlMeshRepository,HularionMesh.Translator.SqlBase.SqlDomainTranslator)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="connectionString">The connection details.</param>
+            <param name="sqlDomain">The mesh domain sql translator.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainValueStore.QueryValues(HularionMesh.IMeshKey,HularionMesh.WhereExpressionNode,HularionMesh.DomainValue.DomainReadRequest)">
+            <summary>
+            Queries the values of this store.
+            </summary>
+            <param name="userKey">The key of the user making the request.</param>
+            <param name="where">The root node of a where expression tree.</param>
+            <param name="readRequest">The values to read in the query.</param>
+            <returns>The objects matching the provided query parameters.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainValueStore.QueryCount(HularionMesh.IMeshKey,HularionMesh.WhereExpressionNode)">
+            <summary>
+            Queries the number of records matching where.
+            </summary>
+            <param name="userKey">The key of the user making the request.</param>
+            <param name="where">The root node of a where expression tree.</param>
+            <returns>The number of records matching where.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainValueStore.InsertValues(HularionMesh.IMeshKey,HularionMesh.DomainValue.DomainObject[])">
+            <summary>
+            Inserts the provided values to the store and sets the key on each object.
+            </summary>
+            <param name="userKey">The key of the user making the request.</param>
+            <param name="values">The values to add.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainValueStore.UpdateValues(HularionMesh.IMeshKey,HularionMesh.DomainValue.DomainObjectUpdater[])">
+            <summary>
+            Updates the values specified by the updater and then reads the requested values back.
+            </summary>
+            <param name="userKey">The key of the user making the request.</param>
+            <param name="updaters">Specifies which objects and which object members to update.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.Mesh.SqlDomainValueStore.DeleteValues(HularionMesh.IMeshKey,HularionMesh.WhereExpressionNode)">
+            <summary>
+            Deletes the specified objects.
+            </summary>
+            <param name="userKey">The key of the user making the request.</param>
+            <param name="where">The root where node which details how to query the objects to delete.</param>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.Model.SqlDomainProperty">
+            <summary>
+            Domain property represented in a SQL-compatible form.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Model.SqlDomainProperty.DomainKey">
+            <summary>
+            The key of the domain for which this value is set.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Model.SqlDomainProperty.Key">
+            <summary>
+            The key of the property.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Model.SqlDomainProperty.Name">
+            <summary>
+            The name of the property.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Model.SqlDomainProperty.Type">
+            <summary>
+            The type of the property.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Model.SqlDomainProperty.MultiTypeOrder">
+            <summary>
+            The order number of this property if it is a multi-type property.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Model.SqlDomainProperty.SqlType">
+            <summary>
+            The SQL type of the property.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Model.SqlDomainProperty.Default">
+            <summary>
+            The default Value of the property serialized to a string.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Model.SqlDomainProperty.ValuePropertyProxy">
+            <summary>
+            Describes whether this value is a proxy for the Domain's Key or a Meta value.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Model.SqlDomainProperty.Generics">
+            <summary>
+            Contains the generic types serialized to a string.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Model.SqlDomainProperty.IsGenericParameter">
+            <summary>
+            True iff the type of this property is set by a generic argument of the domain.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.Model.SqlDomainValue">
+            <summary>
+            Represents a value attached to a domain.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Model.SqlDomainValue.DomainKey">
+            <summary>
+            The key of the domain for which this value is set.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Model.SqlDomainValue.Name">
+            <summary>
+            The name of the value.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Model.SqlDomainValue.Value">
+            <summary>
+            The serialized value.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.Model.SqlMeshDomain">
+            <summary>
+            Maps a mesh domain to a SQL table to get or set the domain.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.Model.SqlMeshLinkDomain">
+            <summary>
+            Maps a mesh domain to a SQL table to get or set the domain.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ORM.ColumnAttribute">
+            <summary>
+            An attribute to indicate a database column.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.ColumnAttribute.Column">
+            <summary>
+            The name of the column.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.ColumnAttribute.#ctor(System.String)">
+            <summary>
+            Construvtor.
+            </summary>
+            <param name="columnName">The name of the column.</param>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ORM.CreateColumnSpecification">
+            <summary>
+            The details for creating a column.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.CreateColumnSpecification.Name">
+            <summary>
+            The name of the column.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.CreateColumnSpecification.Type">
+            <summary>
+            The type of the column.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.CreateColumnSpecification.IsPrimaryKey">
+            <summary>
+            true iff the column is a primary key.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ORM.CreateTableSpecification">
+            <summary>
+            Contains the details for creating a table.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.CreateTableSpecification.Name">
+            <summary>
+            The name of the table.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.CreateTableSpecification.Columns">
+            <summary>
+            The column details.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ORM.MapInfo">
+            <summary>
+            Contains the mapping information for a type to a table.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.MapInfo.Type">
+            <summary>
+            The type being mapped.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.MapInfo.FromDataTable(System.Data.DataTable)">
+            <summary>
+            Creates instances of the map type given values from the DataTable.
+            </summary>
+            <param name="table">The DataTable.</param>
+            <returns>An instance of the map type for each row in table.</returns>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ORM.ParameterCreator">
+            <summary>
+            Creates parameters with names unique to the creator instance.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.ParameterCreator.Index">
+            <summary>
+            The index used to create a parameter.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.ParameterCreator.Parameters">
+            <summary>
+            The parameters that were created;
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.ParameterCreator.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.ParameterCreator.Create">
+            <summary>
+            Creates a parameter with a name unique to this creator.
+            </summary>
+            <returns>The created parameter.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.ParameterCreator.Create(System.Object)">
+            <summary>
+            Creates a parameter with a name unique to this creator.
+            </summary>
+            <param name="value">The value to assign to the parameter.</param>
+            <returns>The created parameter.</returns>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ORM.PrimaryKeyAttribute">
+            <summary>
+            An attribute indicating that a property is the primary key.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ORM.RecordOperation">
+            <summary>
+            The kinds of record-level operations within the repository.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.ORM.RecordOperation.Query">
+            <summary>
+            The object was queried.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.ORM.RecordOperation.Create">
+            <summary>
+            The object was created.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.ORM.RecordOperation.Update">
+            <summary>
+            The object was updated.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.ORM.RecordOperation.Delete">
+            <summary>
+            The object was deleted.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ORM.RecordSaveResult">
+            <summary>
+            The result of a record-level repository operation.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.RecordSaveResult.Value">
+            <summary>
+            The object of the save result.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.RecordSaveResult.Operation">
+            <summary>
+            The kind of operation that was performed.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ORM.SqlMeshParameter">
+            <summary>
+            A parameter for a mesh operation.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.SqlMeshParameter.Name">
+            <summary>
+            The name of hte parameter.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.SqlMeshParameter.Value">
+            <summary>
+            The value of the parameter.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ORM.TableAttribute">
+            <summary>
+            An attribute indicating that a class represents a SQL table.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TableAttribute.TableName">
+            <summary>
+            The name of the table.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.TableAttribute.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="tableName">The name of the table.</param>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ORM.TypeMap">
+            <summary>
+            Maps rows in a DataTable to an array of values with a specified type.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeMap.Repository">
+            <summary>
+            The repository.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.TypeMap.#ctor(HularionMesh.Translator.SqlBase.SqlMeshRepository)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="repository">The SQL mesh repository.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.TypeMap.GetValues``1(System.Data.DataTable)">
+            <summary>
+            Generates a set of values given the data table.
+            </summary>
+            <typeparam name="T">The type of values to generate.</typeparam>
+            <param name="table">The table containing the values.</param>
+            <returns>A set of values given the data table.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:HularionMesh.Translator.SqlBase.ORM.TypeMap.GetValues(System.Type,System.Data.DataTable)" -->
+        <member name="T:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo">
+            <summary>
+            Contains table mapping information for a member of a type.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.Name">
+            <summary>
+            The name of the member.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.Property">
+            <summary>
+            The member that is being mapped.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.Field">
+            <summary>
+            The member that is being mapped.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.IsPrimaryKey">
+            <summary>
+            True iff this member represents a primary key column.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.MapType">
+            <summary>
+            The kind of member being mapped.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.Type">
+            <summary>
+            The type of the member.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.SqlType">
+            <summary>
+            The SQL type.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.CreateColumnSpecifications">
+            <summary>
+            Contains the details for creating the column.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.#ctor(System.Reflection.PropertyInfo,HularionMesh.Translator.SqlBase.SqlMeshRepository)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="property">The property to map to a column.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.#ctor(System.Reflection.FieldInfo,HularionMesh.Translator.SqlBase.SqlMeshRepository)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="field">The field to map to a column.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.GetValues(System.Object)">
+            <summary>
+            Gets the value of this member within the container object.
+            </summary>
+            <param name="container">The object that has this property.</param>
+            <returns>The value of this member within the container.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.GetWhereString(System.String[])">
+            <summary>
+            Gets the SQL where clause for this member.
+            </summary>
+            <returns>The SQL where clause for this member.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.PropertyIsAColumn(System.Reflection.PropertyInfo)">
+            <summary>
+            Determines whether the specified property is mapped to a column.
+            </summary>
+            <param name="property">The property to check.</param>
+            <returns>true iff the specified property is mapped to a column.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.PropertyIsAColumn(System.Reflection.FieldInfo)">
+            <summary>
+            Determines whether the specified field is mapped to a column.
+            </summary>
+            <param name="field">The field to check.</param>
+            <returns>true iff the specified field is mapped to a column.</returns>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ORM.TypeMemberInfo.MemberType">
+            <summary>
+            The kind of member being mapped.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.ORM.TypeTableInfo">
+            <summary>
+            Stores the type to table mapping information for the specified type.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeTableInfo.Type">
+            <summary>
+            The type that is mapping to a table.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeTableInfo.TableName">
+            <summary>
+            The name of the corresponding table as set by TableAttribute.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeTableInfo.Members">
+            <summary>
+            The members of this type that map to columns.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeTableInfo.KeyMembers">
+            <summary>
+            The key members.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeTableInfo.NonKeyMembers">
+            <summary>
+            The non-key members.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeTableInfo.Repository">
+            <summary>
+            The repository.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.ORM.TypeTableInfo.CreateTableSpecification">
+            <summary>
+            The details for creating the table.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.TypeTableInfo.#ctor(System.Type,HularionMesh.Translator.SqlBase.SqlMeshRepository)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="type">The type to map.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.ORM.TypeTableInfo.TypeIsATable(System.Type)">
+            <summary>
+            Determines whether the specified type is mapped to a table.
+            </summary>
+            <param name="type">The type to check.</param>
+            <returns>true iff the specified type is mapped to a table.</returns>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.Result.CountResult">
+            <summary>
+            The result of a count query.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.Result.CountResult.Result">
+            <summary>
+            The number of records found in the count.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlDomainPropertyTranslator">
+            <summary>
+            The property information for a domain property in Sql.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainPropertyTranslator.Type">
+            <summary>
+            The type of the property.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainPropertyTranslator.MeshProperty">
+            <summary>
+            The property of the domain.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainPropertyTranslator.TypeProperty">
+            <summary>
+            The property information of the corresponding type.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainPropertyTranslator.ColumnNames">
+            <summary>
+            The name of the columns storing the property values.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainPropertyTranslator.PrefixedColumnNames">
+            <summary>
+            The name of the columns with the prefixes. Must match a DataTable column.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainPropertyTranslator.ColumnTranslator">
+            <summary>
+            The column translator for this property.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainPropertyTranslator.SqlType">
+            <summary>
+            The SQL type converter.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainPropertyTranslator.PropertyTypeProvider">
+            <summary>
+            Provides the sql type converter given a Mesh data type.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.SqlDomainPropertyTranslator.Key">
+            <summary>
+            A key to uniquely identify the translator.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlDomainPropertyTranslator.#ctor(HularionMesh.Translator.SqlBase.SqlMeshRepository,HularionMesh.Translator.SqlBase.SqlPropertyCategory,HularionMesh.Domain.ValueProperty)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="propertyType">The proeprty to translate.</param>
+            <param name="meshProperty">The mesh domain property.</param>
+            <param name="sqlType">The sql type converter.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlDomainPropertyTranslator.AssignValue(HularionMesh.DomainValue.DomainObject,System.Object[])">
+            <summary>
+            Assigns the value to the domain object.
+            </summary>
+            <param name="domainObject">The domain object to which the value will be assigned.</param>
+            <param name="values">The values to assign.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlDomainPropertyTranslator.GetSelectString">
+            <summary>
+            Gets a comma-delimited string containing the column names for a select statement.
+            </summary>
+            <returns>A comma-delimited string containing the column names for a select statement.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlDomainPropertyTranslator.GetSelectString(System.String[])">
+            <summary>
+            Gets a comma-delimited string containing the column names for a select statement.
+            </summary>
+            <param name="aliases">The aliases to which the column values are assigned.</param>
+            <returns>A comma-delimited string containing the column names for a select statement.</returns>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlDomainTranslator">
+            <summary>
+            Manages translators for properties within a mesh domain. 
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainTranslator.Domain">
+            <summary>
+            The translated domain.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainTranslator.TableName">
+            <summary>
+            The name of the table assciated with the domain.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainTranslator.Properties">
+            <summary>
+            The translated Mesh properties.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainTranslator.KeyProperty">
+            <summary>
+            The property information for the domain key.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainTranslator.MetaProperties">
+            <summary>
+            The domain meta properties.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainTranslator.NonGenericValueProperties">
+            <summary>
+            The non-generic domain value properties.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.SqlDomainTranslator.NewGenerics">
+            <summary>
+            The generic domain value properties.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlDomainTranslator.Repository">
+            <summary>
+            The SQL repository.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.SqlDomainTranslator.dataTypeProvider">
+            <summary>
+            Provides a Mesh data type given a name.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlDomainTranslator.#ctor(HularionMesh.Translator.SqlBase.SqlMeshRepository,HularionMesh.Domain.MeshDomain)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="domain">The translated domain.</param>
+            <param name="sqlRepository">The connector-implemented repository.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlDomainTranslator.GetProperty(HularionMesh.Translator.SqlBase.SqlPropertyCategory,System.String)">
+            <summary>
+            Gets the translator property given the category and the name.
+            </summary>
+            <param name="category">The category of property.</param>
+            <param name="name">The name of the property</param>
+            <returns>The property with the givne category and name.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlDomainTranslator.AddGenericProperties(HularionMesh.Domain.MeshGeneric[])">
+            <summary>
+            Adds the domain's generic properties.
+            </summary>
+            <param name="generics">The generics to add.</param>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshDelete">
+            <summary>
+            A SQL delete statement derived from a mesh request.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshDelete.Delete">
+            <summary>
+            The sql statement to delete the indicated records.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshDelete.ParameterCreator">
+            <summary>
+            The parameters in the where clause.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshInsert">
+            <summary>
+            A SQL insert statement derived from a mesh request.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshInsert.UserKey">
+            <summary>
+            The key fo the user performing the insert.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshInsert.SqlDomain">
+            <summary>
+            The domain in which the insert is happening.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshInsert.Insert">
+            <summary>
+            The SQL insert statement.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshInsert.ParameterCreator">
+            <summary>
+            The parameters used in the insert statement.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshInsert.#ctor(HularionMesh.IMeshKey,HularionMesh.Translator.SqlBase.SqlDomainTranslator,HularionMesh.Translator.SqlBase.SqlMeshRepository,HularionMesh.DomainValue.DomainObject[])">
+            <summary>
+            Constructo.
+            </summary>
+            <param name="userKey">The key fo the user performing the insert.</param>
+            <param name="sqlDomain">The domain in which the insert is happening.</param>
+            <param name="values">The object being inserted.</param>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshQuery">
+            <summary>
+            A SQL query derived from a mesh request.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshQuery.Query">
+            <summary>
+            The string containing the query logic.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshQuery.ParameterCreator">
+            <summary>
+            The parameters used in the query string.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshSelect">
+            <summary>
+            A SQL select clause derived from a mesh request.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshSelect.Select">
+            <summary>
+            The string containing the select logic.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshSelect.SelectKeyWordIncluded">
+            <summary>
+            if true, "select" appears at the beginning of the Select string.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshUpdate">
+            <summary>
+            A SQL update statement derived from a mesh request.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshWhere">
+            <summary>
+            A SQL where clause derived from a mesh request.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshWhere.Where">
+            <summary>
+            The string containing the where logic.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshWhere.WhereKeywordIncluded">
+            <summary>
+            true iff "where " appears at the beginning of Where.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshWhere.ParameterCreator">
+            <summary>
+            The parameters used in the where string.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.SqlGenerator.SqlMeshWhere.whereTransformer">
+            <summary>
+            Converts a property comparison node to SQL.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlMeshKeyword">
+            <summary>
+            Keywords used in SqlBase
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.SqlMeshKeyword.DefaultTableKey">
+            <summary>
+            The reserved name of a table column for databases that require a column when creating a table.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlMeshRepository">
+            <summary>
+            A repository used to map objects in Mesh-to-SQL.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.SqlMeshRepository.SqlRepository">
+            <summary>
+            The mesh connector.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlMeshRepository.MechanicProvider">
+            <summary>
+            Provides the mechanic for the given domain key or null if there is no mechanic.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlMeshRepository.DomainTableNameProvider">
+            <summary>
+            Provides the table name for the given domain.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlMeshRepository.SqlDomainProvider">
+            <summary>
+            Provides a SQL domain given a mesh domain.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.#ctor(HularionMesh.Translator.SqlBase.ISqlRepository)">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.ExecuteMeshCommand(System.String,System.Collections.Generic.IEnumerable{HularionMesh.Translator.SqlBase.ORM.SqlMeshParameter})">
+            <summary>
+            Executes the provided command.
+            </summary>
+            <param name="command">The command to execute.</param>
+            <param name="parameters">The parameters to use in the command.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.ExecuteQuery``1(System.String,System.Collections.Generic.IEnumerable{HularionMesh.Translator.SqlBase.ORM.SqlMeshParameter})">
+            <summary>
+            Creates objects of the specified type and maps the query result to them.
+            </summary>
+            <typeparam name="T">The type of object to create.</typeparam>
+            <param name="query">The query to retrieve the values.</param>
+            <param name="parameters">The parameters to the query.</param>
+            <returns>The objects created from the query result.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.ExecuteQuery(System.Type,System.String,System.Collections.Generic.IEnumerable{HularionMesh.Translator.SqlBase.ORM.SqlMeshParameter})">
+            <summary>
+            Creates objects of the specified type and maps the query result to them.
+            </summary>
+            <param name="type">The type of object to create.</param>
+            <param name="query">The query to retrieve the values.</param>
+            <param name="parameters">The parameters to the query.</param>
+            <returns>The objects created from the query result.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.SaveValues(System.Object[])">
+            <summary>
+            Saves the provided values.
+            </summary>
+            <param name="values">The values to save.</param>
+            <returns>The mapping of the value to the related save result.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.RegisterTypes(System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            Registers the types of the values and returns objects having types with a corresponding table.
+            </summary>
+            <param name="values">The values with types to check.</param>
+            <returns>Objects having types with a corresponding table.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.QueryTable(HularionMesh.Translator.SqlBase.ORM.TypeTableInfo,System.Object)">
+            <summary>
+            Queries for the table matching the provided value.
+            </summary>
+            <param name="tableTypeInfo">Information related to the type and tbale.</param>
+            <param name="value">The value for which to query.</param>
+            <returns>The data table with the matching record.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.CreateDomainOnce(HularionMesh.Translator.SqlBase.SqlDomainTranslator)">
+            <summary>
+            Creates the domain. Use this for domains that are non-dynamic (e.g. non-C# type associated).
+            </summary>
+            <param name="domain"></param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.CreateOrUpdateDomain(HularionMesh.Translator.SqlBase.SqlDomainTranslator)">
+            <summary>
+            Creates a table for the specified domain or updates the table by adding columns.
+            </summary>
+            <remarks>
+            1. Deprecated columns are not handled.
+            2. Columns setting a different type are not changed.
+            </remarks>
+            <param name="domain">The mesh domain to create or update.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.DeleteDomain(HularionMesh.IMeshKey)">
+            <summary>
+            Deletes the domain with the provided key.
+            </summary>
+            <param name="domainKey">The key of the domain to delete.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.GetDomain(HularionMesh.IMeshKey)">
+            <summary>
+            Gets the domain with the provided key.
+            </summary>
+            <param name="domainKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.GetDomains(HularionMesh.WhereExpressionNode)">
+            <summary>
+            Gets the domain matching the where clause.
+            </summary>
+            <param name="where">The where clause used to find the domain(s).</param>
+            <returns>The matching domains.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.SaveDomains(HularionMesh.Domain.MeshDomain[])">
+            <summary>
+            Saves the provided domains.
+            </summary>
+            <param name="domains">The domains to save.</param>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.GetAllValueDomains">
+            <summary>
+            Provides all the value domains.
+            </summary>
+            <returns>All the value domains.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.GetAllLinkedDomains">
+            <summary>
+            Provides all the link domains.
+            </summary>
+            <returns>The link domains.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.QueryDomainObject(HularionMesh.Translator.SqlBase.SqlDomainTranslator,System.String,System.Collections.Generic.IEnumerable{HularionMesh.Translator.SqlBase.ORM.SqlMeshParameter})">
+            <summary>
+            Executes the query and maps the result to domain objects with the specified domain.
+            </summary>
+            <param name="domain">The domain of the objects to map.</param>
+            <param name="query">The query to retrieve the object information.</param>
+            <param name="parameters">The query parameters.</param>
+            <returns>The query result mapped to domain objects with the specified domain.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.GetDomainWhereCount(HularionMesh.Translator.SqlBase.SqlDomainTranslator,HularionMesh.WhereExpressionNode)">
+            <summary>
+            Returns the number of records in the provided domain.
+            </summary>
+            <param name="domain">The domain for which the records will be counted.</param>
+            <param name="where">Determines which records will be counted.</param>
+            <returns>The number of matching records in the domain.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.MakeDomainGenericKey(HularionMesh.IMeshKey,System.String)">
+            <summary>
+            Makes a domain key for the specified generics.
+            </summary>
+            <param name="domainKey">The base domain key.</param>
+            <param name="serializedGenerics">The generics.</param>
+            <returns>The domain key with the generics.</returns>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshRepository.PrepareDomainGenerics(HularionMesh.Domain.MeshDomain,HularionMesh.DomainValue.DomainObject[])">
+            <summary>
+            Prepares the repository for the domain generics.
+            </summary>
+            <param name="domain">The generic domain.</param>
+            <param name="values">The values for which the repository will be prepared.</param>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlMeshServiceProvider">
+            <summary>
+            Implements IMeshServiceProvider for SqlBase.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlMeshServiceProvider.DomainServiceCommunicator">
+            <summary>
+            The communicators for a domain service. Implement this directly or implement IDomainService and use the StandardDomainServiceCommunicator.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlMeshServiceProvider.AggregateServiceProvider">
+            <summary>
+            Provides a domain aggregate service.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlMeshServiceProvider.#ctor(HularionMesh.Translator.SqlBase.ISqlRepository)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="repository">The connector repository.</param>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlObject">
+            <summary>
+            Represents a type of SQL object.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlObject.Name">
+            <summary>
+            The name of the object (e.g. database, table, column).
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.SqlObject.ObjectType">
+            <summary>
+            The type of the object.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlObject.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.SqlObject.#ctor(System.String,HularionMesh.Translator.SqlBase.SqlObjectType)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="name">The name of the object.</param>
+            <param name="objectType">The type of the object.</param>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlObjectType">
+            <summary>
+            The type of sql object.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlPropertyCategory">
+            <summary>
+            The categories of mesh properites.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.SqlPropertyCategory.Key">
+            <summary>
+            The key property.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.SqlPropertyCategory.Meta">
+            <summary>
+            The meta data properties.
+            </summary>
+        </member>
+        <member name="F:HularionMesh.Translator.SqlBase.SqlPropertyCategory.Value">
+            <summary>
+            The domain member properties.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.SqlRepositoryInjector">
+            <summary>
+            Implements an injector for an ISqlRepository to replace IMeshKey with string.
+            </summary>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.WhereTransformRequest">
+            <summary>
+            The details for configuring a WhereExpressionNode. 
+            </summary>
+            <remarks>The details needed to adjust the Where node and apply it to multiple columns.</remarks>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.WhereTransformRequest.Root">
+            <summary>
+            A where node with column comparison.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.WhereTransformRequest.WhereInformationProvider">
+            <summary>
+            Provides property information for the corresponding where node.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Translator.SqlBase.WhereTransformRequest.GetWhereEvaluationPlan(HularionCore.Pattern.Topology.TreeTraversalOrder)">
+            <summary>
+            Traverses the where node tree and returns an array of WhereExpressionNode according to the specified order.
+            </summary>
+            <param name="traverseOrder">The order in which to traverse the tree,</param>
+            <returns>An array of WhereExpressionNode according to the specified order.</returns>
+        </member>
+        <member name="T:HularionMesh.Translator.SqlBase.WhereTransformResult">
+            <summary>
+            The result of a where adjustment.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Translator.SqlBase.WhereTransformResult.Root">
+            <summary>
+            The root of the result WhereExpressionNode.
+            </summary>
+        </member>
+    </members>
+</doc>

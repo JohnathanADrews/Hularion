@@ -1853,7 +1853,14 @@
             <summary>
             Creates a unique key from a unique tag.
             </summary>
-            <returns>S unique key from a unique tag.</returns>
+            <returns>A unique key from a unique tag.</returns>
+        </member>
+        <member name="M:HularionCore.Pattern.Identifier.ObjectKey.CreateUniqueTagKey(System.String)">
+            <summary>
+            Creates a unique key from a unique tag.
+            </summary>
+            <param name="keyPart">The part of the key in which to place the tag.</param>
+            <returns>A unique key from a unique tag.</returns>
         </member>
         <member name="M:HularionCore.Pattern.Identifier.ObjectKey.Parse(System.String)">
             <summary>
