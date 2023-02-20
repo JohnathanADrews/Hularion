@@ -99,6 +99,11 @@
             The string containing the connection details to connect to a Postgres database.
             </summary>
         </member>
+        <member name="P:HularionMesh.Connector.Postgres.PostgresRepository.WhereTransformer">
+            <summary>
+            Transforms a WhereExpressionNode to conform to an implemented connector.
+            </summary>
+        </member>
         <member name="M:HularionMesh.Connector.Postgres.PostgresRepository.#ctor(System.String)">
             <summary>
             Constructor.
@@ -132,6 +137,13 @@
             <param name="query">The query to retrieve the values.</param>
             <param name="parameters">The parameters to the query.</param>
             <returns>A DataTable with the result of the query.</returns>
+        </member>
+        <member name="M:HularionMesh.Connector.Postgres.PostgresRepository.CreateDatabase(System.String,System.String)">
+            <summary>
+            Creates the database using the provided name and connection string.
+            </summary>
+            <param name="connectionString">The connection details.</param>
+            <param name="databaseName">The name of the database to create.</param>
         </member>
         <member name="T:HularionMesh.Connector.Postgres.SqlType">
             <summary>
@@ -175,7 +187,7 @@
         </member>
         <member name="M:HularionMesh.Connector.Postgres.SqlType.#ctor(HularionMesh.MeshType.DataType,System.String,System.Func{System.Object,System.Object},System.Func{System.Object,System.Object})">
             <summary>
-            Constructor.
+            Constructor for direct property to column mapping.
             </summary>
             <param name="dataType">The mesh data type.</param>
             <param name="sqlTypeNames">The name of the sql type.</param>
@@ -183,7 +195,7 @@
         </member>
         <member name="M:HularionMesh.Connector.Postgres.SqlType.#ctor(HularionMesh.MeshType.DataType,System.String[],System.Func{System.Object[],System.Object},System.Func{System.Object,System.Object[]})">
             <summary>
-            Constructor.
+            Constructor for property to many column mapping.
             </summary>
             <param name="dataType">The mesh data type.</param>
             <param name="sqlTypeNames">The name of the sql type.</param>

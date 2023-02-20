@@ -111,6 +111,17 @@ namespace  HularionMesh.Translator.SqlBase.Mechanic
             return columns;
         }
 
+        private string[] GetReadColumns(ISqlType sqlType, string baseName)
+        {
+            var columns = new string[sqlType.SqlTypeCount];
+            for (var i = 0; i < sqlType.SqlTypeCount; i++)
+            {
+                columns[i] = String.Format("{0}_{1}", baseName, i);
+            }
+            return columns;
+        }
+
+
         /// <summary>
         /// Prepares the domain to handle the provided generics.
         /// </summary>
@@ -307,7 +318,7 @@ namespace  HularionMesh.Translator.SqlBase.Mechanic
 
                 var itemsQuery = query.ToString();
                 var table = Repository.SqlRepository.ExecuteQuery(itemsQuery, parameterCreator.Parameters);
-                var tableColumns = columns.Select(x => x.Trim('\"')).ToArray();
+                var tableColumns = GetReadColumns(sqlType, SqlMeshKeyword.SetValueColumn.Alias);
                 var values = new object[sqlType.SqlTypeCount];
                 var indices = new int[sqlType.SqlTypeCount];
                 for(var i=0;i< sqlType.SqlTypeCount;i++)

@@ -2,32 +2,29 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Johnathan A Drews</Authors>
-    <Product>Hularion Mesh to Postgres Connector</Product>
-    <Description>Enables Hularion Mesh to store to a Postgres database.</Description>
+    <Description>Enables Hularion Mesh to store to a Sqlite database.</Description>
     <Copyright>2023</Copyright>
-    <Version>1.0.9</Version>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <PackageProjectUrl>www.hularion.com</PackageProjectUrl>
-    <PackageIcon>Hularion image.png</PackageIcon>
     <RepositoryUrl>https://github.com/JohnathanADrews/Hularion</RepositoryUrl>
+    <PackageIcon>Hularion image.png</PackageIcon>
+    <PackageProjectUrl>www.hularion.com</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>1.0.9</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\dev\Standard\Hularion\HularionMesh.Connector.Postgres\HularionMesh.Connector.Postgres.xml</DocumentationFile>
+    <DocumentationFile>C:\dev\Standard\Hularion\HularionMesh.Connector.Sqlite\HularionMesh.Connector.Sqlite.xml</DocumentationFile>
+    <WarningLevel>5</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="HularionMesh.Translator.SqlBase" Version="1.0.9" />
-    <PackageReference Include="Npgsql" Version="4.0.6" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.116" />
   </ItemGroup>
+
 
   <ItemGroup>
     <None Include="..\Hularion image.png">

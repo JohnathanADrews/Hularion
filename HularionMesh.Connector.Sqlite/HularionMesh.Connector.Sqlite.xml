@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HularionMesh.Connector.Sqlite</name>
+    </assembly>
+    <members>
+        <member name="T:HularionMesh.Connector.Sqlite.SqliteMeshRepositoryBuilder">
+            <summary>
+            A repository builder for a Sqlite connector.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Connector.Sqlite.SqliteMeshRepositoryBuilder.CreateRepository``1(System.String,System.String,HularionMesh.User.UserProfile,System.Boolean)">
+            <summary>
+            Creates a MeshRepository using a Sqlite store with a standard setup.
+            </summary>
+            <typeparam name="IncludeAttributeType">The type of attribute that will cause a class to be added as a domain if that class has the attribute.</typeparam>
+            <param name="directory">The directory in which to create the SQLite store.</param>
+            <param name="databaseName">The name of the database file.</param>
+            <param name="userProfile">The profile of the user creating the repository.</param>
+            <param name="useExisting">If false, any existing database with that name will be overwritten. If true (default), any current database with the matching name will be used.</param>
+            <returns>A mesh repository with a SQLite store.</returns>
+        </member>
+        <member name="T:HularionMesh.Connector.Sqlite.SqliteMeshService">
+            <summary>
+            The mesh services provider for communicating with Sqlite.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Connector.Sqlite.SqliteMeshService.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="connectionString">The connection details for connecting to a postgres server.</param>
+        </member>
+        <member name="T:HularionMesh.Connector.Sqlite.SqliteRepository">
+            <summary>
+            A repository that connects to a Sqlite database.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Sqlite.SqliteRepository.SqlTypeProvider">
+            <summary>
+            Provides an ISqlType given the mesh data type.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Sqlite.SqliteRepository.SqlTypesProvider">
+            <summary>
+            Provides an ISqlType given the mesh data type.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Sqlite.SqliteRepository.DomainValueKeyCreator">
+            <summary>
+            Creates domain object keys given the provided domain.
+            </summary>
+            <remarks>StandardDomainForm.DomainValueKeyCreator  is the standard creator.</remarks>
+        </member>
+        <member name="P:HularionMesh.Connector.Sqlite.SqliteRepository.LinkKeyFormProvider">
+            <summary>
+            Provides the link form specification for linked domains.
+            </summary>
+            <remarks>StandardLinkForm.LinkKeyFormProvider is the standard specification.</remarks>
+        </member>
+        <member name="P:HularionMesh.Connector.Sqlite.SqliteRepository.ObjectNameCreator">
+            <summary>
+            Creates a language-specific name given the SqlObject.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Sqlite.SqliteRepository.ConnectionString">
+            <summary>
+            The string containing the connection details to connect to a Sqlite database.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Sqlite.SqliteRepository.WhereTransformer">
+            <summary>
+            Transforms a WhereExpressionNode to conform to an implemented connector.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Connector.Sqlite.SqliteRepository.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="connectionString">The string containing the connection details to connect to a Sqlite database.</param>
+        </member>
+        <member name="M:HularionMesh.Connector.Sqlite.SqliteRepository.CreateTable(HularionMesh.Translator.SqlBase.ORM.CreateTableSpecification)">
+            <summary>
+            Creates the table using the provided table specification.
+            </summary>
+            <param name="table">The specification to create the table.</param>
+        </member>
+        <member name="M:HularionMesh.Connector.Sqlite.SqliteRepository.AddTableColumns(System.String,HularionMesh.Translator.SqlBase.ORM.CreateColumnSpecification[])">
+            <summary>
+            Adds the table columns to the table with name tableName.
+            </summary>
+            <param name="tableName">The name of the table to add the columns.</param>
+            <param name="columns">The columns to add to the table.</param>
+        </member>
+        <member name="M:HularionMesh.Connector.Sqlite.SqliteRepository.ExecuteCommand(System.String,System.Collections.Generic.IEnumerable{HularionMesh.Translator.SqlBase.ORM.SqlMeshParameter})">
+            <summary>
+            Executes the provided command.
+            </summary>
+            <param name="command">The command to execute.</param>
+            <param name="parameters">The parameters to use in the command.</param>
+        </member>
+        <member name="M:HularionMesh.Connector.Sqlite.SqliteRepository.ExecuteQuery(System.String,System.Collections.Generic.IEnumerable{HularionMesh.Translator.SqlBase.ORM.SqlMeshParameter})">
+            <summary>
+            Executes the query using the provided parameters and returns a DataTable with the result.
+            </summary>
+            <param name="query">The query to retrieve the values.</param>
+            <param name="parameters">The parameters to the query.</param>
+            <returns>A DataTable with the result of the query.</returns>
+        </member>
+        <member name="T:HularionMesh.Connector.Sqlite.SqlType">
+            <summary>
+            Contains the details for translating sql types to and from mesh data types.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Sqlite.SqlType.MeshDataType">
+            <summary>
+            The type of the Mesh DataType to which this is related.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Sqlite.SqlType.SqlTypeNames">
+            <summary>
+            The names of the SQL types.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Sqlite.SqlType.SqlPrimaryKeyTypeNames">
+            <summary>
+            The names of the SQL types if it is a primary key.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Sqlite.SqlType.ToCSTransform">
+            <summary>
+            Converts the SQL values to a C# typed value.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Sqlite.SqlType.ToSqlTransform">
+            <summary>
+            Converts a C# typed value to the SQL values.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Sqlite.SqlType.SqlTypeCount">
+            <summary>
+            The number of SQL types to which the mesh type maps.
+            </summary>
+        </member>
+        <member name="P:HularionMesh.Connector.Sqlite.SqlType.SqlTypeProvider">
+            <summary>
+            Provides the ISqlType that corresponds to the provided mesh data type.
+            </summary>
+        </member>
+        <member name="M:HularionMesh.Connector.Sqlite.SqlType.#ctor(HularionMesh.MeshType.DataType,System.String,System.Func{System.Object,System.Object},System.Func{System.Object,System.Object})">
+            <summary>
+            Constructor for direct property to column mapping.
+            </summary>
+            <param name="dataType">The mesh data type.</param>
+            <param name="sqlTypeName">The name of the sql type.</param>
+            <param name="toCSTransform">Converts a sql value to a c# typed value.</param>
+        </member>
+        <member name="M:HularionMesh.Connector.Sqlite.SqlType.#ctor(HularionMesh.MeshType.DataType,System.String[],System.Func{System.Object[],System.Object},System.Func{System.Object,System.Object[]})">
+            <summary>
+            Constructor for property to many column mapping.
+            </summary>
+            <param name="dataType">The mesh data type.</param>
+            <param name="sqlTypeNames">The name of the sql type.</param>
+            <param name="toCSTransform">Converts a sql value to a c# typed value.</param>
+        </member>
+        <member name="M:HularionMesh.Connector.Sqlite.SqlType.GetTypes">
+            <summary>
+            Gets all the SQL types.
+            </summary>
+            <returns>All the SQL types.</returns>
+        </member>
+    </members>
+</doc>

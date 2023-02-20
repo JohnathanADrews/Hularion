@@ -5,14 +5,14 @@
     <Authors>Johnathan A Drews</Authors>
     <Description>Encapsulates most of the details for creating a Hularion Mesh to SQL  connector.</Description>
     <Copyright>2023</Copyright>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageProjectUrl>www.hularion.com</PackageProjectUrl>
     <PackageIcon>Hularion image.png</PackageIcon>
     <RepositoryUrl>https://github.com/JohnathanADrews/Hularion</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.7</Version>
+    <Version>1.0.9</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -25,15 +25,15 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\LICENSE">
+    <None Include="..\LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
 
+
   <ItemGroup>
-    <ProjectReference Include="..\HularionCore\HularionCore.csproj" />
-    <ProjectReference Include="..\HularionMesh\HularionMesh.csproj" />
+    <PackageReference Include="HularionMesh" Version="1.0.7" />
   </ItemGroup>
 
 </Project>

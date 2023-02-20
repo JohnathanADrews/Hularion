@@ -19,23 +19,19 @@ Hularion Mesh is a data storage solution that allows data from C# objects, SQL, 
 
 
 ## Just Released:
-1. HularionMesh.Translator.SqlBase
 
-   SqlBase is an intermediate translator for Mesh to SQL. It generates SQL commands for mesh and runs them using a connector-implemented CRUD interface.
-   
-2. HularionMesh.Connector.Postgres
-
-   This connects Mesh to a Postgres database and uses it as a data store.
-
-
-<br/>
-
-## Coming Soon:
-
-1. HularionMesh.Connector.Sqlite
+2/20/2023 - HularionMesh.Connector.Sqlite
 
    This connector will connect Mesh to a Sqlite database file and use it as a data store.
+   
+   
+2/17/2023 - HularionMesh.Connector.Postgres
 
+   This connector will connect Mesh to a Postgres database and use it as a data store.
+
+2/17/2023 - HularionMesh.Connector.SqlBase
+
+   SqlBase is an intermediate translator for Mesh to SQL. It generates SQL commands for mesh and runs them using a connector-implemented CRUD interface.
 
 
 
@@ -53,7 +49,3 @@ https://www.nuget.org/profiles/JohnathanADrews
 
 <br/>
 
-## Social
-
-### Twitter (https://twitter.com/JohnathanADrews)
-### Truth (https://truthsocial.com/@JohnathanADrews)
