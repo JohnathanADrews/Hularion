@@ -5,7 +5,7 @@
     <Authors>Johnathan A Drews</Authors>
     <Description>Enables Hularion Mesh to store to a Sqlite database.</Description>
     <Copyright>2023</Copyright>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/JohnathanADrews/Hularion</RepositoryUrl>
     <PackageIcon>Hularion image.png</PackageIcon>
     <PackageProjectUrl>www.hularion.com</PackageProjectUrl>
@@ -31,7 +31,7 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\LICENSE.txt">
+    <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

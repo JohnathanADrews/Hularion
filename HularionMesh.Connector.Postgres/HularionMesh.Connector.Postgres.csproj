@@ -9,7 +9,7 @@
     <Copyright>2023</Copyright>
     <Version>1.0.9</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>www.hularion.com</PackageProjectUrl>
     <PackageIcon>Hularion image.png</PackageIcon>
     <RepositoryUrl>https://github.com/JohnathanADrews/Hularion</RepositoryUrl>
@@ -34,7 +34,7 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\LICENSE.txt">
+    <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
