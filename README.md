@@ -13,7 +13,7 @@ Hularion is a project focused on creating a full stack software development and 
 
 ## Hularion Mesh
 
-Hularion Mesh is a data storage solution that allows data from C# objects, SQL, files, and other data storage mechanisms to be transformed to and from a data representation standard, called the Mesh Domain Abstraction. With this standard, Mesh can interact with any new data source once a Connector is created. Then, data can flow seamlessly between and two data storage and/or processing mechanisms. The Mesh Domain Abstraction accounts for composite data trees, self-referencing objects/meshes, and generics. Mesh provides a set of interfaces and built-in standard functionality that make creating new connectors a simple process. 
+Hularion Mesh is a data storage solution that allows data from C# objects, SQL, files, and other data storage mechanisms to be transformed to and from a data representation standard, called the Mesh Domain Abstraction. With this standard, Mesh can interact with any new data source once a Connector is created. Then, data can flow seamlessly between any two data storage and/or processing mechanisms. The Mesh Domain Abstraction accounts for composite data trees, self-referencing objects/meshes, and generics. Mesh provides a set of interfaces and built-in standard functionality that make creating new connectors a simple process. 
 
 <br/>
 
