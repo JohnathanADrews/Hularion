@@ -63,6 +63,11 @@ namespace HularionMesh.Repository
         IMeshServiceProvider MeshServicesProvider { get; }
 
         /// <summary>
+        /// Provides a DomainOperationLink given a Type.
+        /// </summary>
+        IParameterizedProvider<Type, DomainOperationLink> TypeOperationLinkProvider { get; }
+
+        /// <summary>
         /// Creates a mesh query that can be used to query the mesh.
         /// </summary>
         /// <typeparam name="DomainType">The type of the domain to use as the root query.</typeparam>

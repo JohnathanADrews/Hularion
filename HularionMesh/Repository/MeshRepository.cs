@@ -32,6 +32,7 @@ using HularionCore.Pattern.Functional;
 using HularionCore.Pattern.Topology;
 using HularionMesh.User;
 using HularionMesh.Query;
+using HularionCore.System;
 
 namespace HularionMesh.Repository
 {
@@ -71,11 +72,6 @@ namespace HularionMesh.Repository
         public IParameterizedProvider<Type, IMeshKey> TypeKeyProvider { get; private set; }
 
         /// <summary>
-        /// Provides a DomainOperationLink given a RealizedMeshDomain.
-        /// </summary>
-        public IParameterizedProvider<RealizedMeshDomain, DomainOperationLink> DomainOperationLinkProvider { get; private set; }
-
-        /// <summary>
         /// Provides a DomainOperationLink given a Type.
         /// </summary>
         public IParameterizedProvider<Type, DomainOperationLink> TypeOperationLinkProvider { get; private set; }
@@ -85,7 +81,6 @@ namespace HularionMesh.Repository
         /// </summary>
         public IParameterizedProvider<IMeshKey, MeshDomain> DomainByKeyProvider { get; private set; }
 
-        private Dictionary<IMeshKey, DomainOperationLink> domainOperationLinks { get; set; } = new Dictionary<IMeshKey, DomainOperationLink>();
         private Dictionary<Type, DomainOperationLink> typeOperationLinks { get; set; } = new Dictionary<Type, DomainOperationLink>();
         private Dictionary<string, MeshDomain> domainNameMap = new Dictionary<string, MeshDomain>();
         private Dictionary<string, MeshDomain> domainPartialKeyMap = new Dictionary<string, MeshDomain>();
@@ -122,7 +117,11 @@ namespace HularionMesh.Repository
                 if (domain != null) { return domain.Key; }
                 return null;
             });
-            DomainByKeyProvider = ParameterizedProvider.FromSingle<IMeshKey, MeshDomain>(domainKey => TypeRegistrar.GetDomain(domainKey));
+            DomainByKeyProvider = ParameterizedProvider.FromSingle<IMeshKey, MeshDomain>(domainKey =>
+            {
+                if(domainKey == null) { return null; }
+                return TypeRegistrar.GetDomain(domainKey.GetDomainKeyPart());
+            });
 
             var assembly = Assembly.GetExecutingAssembly();
             var assemblyDetail = new AssemblyRegistrationDetail() { InitializeDomainProperties = false };
@@ -160,27 +159,18 @@ namespace HularionMesh.Repository
             foreach (var type in mapDomainMechanic.MappedTypes) { TypeRegistrar.RegisterDomainType(type, MapDomain); }
             MechanicManager.SetMechanic(MapDomain, mapDomainMechanic);
 
-            DomainOperationLinkProvider = ParameterizedProvider.FromSingle<RealizedMeshDomain, DomainOperationLink>(extendedDomain =>
-            {
-                if (extendedDomain == null || extendedDomain.Key == null || extendedDomain.Key.IsNull) { return null; }
-                var sourceType = TypeRegistrar.GetDomainTypeFromDomainKey(extendedDomain.Domain.Key);
-                if (!domainOperationLinks.ContainsKey(extendedDomain.Key)) { domainOperationLinks.Add(extendedDomain.Key, DomainOperationLink.CreateDomainOperationLink(this, extendedDomain, sourceType: sourceType)); }
-                return domainOperationLinks[extendedDomain.Key];
-            });
-
             TypeOperationLinkProvider = ParameterizedProvider.FromSingle<Type, DomainOperationLink>(type =>
             {
                 if (type == null) { return null; }
-                if (!typeOperationLinks.ContainsKey(type))
+                return typeOperationLinks.LockAddGet(type, () =>
                 {
                     var domain = TypeRegistrar.GetDomainFromType(type);
                     var mechanic = DomainMechanicProvider.Provide(domain);
                     RealizedMeshDomain realizedDomain = null;
                     if (mechanic != null) { realizedDomain = mechanic.CreateRealizedDomainFromType(this, type); }
                     else { realizedDomain = CreateRealizedDomainFromType(type); }
-                    typeOperationLinks.Add(type, DomainOperationLink.CreateDomainOperationLink(this, realizedDomain, sourceType: type)); 
-                }
-                return typeOperationLinks[type];
+                    return DomainOperationLink.CreateDomainOperationLink(this, realizedDomain, sourceType: type);
+                });
             });
 
             //Initialize here so that the domain mechanics are setup.
@@ -373,7 +363,6 @@ namespace HularionMesh.Repository
             //return MeshServicesProvider.DynamicProvider.DomainLinkServiceProvider.Provide(new LinkedDomains() { DomainA = domainA, DomainB = domainB });
             return MeshServicesProvider.DomainServiceCommunicator.LinkServiceByLinkedDomainsProvider.Provide(new LinkedDomains() { DomainA = domainA, DomainB = domainB }).Response;
         }
-
 
         /// <summary>
         /// Registers the type using the provided domain.
@@ -723,6 +712,31 @@ namespace HularionMesh.Repository
             meshResponse = service.AffectProcessor.Process(meshAffect);
         }
 
+        public void InsertDomainObjects(UserProfile userprofile, params DomainObject[] domainObjects)
+        {
+            var domains = new Dictionary<MeshDomain, List<DomainObject>>();
+            foreach (var domainObject in domainObjects)
+            {
+                if (MeshKey.KeyIsNull(domainObject.Key)) { continue; }
+                var domain = DomainByKeyProvider.Provide(domainObject.Key);
+                if (!domains.ContainsKey(domain)) { domains.Add(domain, new List<DomainObject>()); }
+                domains[domain].Add(domainObject);
+            }
+
+            foreach (var domainPair in domains)
+            {
+                var service = MeshServicesProvider.AggregateServiceProvider.Provide();
+                var affectors = domainPair.Value.Select(x => new AggregateAffectorItem() { Domain = domainPair.Key, Inserter = new DomainValueAffectInsert() { Value = x } }).ToArray();
+                service.AffectProcessor.Process(new DomainAggregateAffectorRequest() { Items = affectors });
+            }
+
+
+            //var service = MeshServicesProvider.AggregateServiceProvider.Provide();
+            //var affectors = domainObjects.Select(x => new AggregateAffectorItem() { Inserter = new DomainValueAffectInsert() { Value = x } }).ToArray();
+            //service.AffectProcessor.Process(new DomainAggregateAffectorRequest() { Items = affectors });
+
+        }
+
         /// <summary>
         /// Delets the objects with the specified keys.
         /// </summary>
@@ -802,80 +816,25 @@ namespace HularionMesh.Repository
 
         }
 
-        /// <summary>
-        /// Queries this repository for values of type T and its members.
-        /// </summary>
-        /// <typeparam name="T">The type to query.</typeparam>
-        /// <param name="keys">The keys for values of type T.</param>
-        /// <returns>The query response with rendered values of type T, including their members.</returns>
-        public RepositoryQueryResponse<T> QueryTree<T>(params IMeshKey[] keys)
-            where T : class
-        {
-            var response = new RepositoryQueryResponse<T>();
-            QueryTree(response, typeof(T), keys);
-            return response;
-        }
 
         /// <summary>
-        /// Queries this repository for values of type T and its members.
+        /// Creates a query item tree given the type.
         /// </summary>
-        /// <typeparam name="T">The type to query.</typeparam>
-        /// <param name="where">Determines which domain objects to read.</param>
-        /// <returns>The query response with rendered values of type T, including their members.</returns>
-        public RepositoryQueryResponse<T> QueryTree<T>(WhereExpressionNode where)
-            where T : class
-        {
-            var domain = TypeRegistrar.GetDomain<T>();
-            if (domain.IsGeneric)
-            {
-                var generics = MeshGeneric.FromType<T>(TypeRegistrar.TypeKeyProvider);
-                var serialized = MeshGeneric.SerializeGenerics(generics);
-                var genericWhere = new WhereExpressionNode() { Mode = WhereExpressionNodeValueMode.Meta, Value = serialized, Comparison = DataTypeComparison.Equal, Property = MeshKeyword.Generics.Alias };
-                where = where.CombineWithOperator(genericWhere, BinaryOperator.AND);
-            }
-            var request = new DomainAggregateQueryRequest() { Read = new AggregateQueryItem() { Domain = TypeRegistrar.GetDomain<T>(), RecurrenceRootWhere = where, Reads = DomainReadRequest.ReadKeys, Mode = AggregateDomainMode.Domain } };
-            var service = MeshServicesProvider.AggregateServiceProvider.Provide();
-            var queryResult = service.QueryProcessor.Process(request);
-
-            var response = new RepositoryQueryResponse<T>();
-            var keyResult = CreateQuery<T>().Where(where).SelectJustKeys().Render();
-            QueryTree(response, typeof(T), queryResult.Result.Items.Select(x=>x.Key).ToArray());
-            return response;
-        }
-
-        /// <summary>
-        /// Queries this repository for values of the given type and its members.
-        /// </summary>
-        /// <param name="type">The type to query.</param>
-        /// <param name="keys">The keys for values of type T.</param>
-        /// <returns>The query response with rendered values the given type, including their members.</returns>
-        public RepositoryQueryResponse QueryTree(Type type, params IMeshKey[] keys)
-        {
-            var response = new RepositoryQueryResponse(type);
-            QueryTree(response, type, keys);
-            return response;
-        }
-
-        /// <summary>
-        /// Queries this repository for values of type T and its members.
-        /// </summary>
-        /// <param name="response">The response in which to add the results.</param>
-        /// <param name="type">The type to query.</param>
-        /// <param name="keys">The keys for values of type T.</param>
-        /// <returns>The rendered values of type T, including their members.</returns>
-        private void QueryTree(RepositoryQueryResponse response, Type type, params IMeshKey[] keys)
+        /// <param name="type">The type from which the query item tree will be created.</param>
+        /// <returns>The root query item.</returns>
+        public AggregateQueryItem CreateQueryItem(Type type)
         {
             //Create the operation link given the type.
-            var opLink = CreateOperationLink(type);
+            var opLink = TypeOperationLinkProvider.Provide(type);
             var traverser = new TreeTraverser<DomainOperationLink>();
 
             //Create the query.
             var queryPlan = new Dictionary<DomainOperationLink, AggregateQueryItem>();
             var opLinks = new HashSet<DomainOperationLink>();
-            var plan = traverser.CreateUniqueNodeEvaluationPlan(TreeTraversalOrder.LeftRightParent, opLink, 
+            var plan = traverser.CreateUniqueNodeEvaluationPlan(TreeTraversalOrder.LeftRightParent, opLink,
                 node =>
                 {
-                    if(node.NodeType == DomainOperationMode.Link) { return new DomainOperationLink[] { node.Member }; }
+                    if (node.NodeType == DomainOperationMode.Link) { return new DomainOperationLink[] { node.Member }; }
                     return node.Members.Values.ToArray();
                 }, true);
 
@@ -925,6 +884,78 @@ namespace HularionMesh.Repository
                 }
             }
             var queryRoot = queryPlan[opLink];
+            return queryRoot;
+        }
+
+        /// <summary>
+        /// Queries this repository for values of type T and its members.
+        /// </summary>
+        /// <typeparam name="T">The type to query.</typeparam>
+        /// <param name="keys">The keys for values of type T.</param>
+        /// <returns>The query response with rendered values of type T, including their members.</returns>
+        public RepositoryQueryResponse<T> QueryTree<T>(params IMeshKey[] keys)
+            where T : class
+        {
+            var response = new RepositoryQueryResponse<T>();
+            QueryTree(response, typeof(T), keys);
+            return response;
+        }
+
+        /// <summary>
+        /// Queries this repository for values of type T and its members.
+        /// </summary>
+        /// <typeparam name="T">The type to query.</typeparam>
+        /// <param name="where">Determines which domain objects to read.</param>
+        /// <returns>The query response with rendered values of type T, including their members.</returns>
+        public RepositoryQueryResponse<T> QueryTree<T>(WhereExpressionNode where)
+            where T : class
+        {
+            var domain = TypeRegistrar.GetDomain<T>();
+            //If generic, make sure the generic types are the same.
+            if (domain.IsGeneric)
+            {
+                var generics = MeshGeneric.FromType<T>(TypeRegistrar.TypeKeyProvider);
+                var serialized = MeshGeneric.SerializeGenerics(generics);
+                var genericWhere = new WhereExpressionNode() { Mode = WhereExpressionNodeValueMode.Meta, Value = serialized, Comparison = DataTypeComparison.Equal, Property = MeshKeyword.Generics.Alias };
+                where = where.CombineWithOperator(genericWhere, BinaryOperator.AND);
+            }
+            //Get the root keys.
+            var request = new DomainAggregateQueryRequest() { Read = new AggregateQueryItem() { Domain = TypeRegistrar.GetDomain<T>(), RecurrenceRootWhere = where, Reads = DomainReadRequest.ReadKeys, Mode = AggregateDomainMode.Domain } };
+            var service = MeshServicesProvider.AggregateServiceProvider.Provide();
+            var queryResult = service.QueryProcessor.Process(request);
+
+            var response = new RepositoryQueryResponse<T>();
+            QueryTree(response, typeof(T), queryResult.Result.Items.Select(x=>x.Key).ToArray());
+            return response;
+        }
+
+        /// <summary>
+        /// Queries this repository for values of the given type and its members.
+        /// </summary>
+        /// <param name="type">The type to query.</param>
+        /// <param name="keys">The keys for values of type T.</param>
+        /// <returns>The query response with rendered values the given type, including their members.</returns>
+        public RepositoryQueryResponse QueryTree(Type type, params IMeshKey[] keys)
+        {
+            var response = new RepositoryQueryResponse(type);
+            QueryTree(response, type, keys);
+            return response;
+        }
+
+        /// <summary>
+        /// Queries this repository for values of type T and its members.
+        /// </summary>
+        /// <param name="response">The response in which to add the results.</param>
+        /// <param name="type">The type to query.</param>
+        /// <param name="keys">The keys for values of type T.</param>
+        /// <returns>The rendered values of type T, including their members.</returns>
+        private void QueryTree(RepositoryQueryResponse response, Type type, params IMeshKey[] keys)
+        {
+
+            var queryRoot = CreateQueryItem(type);
+
+            //Create the operation link given the type.
+            var opLink = TypeOperationLinkProvider.Provide(type);           
             queryRoot.RecurrenceRootWhere = WhereExpressionNode.CreateKeysIn(keys);
 
             //Execute the query.
@@ -1041,7 +1072,6 @@ namespace HularionMesh.Repository
             {
                 if (queryResult.RootKeys.Contains(key)) { response.AddResultItem(resultItems[key]); }
             }
-            return;
         }
 
         /// <summary>
@@ -1066,7 +1096,7 @@ namespace HularionMesh.Repository
         /// <returns>The requested objects.</returns>
         public void Query(RepositoryQueryResponse response, Type type, AggregateQueryItem queryRoot)
         {
-            var opLink = CreateOperationLink(type);
+            var opLink = TypeOperationLinkProvider.Provide(type);
 
             //Execute the query.
             var request = new DomainAggregateQueryRequest() { Read = queryRoot };
@@ -1322,68 +1352,6 @@ namespace HularionMesh.Repository
             return linkResponse;
         }
 
-        /// <summary>
-        /// Creates the domain operation link for the provided type.
-        /// </summary>
-        /// <param name="type">The type used create the operation link.</param>
-        /// <returns>The domain operation link for the provided type.</returns>
-        public DomainOperationLink CreateOperationLink(Type type)
-        {
-            var opLink = TypeOperationLinkProvider.Provide(type);
-            return opLink;
-        }
-
-        /// <summary>
-        /// Creates the operation link for the provided type.
-        /// </summary>
-        /// <typeparam name="T">The type used create the operation link.</typeparam>
-        /// <returns>The domain operation link for the provided type.</returns>
-        public DomainOperationLink CreateOperationLink<T>()
-        {
-            //var edomain = CreateExtendedDomainFromType<T>();
-            return CreateOperationLink(typeof(T));
-            //return CreateOperationLink(edomain, typeof(T));
-        }
-
-        /// <summary>
-        /// Creates the operation link for the provided domain.
-        /// </summary>
-        /// <param name="domain">The domain used to generate the operation link.</param>
-        /// <param name="generics">The generics tree used to generate the operation link.</param>
-        /// <returns>The domain operation link for the provided domain.</returns>
-        public DomainOperationLink CreateOperationLink(MeshDomain domain, MeshGeneric[] generics)
-        {
-            var edomain = domain.CreateRealizedMeshDomain(generics, DomainByKeyProvider);
-            return DomainOperationLinkProvider.Provide(edomain);
-            //return CreateOperationLink(edomain);
-        }
-
-        /// <summary>
-        /// Creates the operation link for the provided domain.
-        /// </summary>
-        /// <param name="domainKey">The key of the domain from which to generate the operation link.</param>
-        /// <param name="generics">The generics tree used to generate the operation link.</param>
-        /// <returns>The domain operation link for the provided domain.</returns>
-        public DomainOperationLink CreateOperationLink(IMeshKey domainKey, MeshGeneric[] generics)
-        {
-            var domain = GetDomainFromKey(domainKey);
-            return CreateOperationLink(domain, generics);
-        }
-
-        /// <summary>
-        /// Creates a domain operation link tree using the provided extended mesh domain.
-        /// </summary>
-        /// <param name="domain">The domain from which the operration link is created.</param>
-        /// <param name="sourcetype">The type the domain is derived from, including generics. Leave null if this domain is not derived from a strongly-typed object.</param>
-        /// <returns>Adomain operation link tree using the provided extended mesh domain.</returns>
-        public DomainOperationLink CreateOperationLink(RealizedMeshDomain domain, Type sourcetype = null)
-        {
-            var opLink = DomainOperationLinkProvider.Provide(domain);
-            opLink.SourceType = sourcetype;
-            return opLink;
-            //var opLink = DomainOperationLink.CreateDomainOperationLink(this, domain, sourcetype);
-            //return opLink;
-        }
 
         /// <summary>
         /// Gets the collection of domain information from this repository.
@@ -1412,6 +1380,60 @@ namespace HularionMesh.Repository
             }
             collection.Links = links.Distinct().ToList();
             return collection;
+        }
+
+        /// <summary>
+        /// Queries the repository for domain objects in the provided domain and adds them to the collection.
+        /// </summary>
+        /// <param name="domain">The domain to which the where expression applies.</param>
+        /// <param name="where">Determines which objects to retrieve.</param>
+        /// <param name="current"></param>
+        /// <returns></returns>
+        public void QueryToExport(MeshDomain domain, WhereExpressionNode where, bool queryTree = true, RepositoryCollection current = null)
+        {
+
+        }
+
+        public ImportCollection ExportQuery<T>(WhereExpressionNode where, ImportCollection collection = null)
+        {
+            if(collection == null) { collection = new ImportCollection(); }
+
+            var queryRoot = CreateQueryItem(typeof(T));
+            queryRoot.RecurrenceRootWhere = where;
+
+            //Execute the query.
+            var request = new DomainAggregateQueryRequest() { Read = queryRoot };
+            var service = MeshServicesProvider.AggregateServiceProvider.Provide();
+            var queryResult = service.QueryProcessor.Process(request);
+
+            collection.ImportQueryResponse(queryResult);
+
+            return collection;
+        }
+
+        public void ImportCollection(UserProfile userProfile, ImportCollection collection)
+        {
+            InsertDomainObjects(userProfile, collection.Objects.Values.ToArray());
+            foreach (var link in collection.Links)
+            {
+                LinkObjectsByKey(link.FromKeys, link.ToKeys, link.Alias);
+            }
+        }
+
+        public void ImportCollection(UserProfile userProfile, RepositoryCollection collection)
+        {
+            InsertDomainObjects(userProfile, collection.Objects.ToArray());
+            foreach (var link in collection.Links)
+            {
+                if (!String.IsNullOrWhiteSpace(link.SMember))
+                {
+                    LinkObjectsByKey(new IMeshKey[] { link.SKey }, new IMeshKey[] { link.TKey }, link.SMember);
+                }
+                if (!String.IsNullOrWhiteSpace(link.TMember))
+                {
+                    LinkObjectsByKey(new IMeshKey[] { link.TKey }, new IMeshKey[] { link.SKey }, link.TMember);
+                }
+            }
         }
 
 

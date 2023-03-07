@@ -40,7 +40,7 @@ namespace HularionMesh
         /// The type key for a MeshKey.
         /// </summary>
         //public static IMeshKey TypeKey = MeshKey.Parse(String.Format("HularionMeshKey{0}Key", staticKey.PartialSeparator));
-        public static IMeshKey TypeKey = DataType.MeshKey.Key;
+        public static IMeshKey TypeKey { get { return DataType.MeshKey.Key; } }
 
 
         private ObjectKey key { get; set; } = new ObjectKey();
@@ -213,6 +213,16 @@ namespace HularionMesh
         public IMeshKey GetDomainKeyPart()
         {
             return GetKeyPart(MeshKeyPart.Domain);
+        }
+
+        /// <summary>
+        /// Returns true iff the key is null or the key is the null key.
+        /// </summary>
+        /// <param name="key">The key to check.</param>
+        /// <returns>true iff the key is null or the key is the null key.</returns>
+        public static bool KeyIsNull(IMeshKey key)
+        {
+            return (key == null || NullKey.EqualsKey(key));
         }
 
         /// <summary>

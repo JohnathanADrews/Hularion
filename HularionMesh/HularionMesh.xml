@@ -2265,7 +2265,7 @@
             A null-value key
             </summary>
         </member>
-        <member name="F:HularionMesh.MeshKey.TypeKey">
+        <member name="P:HularionMesh.MeshKey.TypeKey">
             <summary>
             The type key for a MeshKey.
             </summary>
