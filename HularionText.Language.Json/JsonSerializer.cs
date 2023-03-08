@@ -345,6 +345,7 @@ namespace HularionText.Language.Json
                         serializer.Serialize = detail => new JsonObject();
                         serializer.Deserialize = detail =>
                         {
+                            if(detail.Element.ElementType != JsonElementType.Object) { return null; }
                             var typeNode = TypeNodeManager.TypeNodeProvider.Provide(detail.TypedValue.Type);
                             var value = Activator.CreateInstance(detail.TypedValue.Type);
                             var namedValues = ((JsonObject)detail.Element).Values.ToDictionary(x => x.Name, x => detail.ValueMap.ContainsKey(x) ?  detail.ValueMap[x] : null);
