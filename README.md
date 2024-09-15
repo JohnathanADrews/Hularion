@@ -19,7 +19,7 @@
 
 ## Using Hularion Experience (HX)
 
-To use Hularion Experience, please go to the HularionDeveloper repository https://github.com/JohnathanADrews/HularionDeveloper. This has a release for the desktop application that can run the HX applications. It also has links to documentation.
+To run Hularion Experience applications, please go to the HularionDeveloper repository https://github.com/JohnathanADrews/HularionDeveloper. This has a release for the desktop application that can run the HX applications. It also has links to documentation. Hularion Developer is a sandbox for developing and teting applications that can later be deployed to a desktop or web environment.
 
 
  
